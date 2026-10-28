@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 320" preserveAspectRatio="xMidYMax slice" fill="none">
+<!-- Original line drawing of the Riyadh skyline: Masmak-style fort, Kingdom-type arch tower, Faisaliyah-type tapered tower and others. -->
+<g fill="#1c2421" stroke="#C7901D" stroke-width="1.4" stroke-linejoin="round" stroke-opacity=".75">
+<path d="M0 320V250H60V210H110V250H170V190H214V320Z"/>
+<path d="M250 320V230H330V320Z"/>
+<!-- Masmak-style fort -->
+<path d="M360 320V236H372V228H384V236H396V228H408V236H420V228H432V236H444V228H456V236H468V320Z"/>
+<path d="M360 236V206H388V236M440 236V206H468V236"/>
+<path d="M486 320V160H540V320Z"/><path d="M486 190H540M486 220H540M486 250H540M486 280H540" stroke-opacity=".35"/>
+<!-- Kingdom-type arch tower -->
+<path d="M590 320V90Q705 20 820 90V320Z"/>
+<path d="M640 120Q705 250 770 120Q705 300 640 120Z" fill="#415247"/>
+<path d="M705 22V6" stroke-width="2"/>
+<path d="M850 320V200H920V320Z"/>
+<!-- Faisaliyah-type tapered tower with sphere -->
+<path d="M960 320L992 100H1040L1072 320Z"/>
+<path d="M992 100L1016 60L1040 100"/>
+<circle cx="1016" cy="46" r="16" fill="#415247"/>
+<path d="M1016 30V8" stroke-width="2"/>
+<path d="M1100 320V170H1170V320Z"/><path d="M1100 200H1170M1100 230H1170M1100 260H1170" stroke-opacity=".35"/>
+<path d="M1200 320V230H1260V190H1320V320Z"/>
+<path d="M1350 320V140L1390 120L1430 140V320Z"/>
+<path d="M1460 320V220H1530V250H1600V320Z"/>
+</g>
+<path d="M0 319.500H1600" stroke="#C7901D" stroke-opacity=".5"/>
+</svg>

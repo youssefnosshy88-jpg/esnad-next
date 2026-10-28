@@ -41,6 +41,57 @@ function esnad_json( string $name ): array {
 	return is_array( $data ) ? $data : array();
 }
 
+/** Official social channels, exactly as published on the current site (sticky social bar, header and contact page). */
+function esnad_social(): array {
+	return array(
+		array( 'facebook', 'Facebook', 'https://www.facebook.com/EsnadAdvisory/' ),
+		array( 'x', 'X', 'https://x.com/esnadadvisorysa' ),
+		array( 'instagram', 'Instagram', 'https://www.instagram.com/esnad.advisory/' ),
+		array( 'linkedin', 'LinkedIn', 'https://www.linkedin.com/company/esnad-advisory-company/' ),
+		array( 'tiktok', 'TikTok', 'https://www.tiktok.com/@esnadadvisory' ),
+		array( 'whatsapp', 'WhatsApp', 'https://wa.me/966920014522' ),
+		array( 'pin', esnad_t( 'خرائط جوجل', 'Google Maps' ), 'https://goo.gl/maps/XwcpBDG8MbYUGenr7' ),
+	);
+}
+
+function esnad_social_links( string $class = 'social' ): string {
+	$out = '<ul class="' . esc_attr( $class ) . '">';
+	foreach ( esnad_social() as $s ) {
+		$out .= '<li><a href="' . esc_url( $s[2] ) . '" target="_blank" rel="noopener noreferrer me" aria-label="' . esc_attr( $s[1] ) . '">' . esnad_icon( $s[0], 18 ) . '</a></li>';
+	}
+	return $out . '</ul>';
+}
+
+/** FATCA file shown at the bottom of the old homepage; one bilingual document per language version. */
+function esnad_fatca(): array {
+	return esnad_is_rtl()
+		? array( 'قانون الامتثال الضريبي للحسابات الأجنبية إنجليزي – عربي', content_url( 'uploads/2024/06/قانون-الامتثال-الضريبي-للحسابات-الأجنبية.pdf' ) )
+		: array( 'FOREIGN ACCOUNT TAX COMPLIANCE ACT: ENGLISH – ARABIC', content_url( 'uploads/2024/06/Foreign-Account-Tax-Compliance-Act.pdf' ) );
+}
+
+/**
+ * Client logo wall: two opposing marquee rows (CSS only). Falls back to a static wrapped grid when the user
+ * prefers reduced motion. Logos are the approved client logos already published on the current site.
+ */
+function esnad_clients_marquee(): string {
+	$logos = esnad_json( 'clients.json' );
+	if ( ! $logos ) {
+		return '';
+	}
+	$base = content_url( 'uploads/' );
+	$rows = array_chunk( $logos, (int) ceil( count( $logos ) / 2 ) );
+	$out  = '<div class="marquee" aria-label="' . esc_attr( esnad_t( 'شعارات عملائنا', 'Our clients\' logos' ) ) . '">';
+	foreach ( $rows as $r => $row ) {
+		$items = '';
+		foreach ( $row as $logo ) {
+			$items .= '<li><img src="' . esc_url( $base . $logo ) . '" alt="" width="160" height="90" loading="lazy" decoding="async"></li>';
+		}
+		// The list is printed twice so the loop is seamless; the copy is hidden from assistive tech.
+		$out .= '<div class="marquee__row' . ( $r ? ' is-reverse' : '' ) . '"><ul class="marquee__track">' . $items . '</ul><ul class="marquee__track" aria-hidden="true">' . $items . '</ul></div>';
+	}
+	return $out . '</div>';
+}
+
 /** Corporate facts (source: existing homepage, footer and contact page). */
 function esnad_company(): array {
 	return array(
@@ -182,5 +233,5 @@ function esnad_notice(): array {
 
 /** Inline SVG icon from the theme sprite. */
 function esnad_icon( string $name, int $size = 24 ): string {
-	return sprintf( '<svg class="i" width="%1$d" height="%1$d" aria-hidden="true" focusable="false"><use href="%2$s#%3$s"/></svg>', $size, esc_url( get_template_directory_uri() . '/assets/img/sprite.svg' ), esc_attr( $name ) );
+	return sprintf( '<svg class="i" width="%1$d" height="%1$d" aria-hidden="true" focusable="false"><use href="%2$s#%3$s"/></svg>', $size, esc_url( get_template_directory_uri() . '/assets/img/sprite.svg?v=' . filemtime( get_template_directory() . '/assets/img/sprite.svg' ) ), esc_attr( $name ) );
 }

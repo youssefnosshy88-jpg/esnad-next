@@ -17,6 +17,20 @@ $hero  = is_front_page();
 <a class="skip-link" href="#main"><?php echo esc_html( esnad_t( 'انتقل إلى المحتوى', 'Skip to content' ) ); ?></a>
 
 <header class="site-header" id="site-header" data-over-hero="<?php echo $hero ? '1' : '0'; ?>">
+	<div class="topbar">
+		<div class="container topbar__in">
+			<span class="topbar__loc"><?php echo esnad_icon( 'star', 14 ); // phpcs:ignore ?> <?php echo esc_html( esnad_t( 'الرياض، المملكة العربية السعودية', 'Riyadh, Kingdom of Saudi Arabia' ) ); ?></span>
+			<span class="topbar__date"><time data-hijri></time><i aria-hidden="true">·</i><time data-greg></time></span>
+			<span class="topbar__tools">
+				<?php echo esnad_social_links( 'social social--top' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<form class="topsearch" role="search" method="get" action="<?php echo esc_url( home_url( esnad_is_rtl() ? '/' : '/en/' ) ); ?>">
+					<label class="screen-reader-text" for="topsearch-q"><?php echo esc_html( esnad_t( 'بحث', 'Search' ) ); ?></label>
+					<input id="topsearch-q" type="search" name="s" placeholder="<?php echo esc_attr( esnad_t( 'بحث...', 'Search...' ) ); ?>">
+					<button type="submit" aria-label="<?php echo esc_attr( esnad_t( 'بحث', 'Search' ) ); ?>"><?php echo esnad_icon( 'search', 16 ); // phpcs:ignore ?></button>
+				</form>
+			</span>
+		</div>
+	</div>
 	<div class="container site-header__bar">
 		<a class="brand" href="<?php echo esc_url( home_url( esnad_is_rtl() ? '/' : '/en/' ) ); ?>" aria-label="<?php echo esc_attr( esnad_t( 'شركة إسناد المالية - الرئيسية', 'Esnad Advisory Company - Home' ) ); ?>">
 			<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( esnad_t( 'شركة إسناد المالية', 'Esnad Advisory Company' ) ); ?>" width="220" height="56" decoding="async">
@@ -31,9 +45,16 @@ $hero  = is_front_page();
 			<ul class="menu">
 				<?php foreach ( esnad_nav() as $i => $item ) :
 					$has = ! empty( $item['children'] );
-					$cur = untrailingslashit( $item['url'] ) === untrailingslashit( (string) get_permalink() );
+					$here = untrailingslashit( (string) get_permalink() );
+					$cur  = untrailingslashit( $item['url'] ) === $here;
+					$in   = $cur;
+					foreach ( (array) ( $item['children'] ?? array() ) as $ch ) {
+						$in = $in || untrailingslashit( $ch['url'] ) === $here;
+					}
+					// Section-aware: articles belong to "Insights"; service pages to "Services".
+					$in = $in || ( is_singular( 'post' ) && untrailingslashit( $item['url'] ) === untrailingslashit( esnad_url( 'blog' ) ) ) || ( ! empty( $item['mega'] ) && esnad_is_service_page() );
 					?>
-					<li class="menu__item<?php echo $has ? ' has-sub' : ''; ?><?php echo ! empty( $item['mega'] ) ? ' is-mega' : ''; ?>">
+					<li class="menu__item<?php echo $has ? ' has-sub' : ''; ?><?php echo ! empty( $item['mega'] ) ? ' is-mega' : ''; ?><?php echo $in ? ' is-current' : ''; ?>">
 						<a href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $cur ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?></a>
 						<?php if ( $has ) : ?>
 							<button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-<?php echo (int) $i; ?>">

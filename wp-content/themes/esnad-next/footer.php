@@ -9,6 +9,7 @@ $about = $nav[0]['children'];
 ?>
 </main>
 
+<div class="najdi-band" aria-hidden="true"></div>
 <section class="notice" aria-labelledby="notice-title">
 	<div class="container notice__inner">
 		<h2 id="notice-title" class="notice__title"><?php echo esc_html( esnad_t( 'تنويه تنظيمي', 'Regulatory notice' ) ); ?></h2>
@@ -66,12 +67,14 @@ $about = $nav[0]['children'];
 			<a class="btn btn--ghost btn--sm" href="<?php echo esc_url( esnad_consult_url() ); ?>"><?php echo esc_html( esnad_t( 'اطلب استشارة', 'Request a consultation' ) ); ?></a>
 		</address>
 	</div>
+	<div class="container footer-social"><span><?php echo esc_html( esnad_t( 'تابعنا', 'Follow us' ) ); ?></span><?php echo esnad_social_links( 'social social--foot' ); // phpcs:ignore ?></div>
 
 	<div class="container footer-legal">
 		<p><?php echo esc_html( esnad_t( 'جميع الحقوق محفوظة ', 'All rights reserved ' ) . gmdate( 'Y' ) . ' ' . esnad_t( 'شركة إسناد المالية', 'Esnad Advisory Company' ) . ' - ' . esnad_license_label() ); ?></p>
 	</div>
 </footer>
 
+<button class="to-top" type="button" aria-label="<?php echo esc_attr( esnad_t( 'العودة إلى الأعلى', 'Back to top' ) ); ?>"><svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20"/></svg><?php echo esnad_icon( 'up', 18 ); // phpcs:ignore ?></button>
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -24,4 +24,5 @@ $home_url = home_url( esnad_is_rtl() ? '/' : '/en/' );
 		</div>
 	</div>
 <?php endwhile; ?>
+<?php get_template_part( 'template-parts/cta-band' ); ?>
 <?php get_footer(); ?>

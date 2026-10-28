@@ -60,7 +60,12 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 
 <!-- 01 HERO -->
 <section class="hero" aria-labelledby="hero-title">
+	<div class="hero__media" aria-hidden="true">
+		<?php /* The same looping clip the current site uses; loaded after page load, skipped on slow/saver connections and reduced motion. */ ?>
+		<video class="hero__video" muted loop playsinline preload="none" data-src-lg="<?php echo esc_url( $uploads . '2022/06/videohive_480p.mp4' ); ?>" data-src-sm="<?php echo esc_url( $uploads . '2022/06/videohive.mp4' ); ?>"></video>
+	</div>
 	<div class="hero__art" aria-hidden="true"></div>
+	
 	<div class="container hero__inner">
 		<p class="eyebrow"><?php echo esc_html( esnad_t( 'شركة إسناد المالية', 'Esnad Advisory Company' ) ); ?></p>
 		<h1 id="hero-title" class="hero__title">
@@ -78,6 +83,8 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 		<p class="hero__trust"><?php echo esnad_icon( 'shield', 20 ); // phpcs:ignore ?> <span><?php echo esc_html( esnad_t( 'مرخصة من هيئة السوق المالية', 'Licensed by the Capital Market Authority' ) ); ?> · <bdi dir="ltr"><?php echo esc_html( esnad_license_label() ); ?></bdi></span></p>
 	</div>
 </section>
+
+<div class="najdi-band" aria-hidden="true"></div>
 
 <!-- 02 TRUST STRIP -->
 <section class="trust" aria-label="<?php echo esc_attr( esnad_t( 'معلومات الشركة الموثقة', 'Verified company information' ) ); ?>">
@@ -109,6 +116,18 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	</div>
 </section>
 
+<!-- 03b MILESTONES (verified dates from the company profile) -->
+<section class="milestones" aria-labelledby="mile-title">
+	<div class="container">
+		<h2 class="screen-reader-text" id="mile-title"><?php echo esc_html( esnad_t( 'محطات الشركة', 'Company milestones' ) ); ?></h2>
+		<ol class="mile">
+			<li class="reveal"><b class="mile__y" aria-hidden="true">2019</b><span class="mile__t"><?php echo esc_html( esnad_t( 'الحصول على ترخيص هيئة السوق المالية رقم (20-19206)', 'CMA license No. 20-19206 obtained' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '1441/1/11 هـ الموافق 2019/9/1 م', '11/01/1441 AH · 01/09/2019 AD' ) ); ?></span></li>
+			<li class="reveal"><b class="mile__y" aria-hidden="true">2020</b><span class="mile__t"><?php echo esc_html( esnad_t( 'بدء ممارسة النشاط', 'Commencement of operations' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '1441/6/9 هـ الموافق 2020/2/3 م', '09/06/1441 AH · 03/02/2020 AD' ) ); ?></span></li>
+			<li class="reveal"><b class="mile__y" aria-hidden="true">2024</b><span class="mile__t"><?php echo esc_html( esnad_t( 'الموافقة على نشاط الترتيب بتعديل قوائم الأعمال', 'Arranging activity approved after amending the business lists' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '2024/06/04 م', '04/06/2024 AD' ) ); ?></span></li>
+		</ol>
+	</div>
+</section>
+
 <!-- 04 SERVICE EXPLORER -->
 <section class="section section--ivory" id="services" aria-labelledby="services-title">
 	<div class="container">
@@ -127,9 +146,9 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 
 			<div class="explorer__panel" role="tabpanel" id="panel-type" aria-labelledby="tab-type">
 				<div class="cards">
-					<?php foreach ( $services as $svc ) : ?>
+					<?php $n = 0; foreach ( $services as $svc ) : $n++; ?>
 						<a class="card" href="<?php echo esc_url( $svc['url'] ); ?>">
-							<span class="card__img"><img src="<?php echo esc_url( $svc['img'] ); ?>" alt="" width="720" height="480" loading="lazy" decoding="async"></span>
+							<span class="card__img"><img src="<?php echo esc_url( $svc['img'] ); ?>" alt="" width="720" height="480" loading="lazy" decoding="async"><b class="card__no" aria-hidden="true"><?php echo esc_html( str_pad( (string) $n, 2, '0', STR_PAD_LEFT ) ); ?></b><span class="card__go" aria-hidden="true"><?php echo esnad_icon( 'arrow-up-right', 22 ); // phpcs:ignore ?></span></span>
 							<span class="card__body">
 								<span class="card__title"><?php echo esc_html( $svc['title'] ); ?></span>
 								<span class="card__text"><?php echo esc_html( $svc['text'] ); ?></span>
@@ -284,18 +303,14 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 
 <!-- 09 CLIENTS -->
 <?php if ( $clients ) : ?>
-<section class="section section--ivory clients" id="clients" aria-labelledby="clients-title">
+<section class="section clients clients--dark" id="clients" aria-labelledby="clients-title">
 	<div class="container">
-		<header class="section__head reveal">
+		<header class="section__head section__head--light reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'شريكك في النجاح', 'Your Partner for Success' ) ); ?></p>
 			<h2 class="h2" id="clients-title"><?php echo esc_html( esnad_t( 'عملائنا', 'Our Clients' ) ); ?></h2>
 		</header>
-		<ul class="clients__grid">
-			<?php foreach ( $clients as $logo ) : ?>
-				<li><img src="<?php echo esc_url( $uploads . $logo ); ?>" alt="" width="160" height="90" loading="lazy" decoding="async"></li>
-			<?php endforeach; ?>
-		</ul>
 	</div>
+	<?php echo esnad_clients_marquee(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 </section>
 <?php endif; ?>
 
@@ -319,11 +334,17 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 				<?php echo esnad_icon( 'shield', 32 ); // phpcs:ignore ?>
 				<span><b><?php echo esc_html( esnad_t( 'مجلس الإدارة', 'Board of Directors' ) ); ?></b></span>
 			</a>
+			<?php $fatca = esnad_fatca(); ?>
+			<a class="doc" href="<?php echo esc_url( $fatca[1] ); ?>" target="_blank" rel="noopener">
+				<?php echo esnad_icon( 'download', 32 ); // phpcs:ignore ?>
+				<span><b><?php echo esc_html( $fatca[0] ); ?></b><small><?php echo esc_html( esnad_t( 'تحميل الملف', 'Download File' ) ); ?></small></span>
+			</a>
 		</div>
 	</div>
 </section>
 
 <!-- 11 KNOWLEDGE -->
+
 <?php if ( $posts->have_posts() ) : ?>
 <section class="section section--ivory" id="insights" aria-labelledby="insights-title">
 	<div class="container">

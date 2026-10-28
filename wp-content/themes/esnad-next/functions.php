@@ -36,7 +36,7 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 add_action( 'wp_head', static function (): void {
 	$uri = get_template_directory_uri() . '/assets/fonts/';
 	$sub = esnad_is_rtl() ? 'arabic' : 'latin';
-	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "readex-pro-$sub.woff2" ) );
+	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "tajawal-$sub-400.woff2" ) );
 }, 1 );
 
 /** Official logo mark as favicon when no Site Icon is set in the Customizer. */
@@ -74,15 +74,7 @@ add_filter( 'the_content', static function ( string $html ): string {
 
 /** [esnad_clients]: the approved client logo wall (used by the migrated About page). */
 add_shortcode( 'esnad_clients', static function (): string {
-	$logos = esnad_json( 'clients.json' );
-	if ( ! $logos ) {
-		return '';
-	}
-	$out = '<ul class="clients__grid">';
-	foreach ( $logos as $logo ) {
-		$out .= '<li><img src="' . esc_url( content_url( 'uploads/' . $logo ) ) . '" alt="" width="160" height="90" loading="lazy" decoding="async"></li>';
-	}
-	return $out . '</ul>';
+	return '<div class="clients clients--dark clients--inline">' . esnad_clients_marquee() . '</div>';
 } );
 
 /** Is the current page the articles page (either language)? */

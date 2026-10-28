@@ -16,7 +16,23 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 				<li aria-current="page"><?php the_title(); ?></li>
 			</ol>
 			<h1><?php the_title(); ?></h1>
+			<?php
+			$hero_svc = null; $hero_no = 0;
+			if ( $is_service ) {
+				foreach ( esnad_services() as $s ) {
+					$hero_no++;
+					if ( untrailingslashit( $s['url'] ) === untrailingslashit( (string) get_permalink() ) ) { $hero_svc = $s; break; }
+				}
+			}
+			if ( $hero_svc ) : ?>
+				<p class="page-hero__lead"><?php echo esc_html( wp_trim_words( $hero_svc['text'], 30, '…' ) ); ?></p>
+			<?php endif; ?>
 		</div>
+		<?php if ( $hero_svc ) : ?>
+			<b class="page-hero__no" aria-hidden="true"><?php echo esc_html( str_pad( (string) $hero_no, 2, '0', STR_PAD_LEFT ) ); ?></b>
+		<?php else : ?>
+			<div class="page-hero__star" aria-hidden="true"></div>
+		<?php endif; ?>
 	</header>
 
 	<div class="entry">
@@ -33,6 +49,7 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 							<li><?php echo esnad_icon( 'phone', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'هاتف', 'Phone' ) ); ?></span><a href="tel:<?php echo esc_attr( $c['phone_tel'] ); ?>" dir="ltr"><?php echo esc_html( $c['phone'] ); ?></a></li>
 							<li><?php echo esnad_icon( 'mail', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'البريد الإلكتروني', 'E-Mail' ) ); ?></span><a href="mailto:<?php echo esc_attr( $c['email'] ); ?>"><?php echo esc_html( $c['email'] ); ?></a></li>
 						</ul>
+						<div class="contact-social"><span><?php echo esc_html( esnad_t( 'تابعنا على', 'Follow us on' ) ); ?></span><?php echo esnad_social_links( 'social social--contact' ); // phpcs:ignore ?></div>
 						<?php if ( $img ) : ?>
 							<img class="contact-img" src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( esnad_t( 'موقع المكتب', 'Office location' ) ); ?>" loading="lazy" decoding="async">
 						<?php endif; ?>
@@ -89,4 +106,5 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 		</div>
 	</div>
 <?php endwhile; ?>
+<?php get_template_part( 'template-parts/cta-band' ); ?>
 <?php get_footer(); ?>

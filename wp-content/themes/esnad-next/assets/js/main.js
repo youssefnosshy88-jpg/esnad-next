@@ -56,6 +56,62 @@
 		reveals.forEach(function (el) { el.classList.add('is-in'); });
 	}
 
+	/* Hijri + Gregorian date in the top strip (Umm al-Qura calendar). */
+	var lang = root.lang === 'en' ? 'en' : 'ar';
+	try {
+		var hd = d.querySelector('[data-hijri]');
+		var gd = d.querySelector('[data-greg]');
+		var now = new Date();
+		if (hd) { hd.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-ca-islamic-umalqura-nu-latn' : 'en-US-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
+		if (gd) { gd.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
+	} catch (e) { /* date strip is decorative */ }
+
+	/* Hero video: load only after the page has loaded, on capable connections, never with reduced motion. */
+	var vid = d.querySelector('.hero__video');
+	if (vid && !reduce) {
+		var conn = navigator.connection || {};
+		var light = conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
+		if (!light) {
+			var startVideo = function () {
+				vid.src = window.innerWidth > 760 ? vid.getAttribute('data-src-lg') : vid.getAttribute('data-src-sm');
+				vid.addEventListener('canplay', function () { vid.classList.add('is-ready'); vid.play().catch(function () {}); }, { once: true });
+				vid.load();
+			};
+			if (d.readyState === 'complete') { setTimeout(startVideo, 300); } else { window.addEventListener('load', function () { setTimeout(startVideo, 300); }); }
+			d.addEventListener('visibilitychange', function () { if (d.hidden) { vid.pause(); } else if (vid.classList.contains('is-ready')) { vid.play().catch(function () {}); } });
+		}
+	}
+
+	/* Stage-curtain reveal: panels part when a block scrolls into view. */
+	if ('IntersectionObserver' in window && !reduce) {
+		var targets = d.querySelectorAll('.explorer .cards, .pillars, .needs, .docs, .articles, .faq, .about__grid, .atlas__grid, .journey__steps, .marquee, .contact-grid, .info-cards, .chooser');
+		var cio = new IntersectionObserver(function (entries) {
+			entries.forEach(function (en) {
+				if (en.isIntersecting) { en.target.classList.add('is-open'); cio.unobserve(en.target); }
+			});
+		}, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+		targets.forEach(function (el, i) {
+			el.classList.add('curtain');
+			if (el.closest('.atlas, .clients--dark, .cta')) { el.classList.add('curtain--light'); }
+			el.style.setProperty('--cd', '0s');
+			cio.observe(el);
+		});
+	}
+
+	/* Back to top with scroll-progress ring. */
+	var topBtn = d.querySelector('.to-top');
+	if (topBtn) {
+		var tick = function () {
+			var max = Math.max(1, d.documentElement.scrollHeight - window.innerHeight);
+			var p = Math.min(1, window.scrollY / max);
+			topBtn.style.setProperty('--sp', p.toFixed(3));
+			topBtn.classList.toggle('is-on', window.scrollY > 500);
+		};
+		window.addEventListener('scroll', tick, { passive: true });
+		tick();
+		topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+	}
+
 	/* Service explorer: tabs + need/challenge choosers. */
 	d.querySelectorAll('[data-explorer]').forEach(function (ex) {
 		var tabs = Array.prototype.slice.call(ex.querySelectorAll('[role="tab"]'));

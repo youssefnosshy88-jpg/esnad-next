@@ -26,4 +26,4 @@ foreach ($i in @('themes\esnad-next', 'plugins\esnad-core', 'mu-plugins')) {
 $zip.Dispose()
 $sshOpts = @('-i', $Key, '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=30')
 scp @sshOpts -P $Port $zipPath "${Target}:esnad-work/wp-content.zip"
-ssh @sshOpts -p $Port $Target "unzip -q -o ~/esnad-work/wp-content.zip -d $Site/wp-content/ ; rm -f ~/esnad-work/wp-content.zip ; echo deployed"
+ssh @sshOpts -p $Port $Target "unzip -q -o ~/esnad-work/wp-content.zip -d $Site/wp-content/ ; rm -f ~/esnad-work/wp-content.zip ; (cd $Site && php -d disable_functions= /usr/local/bin/wp litespeed-purge all >/dev/null 2>&1) ; echo deployed"

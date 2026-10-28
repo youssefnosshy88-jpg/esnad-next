@@ -200,8 +200,17 @@ function esnad_m_walk( array $nodes, string $title, array &$stats ): string {
 					$out .= esnad_m_para_html( $row['repeater_description'] ?? '' );
 				}
 				break;
-			case 'image':
-				$out .= esnad_m_image( $s['image'] ?? array() );
+			case 'social-icons':
+				// Personal/department mailto links (executive page) are content; brand channels live in the theme header/footer.
+				foreach ( (array) ( $s['social_icon_list'] ?? array() ) as $it ) {
+					$u = (string) ( $it['link']['url'] ?? '' );
+					if ( 0 === strpos( $u, 'mailto:' ) ) {
+						$mail = substr( $u, 7 );
+						$out .= esnad_m_para_html( '<p><a href="' . esc_attr( $u ) . '">' . esc_html( $mail ) . '</a></p>' );
+					}
+				}
+				break;
+			case 'image':				$out .= esnad_m_image( $s['image'] ?? array() );
 				break;
 			case 'elementskit-button':
 			case 'button':
