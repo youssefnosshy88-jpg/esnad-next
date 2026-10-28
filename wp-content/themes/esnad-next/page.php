@@ -23,6 +23,23 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 		<div class="container entry__layout<?php echo $is_service ? '' : ' entry__layout--single'; ?>">
 			<article <?php post_class( 'entry-content' ); ?>>
 				<?php the_content(); ?>
+				<?php if ( esnad_is_blog_page() ) :
+					$list = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 24, 'no_found_rows' => true, 'ignore_sticky_posts' => true ) );
+					?>
+					<div class="articles">
+						<?php while ( $list->have_posts() ) : $list->the_post(); ?>
+							<article class="article">
+								<a href="<?php the_permalink(); ?>">
+									<?php if ( has_post_thumbnail() ) : the_post_thumbnail( 'esnad-card', array( 'loading' => 'lazy' ) ); else : ?>
+										<span class="article__ph" aria-hidden="true"></span>
+									<?php endif; ?>
+									<h2><?php the_title(); ?></h2>
+									<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 24, '…' ) ); ?></p>
+								</a>
+							</article>
+						<?php endwhile; wp_reset_postdata(); ?>
+					</div>
+				<?php endif; ?>
 			</article>
 
 			<?php if ( $is_service ) : ?>

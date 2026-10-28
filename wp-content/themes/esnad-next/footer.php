@@ -54,7 +54,8 @@ $about = $nav[0]['children'];
 				<div><dt><?php echo esc_html( esnad_t( 'الرقم الموحد', 'Unified number' ) ); ?></dt><dd dir="ltr"><?php echo esc_html( $c['unified'] ); ?></dd></div>
 				<div><dt><?php echo esc_html( esnad_t( 'الرقم الضريبي', 'VAT number' ) ); ?></dt><dd dir="ltr"><?php echo esc_html( $c['vat'] ); ?></dd></div>
 			</dl>
-			<a class="text-link" href="<?php echo esc_url( esnad_url( 'disclosure' ) ); ?>"><?php echo esc_html( esnad_t( 'الإفصاح والقوائم المالية', 'Disclosure and financial statements' ) ); ?></a>
+			<p><a class="text-link" href="<?php echo esc_url( esnad_url( 'disclosure' ) ); ?>"><?php echo esc_html( esnad_t( 'الإفصاح والقوائم المالية', 'Disclosure and financial statements' ) ); ?></a></p>
+			<p><a class="text-link" href="<?php echo esc_url( esnad_complaints_url() ); ?>"><?php echo esc_html( esnad_t( 'الشكاوى', 'Complaints' ) ); ?></a></p>
 		</div>
 
 		<address class="footer-col">

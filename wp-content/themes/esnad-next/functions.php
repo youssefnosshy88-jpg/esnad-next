@@ -60,6 +60,24 @@ add_filter( 'body_class', static function ( array $classes ): array {
 add_filter( 'excerpt_length', static fn(): int => 28 );
 add_filter( 'excerpt_more', static fn(): string => '…' );
 
+/** [esnad_clients]: the approved client logo wall (used by the migrated About page). */
+add_shortcode( 'esnad_clients', static function (): string {
+	$logos = esnad_json( 'clients.json' );
+	if ( ! $logos ) {
+		return '';
+	}
+	$out = '<ul class="clients__grid">';
+	foreach ( $logos as $logo ) {
+		$out .= '<li><img src="' . esc_url( content_url( 'uploads/' . $logo ) ) . '" alt="" width="160" height="90" loading="lazy" decoding="async"></li>';
+	}
+	return $out . '</ul>';
+} );
+
+/** Is the current page the articles page (either language)? */
+function esnad_is_blog_page(): bool {
+	return is_page() && in_array( get_the_ID(), array( 6346, 29470 ), true );
+}
+
 /** Is the current page one of the eight service pages (either language)? */
 function esnad_is_service_page(): bool {
 	if ( ! is_page() ) {

@@ -117,8 +117,13 @@ function esnad_url( string $key ): string {
 
 /** Consultation page: a dedicated page created by esnad-core; falls back to the contact page. */
 function esnad_consult_url(): string {
-	$page = get_page_by_path( esnad_is_rtl() ? 'request-consultation' : 'en/request-consultation' );
-	return $page ? get_permalink( $page ) : esnad_url( 'contact' ) . '#consultation';
+	$page = get_page_by_path( esnad_is_rtl() ? 'request-consultation' : 'request-consultation-en' );
+	return $page ? get_permalink( $page ) : esnad_url( 'contact' );
+}
+
+function esnad_complaints_url(): string {
+	$page = get_page_by_path( esnad_is_rtl() ? 'complaints' : 'complaints-en' );
+	return $page ? get_permalink( $page ) : esnad_url( 'contact' );
 }
 
 function esnad_nav(): array {
