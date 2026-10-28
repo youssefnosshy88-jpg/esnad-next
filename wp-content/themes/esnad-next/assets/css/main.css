@@ -14,7 +14,7 @@
   --header-h:80px;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px);-webkit-text-size-adjust:100%}
+html{overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px);-webkit-text-size-adjust:100%}
 body{margin:0;font-family:var(--font);font-size:16.5px;line-height:1.75;color:var(--esnad-text);background:var(--esnad-light);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .is-ltr body{line-height:1.6}
 img,svg{max-inline-size:100%;block-size:auto}
@@ -31,6 +31,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .i{display:inline-block;vertical-align:middle;flex:none}
 .is-rtl .i[href$="#arrow"],.is-rtl .btn .i,.is-rtl .text-link .i,.is-rtl .card__more .i,.is-rtl .need a .i{transform:scaleX(-1)}
 
+main{overflow-x:clip}
 .container{inline-size:min(100% - 2*clamp(16px,4vw,48px),var(--container-width));margin-inline:auto}
 .container--narrow{inline-size:min(100% - 2*clamp(16px,4vw,48px),920px)}
 .section{padding-block:var(--section-spacing)}
@@ -216,7 +217,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .atlas__list button[aria-pressed="true"]{background:var(--esnad-gold);border-color:var(--esnad-gold);color:#1b1b1b}
 .atlas__item p{color:rgba(255,255,255,.88);font-size:16px;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 .atlas__item .text-link{color:var(--esnad-gold)}
-@media (max-width:900px){.atlas__grid{grid-template-columns:1fr}.atlas__map{order:2}}
+@media (max-width:900px){.atlas__grid{grid-template-columns:1fr}}
 
 /* Journey */
 .journey__steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative}
@@ -436,13 +437,13 @@ address.footer-col{font-style:normal}
     url(../img/pattern-najdi.svg) 0 0/56px,
     linear-gradient(180deg,var(--esnad-green),#2f3d35);
   box-shadow:inset 0 0 0 1px rgba(199,144,29,.5);
-  transition:transform 1.25s var(--ease-premium);transition-delay:var(--cd,0s)}
+  transition:transform 1.25s var(--ease-premium) var(--cd,0s),visibility 0s linear calc(1.25s + var(--cd,0s))}
 .js .curtain::before{left:0;border-radius:0 0 var(--radius-small) 0}
 .js .curtain::after{right:0;border-radius:0 0 0 var(--radius-small)}
 .js .curtain--light::before,.js .curtain--light::after{background:url(../img/pattern-najdi.svg) 0 0/56px,linear-gradient(180deg,#f3ecd8,#e8dcb8)}
-.js .curtain.is-open::before{transform:translateX(calc(-100% - 80px))}
-.js .curtain.is-open::after{transform:translateX(calc(100% + 80px))}
-.js .curtain.is-open::before,.js .curtain.is-open::after{pointer-events:none}
+.js .curtain.is-open::before{transform:translateX(-100%);visibility:hidden}
+.js .curtain.is-open::after{transform:translateX(100%);visibility:hidden}
+
 @media (prefers-reduced-motion:reduce){.js .curtain::before,.js .curtain::after{display:none}}
 
 /* Clients: two opposing marquees on a dark lattice */
@@ -660,5 +661,7 @@ address.footer-col{font-style:normal}
 .value__no{-webkit-text-stroke:1.5px rgba(199,144,29,.5)}
 @media (max-width:760px){.vm,.values{grid-template-columns:1fr}}
 .entry-content .vm__card h3::before,.entry-content .value h3::before,.entry-content .person h3::before{display:none}
+.entry-content img[src*="Logo"],.entry-content img[src*="logo"]{max-block-size:110px;inline-size:auto}
+@media (max-width:760px){.page-hero__no{display:none}}
 @media print{.to-top{display:none}}
 @media print{.site-header,.nav-toggle,.cta,.atlas,.hero__media,.najdi-band{display:none}}

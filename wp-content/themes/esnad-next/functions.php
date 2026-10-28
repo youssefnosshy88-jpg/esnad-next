@@ -67,6 +67,11 @@ add_filter( 'body_class', static function ( array $classes ): array {
 add_filter( 'excerpt_length', static fn(): int => 28 );
 add_filter( 'excerpt_more', static fn(): string => '…' );
 
+/** Drop the oversized favicon/logo marks that the old builder pasted into page bodies. */
+add_filter( 'the_content', static function ( string $html ): string {
+	return is_singular() ? (string) preg_replace( '#<figure[^>]*wp-block-image[^>]*>\s*<img[^>]+(?:favicon|Favicon)[^>]*>\s*</figure>#i', '', $html ) : $html;
+}, 19 );
+
 /** The page hero owns the single <h1>; any <h1> inside migrated content becomes an <h2>. */
 add_filter( 'the_content', static function ( string $html ): string {
 	return is_singular() ? (string) preg_replace( '/<(\/?)h1\b/i', '<$1h2', $html ) : $html;
