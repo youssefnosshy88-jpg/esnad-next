@@ -51,7 +51,7 @@ foreach ( array( 1483, 29484 ) as $pid ) {
 	}
 	$new = preg_replace( '/\[forminator_form[^\]]*\]/', '[esnad_contact_form]', $post->post_content, -1, $n );
 	if ( $n ) {
-		wp_update_post( wp_slash( array( 'ID' => $pid, 'post_content' => $new ) ) );
+		$GLOBALS['wpdb']->update( $GLOBALS['wpdb']->posts, array( 'post_content' => $new ), array( 'ID' => $pid ) ); clean_post_cache( $pid ); // direct write: avoids WPML save hooks
 		WP_CLI::log( "contact page $pid: replaced $n form(s)" );
 	}
 }

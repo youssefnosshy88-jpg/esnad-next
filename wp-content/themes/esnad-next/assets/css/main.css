@@ -322,6 +322,8 @@ body:not(.has-hero) .site-header{position:fixed;inset-inline:0;background:linear
 .entry-content h3{font-size:clamp(20px,2vw,26px);margin-block-start:1.4em}
 .entry-content ul,.entry-content ol{padding-inline-start:1.4em;list-style:revert;display:grid;gap:.4em}
 .entry-content img{border-radius:var(--radius-medium);margin-inline:auto}
+.entry-content .wp-block-image img{inline-size:auto;max-inline-size:100%;max-block-size:min(70vh,640px);object-fit:contain}
+.entry-content .wp-block-image{text-align:center}
 .entry-content a{color:var(--esnad-gold-dark)}
 .entry-content table{inline-size:100%;border-collapse:collapse;font-size:16px}
 .entry-content th,.entry-content td{padding:12px 14px;border:1px solid var(--esnad-border);text-align:start}
