@@ -8,6 +8,13 @@
 ## Manual checks
 Desktop and mobile samples of home, about, executive, disclosure, careers, Sanad360, investment, blog, article and a service page; EN home and about.
 
+## Checked 2026-10-29 after the Tajawal / directory release
+- Services directory AR and EN: one numbered list, list before the clients heading, 62 logos, no horizontal overflow at 375 px and 1440 px; hover and focus swap the panel (verified by script at 1440 px).
+- Mobile drawer: services sub-menu rendered as a flat list (was a floating card, fixed).
+- English home at 375 px: atlas with Esnad mark hub, gold keywords, Tajawal loaded, no overflow.
+- Vision page: values in three columns, logo wall 639 px tall.
+- Still unverified: first-tap-select behaviour on a real touch device (only emulated width was used).
+
 ## Not yet done
 - Core Web Vitals (LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms): not measured; the shared staging host is slow and intermittently refuses connections, so measure on production hosting.
 - WCAG 2.2 AA audit: not run. Known good: skip link, focus-visible styles, labelled forms, reduced-motion honoured. Contrast of gold on light uses the darker gold token.
