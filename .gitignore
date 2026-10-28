@@ -1,0 +1,50 @@
+# ── Never commit: secrets, databases, user data ──────────────────────────
+wp-config.php
+.env
+.env.*
+*.sql
+*.sql.gz
+*.sql.zip
+*.zip
+*.tar.gz
+*.log
+error_log
+.htaccess
+.user.ini
+wordfence-waf.php
+
+# Uploads contain customer files (support tickets, form attachments, PDFs)
+wp-content/uploads/
+wp-content/wpvividbackups/
+wp-content/ai1wm-backups/
+wp-content/backup*/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/wflogs/
+
+# WordPress core and third-party plugins are installed on the server, not versioned
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+wp-content/plugins/*
+wp-content/themes/*
+wp-content/languages/
+
+# ── Versioned: our own code only ─────────────────────────────────────────
+!wp-content/themes/esnad-next/
+!wp-content/plugins/esnad-core/
+!wp-content/mu-plugins/
+
+# Local tooling
+node_modules/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Internal only: audit lists security weaknesses of the live site
+private/
