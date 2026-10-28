@@ -2,7 +2,7 @@
 /** Site header: logo, navigation (with services mega-menu), language switch, consultation CTA. */
 defined( 'ABSPATH' ) || exit;
 $uri   = get_template_directory_uri() . '/assets/img/';
-$logo  = esnad_is_rtl() ? $uri . 'logo-ar-white.png' : $uri . 'logo-en-white.png';
+$logo  = esnad_is_rtl() ? $uri . 'logo-ar.png' : $uri . 'logo-en.png'; // official full-colour logos, as on the current site
 $hero  = is_front_page();
 ?><!doctype html>
 <html <?php language_attributes(); ?>>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ESNAD Staging Guard
- * Description: On the Hostinger preview domain only: password gate, noindex, and no outbound email.
+ * Description: On the Hostinger preview domain only: noindex and no outbound email. (The password gate was removed at the owner's request.)
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,38 +10,6 @@ defined( 'ABSPATH' ) || exit;
 $esnad_host = wp_parse_url( home_url(), PHP_URL_HOST );
 if ( ! is_string( $esnad_host ) || false === strpos( $esnad_host, 'hostingersite.com' ) ) {
 	return;
-}
-
-// Password gate (bcrypt hash kept outside the web root).
-if ( 'cli' !== PHP_SAPI ) {
-	// Defines ESNAD_STAGING_USER and ESNAD_STAGING_HASH (bcrypt). Not versioned; created on the server only.
-	$esnad_file = WP_CONTENT_DIR . '/esnad-staging-auth.php';
-	if ( is_readable( $esnad_file ) ) {
-		require_once $esnad_file;
-	}
-	$esnad_ok   = false;
-	$esnad_hdr  = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
-	$esnad_user = $_SERVER['PHP_AUTH_USER'] ?? '';
-	$esnad_pass = $_SERVER['PHP_AUTH_PW'] ?? '';
-	if ( '' === $esnad_user && 0 === stripos( $esnad_hdr, 'basic ' ) ) {
-		$parts = explode( ':', (string) base64_decode( substr( $esnad_hdr, 6 ) ), 2 );
-		if ( 2 === count( $parts ) ) {
-			list( $esnad_user, $esnad_pass ) = $parts;
-		}
-	}
-	if ( '' !== $esnad_user && defined( 'ESNAD_STAGING_HASH' ) ) {
-		$esnad_ok = hash_equals( ESNAD_STAGING_USER, $esnad_user ) && password_verify( $esnad_pass, ESNAD_STAGING_HASH );
-	}
-	if ( ! $esnad_ok ) {
-		header( 'WWW-Authenticate: Basic realm="ESNAD staging"' );
-		header( 'X-LiteSpeed-Cache-Control: no-cache' );
-		header( 'Cache-Control: no-store' );
-		status_header( 401 );
-		exit( 'Authentication required.' );
-	}
-	// Keep gated pages out of any shared cache.
-	header( 'X-LiteSpeed-Cache-Control: no-cache' );
-	header( 'Cache-Control: private, no-store' );
 }
 
 // Never index staging.

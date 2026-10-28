@@ -61,7 +61,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .has-hero .site-header{position:fixed;inset-inline:0;background:linear-gradient(180deg,rgba(34,40,38,.85),rgba(34,40,38,0))}
 .site-header.is-solid{background:var(--esnad-dark);box-shadow:0 6px 24px rgba(0,0,0,.2)}
 .site-header__bar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-block-size:var(--header-h)}
-.brand img{inline-size:auto;block-size:54px}
+.brand img{inline-size:auto;block-size:56px}
 .primary-nav{display:flex;align-items:center;gap:28px}
 .menu{display:flex;align-items:center;gap:4px}
 .menu__item{position:relative;display:flex;align-items:center}
@@ -101,6 +101,25 @@ ul,ol{margin:0;padding:0;list-style:none}
   .sub a{padding:12px 8px}
   .primary-nav__tools{flex-direction:column;align-items:stretch}
   .primary-nav__tools .btn,.lang-switch{text-align:center;min-block-size:48px;display:flex;align-items:center;justify-content:center}
+}
+
+/* Light header: the official full-colour logo (as on the current site) needs a light background. */
+.site-header,.has-hero .site-header,body:not(.has-hero) .site-header,.site-header.is-solid{position:fixed;inset-inline:0;background:#fff;box-shadow:0 1px 0 var(--esnad-border)}
+.site-header.is-solid{box-shadow:0 8px 28px rgba(34,40,38,.12)}
+.menu__item>a{color:var(--esnad-dark)}
+.menu__item>a:hover,.menu__item>a[aria-current]{background:var(--esnad-ivory);color:var(--esnad-gold-dark)}
+.sub-toggle{color:var(--esnad-dark)}
+.sub{background:#fff;border-color:var(--esnad-border);box-shadow:0 24px 48px rgba(34,40,38,.16)}
+.sub a{color:var(--esnad-dark)}
+.sub a:hover{background:var(--esnad-ivory);color:var(--esnad-gold-dark)}
+.lang-switch{color:var(--esnad-dark);border-color:rgba(34,40,38,.25)}
+.lang-switch:hover{border-color:var(--esnad-gold);color:var(--esnad-gold-dark)}
+.nav-toggle{border-color:rgba(34,40,38,.25)}
+.nav-toggle__bars,.nav-toggle__bars::before,.nav-toggle__bars::after{background:var(--esnad-dark)}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars{background:transparent}
+@media (max-width:1100px){
+  .primary-nav{background:#fff}
+  .menu__item{border-block-end-color:var(--esnad-border)}
 }
 
 /* Hero */
