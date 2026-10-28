@@ -69,15 +69,38 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 				<?php if ( esnad_is_blog_page() ) :
 					$list = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 24, 'no_found_rows' => true, 'ignore_sticky_posts' => true ) );
 					?>
-					<div class="articles">
-						<?php while ( $list->have_posts() ) : $list->the_post(); ?>
-							<article class="article">
+					<?php
+						$cats = array();
+						foreach ( $list->posts as $pp ) {
+							foreach ( get_the_category( $pp->ID ) as $cc ) {
+								$cats[ $cc->term_id ] = $cc->name;
+							}
+						}
+						if ( count( $cats ) >= 2 ) : ?>
+							<div class="blog-filter" role="group" aria-label="<?php echo esc_attr( esnad_t( 'تصفية المقالات حسب الفئة', 'Filter articles by category' ) ); ?>">
+								<button type="button" class="is-active" data-cat="all"><?php echo esc_html( esnad_t( 'الكل', 'All' ) ); ?></button>
+								<?php foreach ( $cats as $cid => $cname ) : ?>
+									<button type="button" data-cat="<?php echo (int) $cid; ?>"><?php echo esc_html( $cname ); ?></button>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+						<div class="articles articles--grid" data-blog>
+						<?php while ( $list->have_posts() ) : $list->the_post();
+								$pc  = get_the_category();
+								$ids = implode( ' ', wp_list_pluck( $pc, 'term_id' ) );
+								?>
+							<article class="article" data-cats="<?php echo esc_attr( $ids ); ?>">
 								<a href="<?php the_permalink(); ?>">
 									<?php if ( has_post_thumbnail() ) : the_post_thumbnail( 'esnad-card', array( 'loading' => 'lazy' ) ); else : ?>
 										<span class="article__ph" aria-hidden="true"></span>
 									<?php endif; ?>
-									<h2><?php the_title(); ?></h2>
-									<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 24, '…' ) ); ?></p>
+									<span class="article__meta">
+											<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+											<?php if ( $pc && count( $cats ) >= 2 ) : ?><span class="article__cat"><?php echo esc_html( $pc[0]->name ); ?></span><?php endif; ?>
+										</span>
+										<h2><?php the_title(); ?></h2>
+									<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 26, '…' ) ); ?></p>
+										<span class="article__more"><?php echo esc_html( esnad_t( 'اقرأ المقال', 'Read article' ) ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore ?></span>
 								</a>
 							</article>
 						<?php endwhile; wp_reset_postdata(); ?>

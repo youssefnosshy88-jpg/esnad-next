@@ -209,6 +209,12 @@ function esnad_restructure( string $html, string $mode ): string {
 		$fig->parentNode->removeChild( $fig );
 	}
 
+	if ( 'thanks' === $mode ) {
+		foreach ( iterator_to_array( $xp->query( '//figure' ) ) as $fig ) {
+			$fig->parentNode->removeChild( $fig );
+		}
+	}
+
 	// A list made only of in-page anchors (the old section menu) points at sections that no longer exist.
 	foreach ( iterator_to_array( $xp->query( '//ul[.//a]' ) ) as $ul ) {
 		$all_anchor = true;
@@ -326,7 +332,20 @@ function esnad_restructure( string $html, string $mode ): string {
 				break;
 			}
 		}
-		if ( $firstp && $firstp->nextSibling ) {
+		if ( 'thanks' === $mode ) {
+			// The buttons close the message instead of splitting it.
+			$last_h2 = null;
+			foreach ( $rest as $s ) {
+				foreach ( $s->getElementsByTagName( 'h2' ) as $h ) {
+					$last_h2 = $h;
+				}
+			}
+			if ( $last_h2 && $last_h2->parentNode ) {
+				$last_h2->parentNode->insertBefore( $row, $last_h2->nextSibling );
+			} else {
+				$target->appendChild( $row );
+			}
+		} elseif ( $firstp && $firstp->nextSibling ) {
 			$target->insertBefore( $row, $firstp->nextSibling );
 		} else {
 			$target->appendChild( $row );
@@ -355,6 +374,9 @@ function esnad_restructure( string $html, string $mode ): string {
 
 /** Which restructuring (if any) applies to this page content. */
 function esnad_lp_mode( string $html ): string {
+	if ( preg_match( '/شكر|thank/iu', (string) get_the_title() ) ) {
+		return 'thanks';
+	}
 	if ( false !== strpos( $html, 'client-grid' ) && false !== strpos( $html, 'esnad-form' ) ) {
 		return 'landing';
 	}

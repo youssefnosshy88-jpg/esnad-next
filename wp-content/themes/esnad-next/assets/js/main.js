@@ -121,6 +121,22 @@
 		});
 	});
 
+	/* Article category filter (progressive: without JS every article stays visible). */
+	d.querySelectorAll('.blog-filter').forEach(function (bar) {
+		var grid = d.querySelector('[data-blog]');
+		if (!grid) { return; }
+		bar.addEventListener('click', function (e) {
+			var b = e.target.closest('button[data-cat]');
+			if (!b) { return; }
+			var cat = b.getAttribute('data-cat');
+			bar.querySelectorAll('button').forEach(function (x) { x.classList.toggle('is-active', x === b); });
+			grid.querySelectorAll('.article').forEach(function (a) {
+				var has = cat === 'all' || (' ' + a.getAttribute('data-cats') + ' ').indexOf(' ' + cat + ' ') > -1;
+				a.hidden = !has;
+			});
+		});
+	});
+
 	/* Back to top with scroll-progress ring. */
 	var topBtn = d.querySelector('.to-top');
 	if (topBtn) {
