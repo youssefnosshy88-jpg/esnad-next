@@ -79,6 +79,32 @@ Status key: **Observed** = seen rendered. **DOM only** = present in markup, beha
 ### 13. Buttons, micro-interactions
 - **Observed** pill buttons with an icon circle; `transition: all` on list items. Application: already similar.
 
+## Deep audit: Home 6 (https://demo2.themelexus.com/antra/home-6/)
+
+Inspected at 1440 px, section by section (screenshots reviewed in the session). Page height about 13 060 px, 17 Elementor sections. Section tops measured by script.
+
+| # | Section (top px) | Composition observed | Behaviour observed | Application to Esnad |
+|---|---|---|---|---|
+| 1 | Hero (0) | Dark interior photo, eyebrow pill ("Trusted design partner"), three-tone headline (white, **gold keywords**, white), short paragraph, round "Start Project" button bottom-left, an oversized cropped word along the bottom edge | Load-time reveal (masked text, Slider Revolution). Giant word is cut by the viewport edge | Keep our video hero; adopt gold-keyword headline and a round primary action. Giant decorative word: only if it is the company name, in solid (not outlined) type. |
+| 2 | About "dual expertise" (951) | Collage of three overlapping rounded photographs on the left, eyebrow, headline with gold middle line, paragraph, **accordion** (active title gold with minus, others with plus), pill button "See more about us" | Accordion toggles on click (plus/minus icons present). Faint architectural line drawing as background | Esnad About: accordion for vision / mission / values with existing approved text. No photo collage until approved photography exists. |
+| 3 | Projects strip (1957) | Four full-height portrait cards edge to edge, category pill top, title bottom over a gradient | **Swiper carousel** (`antra-swiper-wrapper swiper`); hover-width change was tested and did **not** occur (widths stayed equal) | Not applicable: Esnad has no projects to show. A comparable strip could carry the eight services (already built as the numbered list). |
+| 4 | How we work (2837) | Eyebrow, big headline with gold keywords, photo left, 2×2 grid with huge pale ghost numerals 01–04 and bold step titles | Static layout (scroll reveal presumed, not verified) | Matches Esnad's advisory journey; our journey already has numbered stages. Ghost numerals can replace the outlined ones. |
+| 5 | Services (3885) | Dark section, headline with gold keywords, white rounded cards each with number at top right, title, text and a photograph; cards **staggered vertically** | Swiper carousel (`antra-service … swiper-wrapper`), not hover | Our numbered list + panel is the better fit for eight services. |
+| 6 | "What we do" (4925) | Headline with gold word, three check-mark rows, button, two overlapping photographs | Static | Optional for the About page. |
+| 7 | Full-bleed video CTA (5800) | Photograph or video across the viewport, enormous headline bottom-left, short paragraph bottom-right, centred round **play** button with ring | Play opens a video (presumed lightbox; not clicked) | Our CTA band: bigger headline and a play control only if Esnad supplies a presentation video. |
+| 8 | Skills (6650) | Left: three horizontal bars with percentages; right: 3D-rendered room; faint giant word behind | Bars fill on scroll (presumed) | **Not applicable**: percentages would be invented claims. |
+| 9 | Statistics (7600) | Photo background, four large numbers with labels, count-up | Count-up via `jquery-numerator` | Only with client-verified figures; none supplied. |
+| 10 | Testimonials (8548) | Photo, rating "4.80 (2,688 reviews)", quote, avatar | Slider | **Not applicable**: no testimonials or ratings may be invented. |
+| 11 | Giant text marquee + contact form (9453) | Dark band, enormous uppercase text running off the viewport, then a two-column block: heading, address and phone left; form with dark fields right | Text marquee is horizontal motion (mechanism not inspected) | Contact section on dark with the form; skip the giant marquee (client dislikes outlined/running display type). |
+| 12 | Blog (10552) | Eyebrow, headline with gold keywords, three cards with category pill, date and author, one card shown in hover state (dark overlay, title over image) | Hover state turns a card into an image-overlay variant | Article cards with category pill; hover overlay optional. |
+| 13 | Newsletter + footer (11610–13060) | Newsletter band then a large footer | Static | Footer already built; newsletter needs a mailing-list decision. |
+
+Global patterns seen on Home 6 and adopted as principles: every section header is *eyebrow pill + large headline with one or two gold keywords*; large radius (about 20 px) on all media; generous vertical rhythm of 100–140 px; alternating light and dark bands; round icon buttons for primary actions.
+
+### Verified vs not
+- Verified: the section list, order and visuals above; that projects and services are Swiper carousels; that hovering a project column does not resize it.
+- Not verified: scroll reveal timings, the play-button target, the marquee mechanism, the accordion animation, mobile layout of this page.
+
 ## Ideas for Esnad that are NOT from Antra
 - Financial motifs instead of architectural ones: bars, trend line and an axis of ticks as the single decorative language.
 - Atlas with the Esnad mark as the hub (Madari-style geographic storytelling).

@@ -761,3 +761,6 @@ body{font-size:17.5px}
   .svlist__item{padding:18px 4px}
 }
 @media (prefers-reduced-motion:reduce){.svlist__slide,.svlist__slide img{transition:none}}
+
+/* Section titles: one gold keyword (Antra Home 6 pattern, original implementation) */
+.h2 em{font-style:normal;color:var(--esnad-gold)}

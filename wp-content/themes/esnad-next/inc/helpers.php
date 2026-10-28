@@ -92,6 +92,13 @@ function esnad_clients_marquee(): string {
 	return $out . '</div>';
 }
 
+/** Section title with one gold keyword: the text is escaped, then the keyword is wrapped in <em>. */
+function esnad_gold( string $text, string $word ): string {
+	$html = esc_html( $text );
+	$kw   = esc_html( $word );
+	return '' !== $kw && false !== strpos( $html, $kw ) ? preg_replace( '/' . preg_quote( $kw, '/' ) . '/u', '<em>' . $kw . '</em>', $html, 1 ) : $html;
+}
+
 /** Every client logo in a plain, static grid (no motion): used inside page content. */
 function esnad_clients_grid(): string {
 	$logos = esnad_json( 'clients.json' );

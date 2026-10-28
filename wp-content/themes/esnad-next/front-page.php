@@ -120,7 +120,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 		</div>
 		<div class="about__text reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'عن إسناد', 'About Esnad' ) ); ?></p>
-			<h2 class="h2"><?php echo esc_html( esnad_t( 'لماذا إسناد المالية هي خيارك الإستراتيجي الأفضل لتحقيق أهدافك.', 'Why Esnad Advisory is your best strategic choice to achieve your goals.' ) ); ?></h2>
+			<h2 class="h2"><?php echo esnad_gold( esnad_t( 'لماذا إسناد المالية هي خيارك الإستراتيجي الأفضل لتحقيق أهدافك.', 'Why Esnad Advisory is your best strategic choice to achieve your goals.' ), esnad_t( 'خيارك الإستراتيجي الأفضل', 'best strategic choice' ) ); ?></h2>
 			<p><?php echo esc_html( $about_text ); ?></p>
 			<a class="text-link" href="<?php echo esc_url( esnad_url( 'about' ) ); ?>"><?php echo esc_html( esnad_t( 'اقرأ المزيد عن الشركة', 'Read more about the company' ) ); ?> <?php echo $arrow; // phpcs:ignore ?></a>
 		</div>
@@ -144,7 +144,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'خدماتنا', 'Our Services' ) ); ?></p>
-			<h2 class="h2" id="services-title"><?php echo esc_html( esnad_t( 'استكشف الخدمات حسب ما يناسب احتياجك', 'Explore services by what you need' ) ); ?></h2>
+			<h2 class="h2" id="services-title"><?php echo esnad_gold( esnad_t( 'استكشف الخدمات حسب ما يناسب احتياجك', 'Explore services by what you need' ), esnad_t( 'الخدمات', 'services' ) ); ?></h2>
 			<p class="section__sub"><?php echo esc_html( esnad_t( 'أداة للتنقل بين خدماتنا فقط، وليست استشارة مالية أو استثمارية.', 'A navigation aid for our services only. It is not financial or investment advice.' ) ); ?></p>
 		</header>
 
@@ -198,7 +198,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head section__head--light reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'أطلس إسناد المالي', 'Esnad Financial Atlas' ) ); ?></p>
-			<h2 class="h2" id="atlas-title"><?php echo esc_html( esnad_t( 'من الرياض… برؤية تفهم بيئة الأعمال السعودية', 'From Riyadh… with a view that understands the Saudi business environment' ) ); ?></h2>
+			<h2 class="h2" id="atlas-title"><?php echo esnad_gold( esnad_t( 'من الرياض… برؤية تفهم بيئة الأعمال السعودية', 'From Riyadh… with a view that understands the Saudi business environment' ), esnad_t( 'بيئة الأعمال السعودية', 'Saudi business environment' ) ); ?></h2>
 		</header>
 
 		<div class="atlas__grid" dir="ltr" data-atlas>
@@ -278,7 +278,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'كيف نعمل', 'How we work' ) ); ?></p>
-			<h2 class="h2" id="journey-title"><?php echo esc_html( esnad_t( 'رحلة استشارية واضحة من الفكرة إلى التسليم', 'A clear advisory journey from first question to delivery' ) ); ?></h2>
+			<h2 class="h2" id="journey-title"><?php echo esnad_gold( esnad_t( 'رحلة استشارية واضحة من الفكرة إلى التسليم', 'A clear advisory journey from first question to delivery' ), esnad_t( 'استشارية واضحة', 'clear advisory journey' ) ); ?></h2>
 		</header>
 		<ol class="journey__steps">
 			<?php foreach ( $journey as $i => $step ) : ?>
@@ -298,7 +298,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'لماذا إسناد', 'Why Esnad' ) ); ?></p>
-			<h2 class="h2" id="why-title"><?php echo esc_html( esnad_t( 'أربعة أسس تقوم عليها خدماتنا', 'Four foundations behind our work' ) ); ?></h2>
+			<h2 class="h2" id="why-title"><?php echo esnad_gold( esnad_t( 'أربعة أسس تقوم عليها خدماتنا', 'Four foundations behind our work' ), esnad_t( 'أربعة أسس', 'Four foundations' ) ); ?></h2>
 		</header>
 		<div class="pillars">
 			<?php foreach ( $pillars as $p ) : ?>
@@ -317,7 +317,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'احتياجات الأعمال', 'Business needs' ) ); ?></p>
-			<h2 class="h2" id="needs-title"><?php echo esc_html( esnad_t( 'ما تحتاجه جهتك، وأين تجد الخدمة المناسبة', 'What your organization needs, and where to find the service' ) ); ?></h2>
+			<h2 class="h2" id="needs-title"><?php echo esnad_gold( esnad_t( 'ما تحتاجه جهتك، وأين تجد الخدمة المناسبة', 'What your organization needs, and where to find the service' ), esnad_t( 'الخدمة المناسبة', 'the service' ) ); ?></h2>
 		</header>
 		<div class="needs">
 			<?php foreach ( $needs as $row ) : ?>
@@ -352,7 +352,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'الإفصاح', 'Disclosure' ) ); ?></p>
-			<h2 class="h2" id="compliance-title"><?php echo esc_html( esnad_t( 'المعلومات التنظيمية والإفصاحات الرسمية', 'Regulatory information and official disclosures' ) ); ?></h2>
+			<h2 class="h2" id="compliance-title"><?php echo esnad_gold( esnad_t( 'المعلومات التنظيمية والإفصاحات الرسمية', 'Regulatory information and official disclosures' ), esnad_t( 'الإفصاحات الرسمية', 'official disclosures' ) ); ?></h2>
 		</header>
 		<div class="docs">
 			<a class="doc" href="<?php echo esc_url( esnad_url( 'disclosure' ) ); ?>">
@@ -408,7 +408,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container container--narrow">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'الأسئلة الشائعة', 'FAQ' ) ); ?></p>
-			<h2 class="h2" id="faq-title"><?php echo esc_html( esnad_t( 'إجابات مختصرة وموثقة', 'Short, verified answers' ) ); ?></h2>
+			<h2 class="h2" id="faq-title"><?php echo esnad_gold( esnad_t( 'إجابات مختصرة وموثقة', 'Short, verified answers' ), esnad_t( 'موثقة', 'verified' ) ); ?></h2>
 		</header>
 		<div class="faq">
 			<?php foreach ( esnad_faq() as $qa ) : ?>
@@ -425,7 +425,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 <section class="cta" aria-labelledby="cta-title">
 	<div class="cta__art" aria-hidden="true"></div>
 	<div class="container cta__inner">
-		<h2 class="h2" id="cta-title"><?php echo esc_html( esnad_t( 'القرار المدروس يبدأ بحوار واضح.', 'A considered decision starts with a clear conversation.' ) ); ?></h2>
+		<h2 class="h2" id="cta-title"><?php echo esnad_gold( esnad_t( 'القرار المدروس يبدأ بحوار واضح.', 'A considered decision starts with a clear conversation.' ), esnad_t( 'حوار واضح', 'clear conversation' ) ); ?></h2>
 		<div class="hero__cta">
 			<a class="btn btn--gold" href="<?php echo esc_url( esnad_consult_url() ); ?>"><?php echo esc_html( esnad_t( 'اطلب استشارة', 'Request a consultation' ) ); ?></a>
 			<a class="btn btn--outline" href="<?php echo esc_url( esnad_url( 'contact' ) ); ?>"><?php echo esc_html( esnad_t( 'تواصل معنا', 'Contact us' ) ); ?></a>
