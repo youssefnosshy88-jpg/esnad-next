@@ -454,8 +454,8 @@ address.footer-col{font-style:normal}
 .marquee__track{display:flex;flex:none;gap:16px;min-inline-size:100%;justify-content:space-around;animation:marq 70s linear infinite}
 .marquee__row.is-reverse .marquee__track{animation-direction:reverse;animation-duration:85s}
 .marquee__row:hover .marquee__track{animation-play-state:paused}
-.marquee li{flex:none;display:grid;place-items:center;inline-size:210px;block-size:112px;overflow:hidden;padding:10px 14px;background:#fff;border-radius:var(--radius-medium);box-shadow:0 14px 30px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(199,144,29,.35)}
-.marquee img{inline-size:100%;block-size:100%;object-fit:contain;filter:none;opacity:1;transition:filter .3s,opacity .3s,transform .4s var(--ease-premium)}
+.marquee li{flex:none;display:grid;place-items:center;inline-size:156px;block-size:156px;overflow:hidden;padding:8px;background:#fff;border-radius:var(--radius-medium);box-shadow:0 14px 30px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(199,144,29,.35)}
+.marquee img{inline-size:100%;block-size:100%;aspect-ratio:1;object-fit:contain;filter:none;opacity:1;transition:filter .3s,opacity .3s,transform .4s var(--ease-premium)}
 .marquee li:hover img{filter:none;opacity:1;transform:scale(1.06)}
 @keyframes marq{to{transform:translateX(calc(-100% - 16px))}}
 @media (prefers-reduced-motion:reduce){

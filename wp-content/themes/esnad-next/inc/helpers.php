@@ -84,7 +84,7 @@ function esnad_clients_marquee(): string {
 	foreach ( $rows as $r => $row ) {
 		$items = '';
 		foreach ( $row as $logo ) {
-			$items .= '<li><img src="' . esc_url( $base . $logo ) . '" alt="" width="160" height="90" loading="lazy" decoding="async"></li>';
+			$items .= '<li><img src="' . esc_url( $base . $logo ) . '" alt="" width="156" height="156" loading="lazy" decoding="async"></li>';
 		}
 		// The list is printed twice so the loop is seamless; the copy is hidden from assistive tech.
 		$out .= '<div class="marquee__row' . ( $r ? ' is-reverse' : '' ) . '"><ul class="marquee__track">' . $items . '</ul><ul class="marquee__track" aria-hidden="true">' . $items . '</ul></div>';
