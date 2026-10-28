@@ -23,8 +23,10 @@ add_action( 'after_setup_theme', static function (): void {
 /** Assets: one stylesheet, one deferred script, fonts preloaded from the theme. */
 add_action( 'wp_enqueue_scripts', static function (): void {
 	$uri = get_template_directory_uri();
-	wp_enqueue_style( 'esnad', $uri . '/assets/css/main.css', array(), ESNAD_VER );
-	wp_enqueue_script( 'esnad', $uri . '/assets/js/main.js', array(), ESNAD_VER, array( 'strategy' => 'defer', 'in_footer' => true ) );
+	$dir = get_template_directory();
+	// Version by file time so every change busts browser and CDN caches.
+	wp_enqueue_style( 'esnad', $uri . '/assets/css/main.css', array(), (string) filemtime( $dir . '/assets/css/main.css' ) );
+	wp_enqueue_script( 'esnad', $uri . '/assets/js/main.js', array(), (string) filemtime( $dir . '/assets/js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 	// Drop block/global CSS the theme does not need on the front end.
 	wp_dequeue_style( 'global-styles' );
 	wp_dequeue_style( 'classic-theme-styles' );
@@ -34,10 +36,15 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 add_action( 'wp_head', static function (): void {
 	$uri = get_template_directory_uri() . '/assets/fonts/';
 	$sub = esnad_is_rtl() ? 'arabic' : 'latin';
-	foreach ( array( 400, 600 ) as $w ) {
-		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "ibm-plex-sans-arabic-$sub-$w-normal.woff2" ) );
-	}
+	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "readex-pro-$sub.woff2" ) );
 }, 1 );
+
+/** Official logo mark as favicon when no Site Icon is set in the Customizer. */
+add_action( 'wp_head', static function (): void {
+	if ( ! has_site_icon() ) {
+		printf( '<link rel="icon" type="image/png" href="%s">' . "\n", esc_url( get_template_directory_uri() . '/assets/img/favicon.png' ) );
+	}
+}, 2 );
 
 /** Remove default WordPress head clutter and emoji scripts. */
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );

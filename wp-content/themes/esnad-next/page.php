@@ -21,6 +21,29 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 
 	<div class="entry">
 		<div class="container entry__layout<?php echo $is_service ? '' : ' entry__layout--single'; ?>">
+			<?php if ( in_array( get_the_ID(), array( 1483, 29484 ), true ) ) :
+				$c   = esnad_company();
+				$img = preg_match( '/<img[^>]+src="([^"]+)"/', get_the_content(), $m ) ? $m[1] : '';
+				?>
+				<div class="contact-grid">
+					<div class="contact-info">
+						<h2><?php echo esc_html( esnad_t( 'مكتب الرياض', 'Riyadh Office' ) ); ?></h2>
+						<ul class="info-cards">
+							<li><?php echo esnad_icon( 'pin', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'العنوان', 'Address' ) ); ?></span><b><?php echo esc_html( esnad_t( $c['street_ar'] . ' - ' . $c['city_ar'] . ' - السعودية', $c['street_en'] . ', ' . $c['city_en'] . ', K.S.A' ) ); ?></b></li>
+							<li><?php echo esnad_icon( 'phone', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'هاتف', 'Phone' ) ); ?></span><a href="tel:<?php echo esc_attr( $c['phone_tel'] ); ?>" dir="ltr"><?php echo esc_html( $c['phone'] ); ?></a></li>
+							<li><?php echo esnad_icon( 'mail', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'البريد الإلكتروني', 'E-Mail' ) ); ?></span><a href="mailto:<?php echo esc_attr( $c['email'] ); ?>"><?php echo esc_html( $c['email'] ); ?></a></li>
+						</ul>
+						<?php if ( $img ) : ?>
+							<img class="contact-img" src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( esnad_t( 'موقع المكتب', 'Office location' ) ); ?>" loading="lazy" decoding="async">
+						<?php endif; ?>
+					</div>
+					<div class="contact-form" id="contact-form">
+						<h2><?php echo esc_html( esnad_t( 'نموذج الاتصال', 'Contact form' ) ); ?></h2>
+						<p><?php echo esc_html( esnad_t( 'لا تتردد في الاتصال بنا إذا كان لديك أي استفسارات أو أسئلة أو كنت ترغب في إرسال ملاحظات.', 'Please feel free to contact us if you have any inquiries, questions or would like to send a feedback or complaint.' ) ); ?></p>
+						<?php echo do_shortcode( '[esnad_contact_form]' ); ?>
+					</div>
+				</div>
+			<?php else : ?>
 			<article <?php post_class( 'entry-content' ); ?>>
 				<?php the_content(); ?>
 				<?php if ( in_array( get_the_ID(), array( 36118, 36126, 31392 ), true ) ) {
@@ -44,6 +67,7 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 					</div>
 				<?php endif; ?>
 			</article>
+			<?php endif; ?>
 
 			<?php if ( $is_service ) : ?>
 				<aside class="aside" aria-label="<?php echo esc_attr( esnad_t( 'خدمات أخرى', 'More services' ) ); ?>">
