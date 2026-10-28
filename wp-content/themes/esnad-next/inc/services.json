@@ -1,0 +1,114 @@
+﻿[
+    {
+        "key":  "governance",
+        "ar":  {
+                   "title":  "خدمات الحوكمة",
+                   "text":  "تهدف حوكمة الشركات الى زيادة كفاءة وفعالية إدارة المنظمات، وتوفر للشركة قاعدة مستقرة يمكن من خلالها تنفيذ أعمالها بأدوار وصلاحيات محددة بوضوح ومن خلال الضوابط والتوازنات اللازمة. لذلك تعد حوكمة الشركات أداة عمل عملية وعنصرًا أساسيًا لا يتجزأ من",
+                   "url":  "/governance-services/"
+               },
+        "en":  {
+                   "title":  "Governance Services",
+                   "text":  "Corporate governance aims to increase the efficiency and effectiveness of the management of organizations and provides the company with a stable base from which to carry out its work with clearly defined roles and authorities and through the necessary checks and balances. Therefore, corporate governance is a practical business tool",
+                   "url":  "https://www.esnadadvisory.sa/en/governance-services/"
+               },
+        "img":  "2024/09/dma_12-web-2.jpg"
+    },
+    {
+        "key":  "risk",
+        "ar":  {
+                   "title":  "إدارة المخاطر",
+                   "text":  "إدارة المخاطر هي عملية قياس وتقييم للمخاطر وتطوير إستراتيجيات لإدارتها، وكذلك تحديد الإستراتيجية التي سيتم اتّباعها لإدارة ورصد المخاطر المستقبلية. وتشمل خدمات ادارة المخاطر في شركة اسناد المالية العديد من الخدمات منها التقييم الدوري للمخاطر واعداد خطة",
+                   "url":  "/risk-managment-services/"
+               },
+        "en":  {
+                   "title":  "Risk Management",
+                   "text":  "Risk management is the process of measuring and evaluating risks and developing strategies for managing them, as well as defining the strategy to be followed to manage and monitor future risks. The risk management services in Esnad Advisory Company include many services, including develop the risk framework \u0026 develop",
+                   "url":  "https://www.esnadadvisory.sa/en/risk-managment-services/"
+               },
+        "img":  "2024/09/dma_14-web.jpg"
+    },
+    {
+        "key":  "funds",
+        "ar":  {
+                   "title":  "تطوير وهيكلة الصناديق",
+                   "text":  "تهدف صناديقُ الاستثمار لتحقيق أهداف ومٌتطلبات المستثمرين، وتناسب مستويات المخاطر المقبولة لديهم. وبناءً على أهدف كل صندوق يتم إتباع إستراتيجيات إستثمارية لتحقيقها، لذا تختلف الأوراق المالية التي تُشكل أصول هذه الصناديق بإختلاف أهدافها",
+                   "url":  "/fund-development-services/"
+               },
+        "en":  {
+                   "title":  "Funds development and structuring",
+                   "text":  "Investment funds aim to achieve the goals and requirements of investors, and commensurate with the levels of risk acceptable to them. Based on the objectives of each fund, investment strategies are followed to achieve them, so the financial stocks that make up the assets of these funds differ according to their different objectives",
+                   "url":  "https://www.esnadadvisory.sa/en/fund-development-services/"
+               },
+        "img":  "2024/09/dma_16-web-1.jpg"
+    },
+    {
+        "key":  "compliance",
+        "ar":  {
+                   "title":  "الالتزام ومكافحة غسيل الأموال وتمويل الارهاب",
+                   "text":  "يعد قسم المطابقة والالتزام ومكافحة غسيل الاموال وتمويل الارهاب اساسيا في الشركات المالية حيث انه لا يمكن تأسيس شركة مالية وقبول طلب الترخيص من قبل هيئة السوق المالية الا بوجود هذا القسم حيث تزيد المطابقة والالتزام ومكافحة غسيل الاموال وتمويل",
+                   "url":  "/compliance-services/"
+               },
+        "en":  {
+                   "title":  "Compliance,Anti Money laundering \u0026 CTF",
+                   "text":  "The Department of Compliance and Combating Money Laundering and Terrorism Financing is essential in financial companies, as it is not possible to establish a financial company and accept a license application by the Capital Market Authority except with the presence of this section, where compliance and commitment and combating",
+                   "url":  "https://www.esnadadvisory.sa/en/compliance-services/"
+               },
+        "img":  "2025/05/Image.jpg"
+    },
+    {
+        "key":  "licensing",
+        "ar":  {
+                   "title":  "خدمات التراخيص",
+                   "text":  "يحتاج المستثمرون في السوق المالية السعودي الى الحصول على الرخص المطلوبة لممارسة العمل في بيئة تنظيمية عن طريق تقديم طلب الى هيئة السوق المالية. نقوم نحن بشركة اسناد المالية بتولي ملف الرخصة بالنيابة عن العميل وذلك عن طريق اعداد المستندات",
+                   "url":  "/licensing-services/"
+               },
+        "en":  {
+                   "title":  "Licensing Services",
+                   "text":  "Investors in the Saudi stock market need to obtain the required licenses to operate in a regulatory environment by applying to the Capital Market Authority. We at Esnad Advisory Company handle the license file and operation on behalf of the client by preparing documents required by the Capital Market Authority",
+                   "url":  "https://www.esnadadvisory.sa/en/licensing-services/"
+               },
+        "img":  "2024/09/dma_17-web-1.jpg"
+    },
+    {
+        "key":  "audit",
+        "ar":  {
+                   "title":  "خدمات المراجعة الداخلية",
+                   "text":  "بدون المراجعة الداخلية تعاني الشركات بشكل كبير لغياب الدور الرقابي الفعال، فبدون ضوابط ترتفع نسبة الأخطاء والأعمال غير المشروعة والتي تحول دون تحقيق الشركات لأهدافها. في إسناد لدينا نخبة من الخبراء في المراجعة الداخلية لمساعدتك في الوصول لأهدافك",
+                   "url":  "/internal-audit-services/"
+               },
+        "en":  {
+                   "title":  "Internal Audit",
+                   "text":  "Without internal audit, companies will suffer greatly due to the absence of effective supervisory role. Without controls, this increases the rate of committing mistakes, which the more they are committed, the more prevents companies from achieving their goals and aspirations. At Esnad Advisory Company, we have experts in internal auditing who",
+                   "url":  "https://www.esnadadvisory.sa/en/internal-audit-services/"
+               },
+        "img":  "2024/09/dma_15-web-1.jpg"
+    },
+    {
+        "key":  "arrangement",
+        "ar":  {
+                   "title":  "خدمات الترتيب",
+                   "text":  "خدمات الترتيب تركز على تنسيق وإدارة الصفقات المالية، مثل تمويل المشاريع وإصدار الأوراق المالية، مع ضمان الامتثال للقوانين والمعايير المالية. دوره الأساسي هو تسهيل التعاملات بين الشركة والعملاء، وتقليل المخاطر المالية، وتحسين الكفاءة التشغيلية، مما يساهم في تحقيق الأهداف ...",
+                   "url":  "/arrangement-services/"
+               },
+        "en":  {
+                   "title":  "Arrangement services",
+                   "text":  "The arranging department focuses on coordinating and managing financial transactions, such as project financing and issuance of securities, while ensuring compliance with financial laws and standards. Its primary role is to facilitate transactions between the company and customers, reduce financial risks, and improve operational efficiency...",
+                   "url":  "https://www.esnadadvisory.sa/en/arrangement-services-2/"
+               },
+        "img":  "2024/09/dma_19-web-1.jpg"
+    },
+    {
+        "key":  "feasibility",
+        "ar":  {
+                   "title":  "خدمات دراسات الجدوي",
+                   "text":  "خدمات دراسات الجدوى تهدف إلى تقييم جدوى المشاريع الاستثمارية من خلال تحليل الجوانب المالية، الفنية، والتسويقية. تساعد هذه الدراسات في تحديد مدى قدرة المشروع على تحقيق الأرباح وتلبية المتطلبات التقنية والسوقية، مما يدعم اتخاذ قرارات استثمارية مستنيرة...",
+                   "url":  "/feasibility-studies-services/"
+               },
+        "en":  {
+                   "title":  "Feasibility studies",
+                   "text":  "Feasibility studies services aim to evaluate the feasibility of investment projects by analyzing the financial, technical, and marketing aspects. These studies help determine the project’s ability to generate profits and meet technical and market requirements, which supports making informed investment decisions...",
+                   "url":  "https://www.esnadadvisory.sa/en/feasibility-studies-services/"
+               },
+        "img":  "2024/09/dma_20-web.jpg"
+    }
+]

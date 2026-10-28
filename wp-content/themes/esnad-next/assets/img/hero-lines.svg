@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#C7901D" stroke-width="1.2" stroke-opacity=".55">
+<!-- Abstract architectural skyline of thin lines; decorative placeholder until an authentic photograph is supplied. -->
+<g stroke-opacity=".35">
+<path d="M0 760H1600"/><path d="M0 800H1600" stroke-opacity=".2"/>
+<path d="M1010 760V380L1070 330V760M1070 330L1130 380V760"/>
+<path d="M1150 760V250L1210 200L1270 250V760M1210 200V760" stroke-opacity=".6"/>
+<path d="M1290 760V420H1380V760M1290 500H1380M1290 580H1380M1290 660H1380"/>
+<path d="M1400 760V540L1470 500V760M1470 500L1540 540V760"/>
+<path d="M880 760V500H980V760M880 580H980M880 660H980"/>
+<path d="M760 760V610H840V760"/>
+</g>
+<g stroke-opacity=".25">
+<circle cx="1210" cy="200" r="140"/><circle cx="1210" cy="200" r="230" stroke-opacity=".5"/><circle cx="1210" cy="200" r="340" stroke-opacity=".3"/>
+</g>
+<g stroke-opacity=".18"><path d="M0 120L1600 120M0 220L1600 220M0 320L1600 320"/></g>
+</svg>

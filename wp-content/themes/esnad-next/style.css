@@ -1,0 +1,11 @@
+/*
+Theme Name: ESNAD NEXT
+Theme URI: https://www.esnadadvisory.sa/
+Author: ESNAD Financial
+Description: Lightweight RTL-first theme for Esnad Financial. No page builder required; content is edited with the block editor.
+Version: 1.0.0
+Requires at least: 6.4
+Requires PHP: 7.4
+Text Domain: esnad-next
+*/
+/* All styles live in assets/css/main.css so they can be preloaded and cached separately. */

@@ -1,0 +1,138 @@
+/* ESNAD NEXT — vanilla JS, no dependencies. */
+(function () {
+	'use strict';
+	var d = document;
+	var root = d.documentElement;
+	root.classList.add('js');
+	var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	/* Header: solid after scrolling past the hero top. */
+	var header = d.getElementById('site-header');
+	if (header) {
+		var onScroll = function () { header.classList.toggle('is-solid', window.scrollY > 40); };
+		onScroll();
+		window.addEventListener('scroll', onScroll, { passive: true });
+	}
+
+	/* Mobile navigation drawer. */
+	var toggle = d.querySelector('.nav-toggle');
+	var nav = d.getElementById('primary-nav');
+	if (toggle && nav) {
+		toggle.addEventListener('click', function () {
+			var open = toggle.getAttribute('aria-expanded') !== 'true';
+			toggle.setAttribute('aria-expanded', String(open));
+			nav.classList.toggle('is-open', open);
+			d.body.style.overflow = open ? 'hidden' : '';
+		});
+		d.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') {
+				toggle.setAttribute('aria-expanded', 'false');
+				nav.classList.remove('is-open');
+				d.body.style.overflow = '';
+				d.querySelectorAll('.has-sub.is-open').forEach(function (li) { li.classList.remove('is-open'); });
+			}
+		});
+	}
+	/* Sub-menus: buttons toggle aria-expanded (works for touch and keyboard). */
+	d.querySelectorAll('.sub-toggle').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var li = btn.closest('.has-sub');
+			var open = !li.classList.contains('is-open');
+			li.classList.toggle('is-open', open);
+			btn.setAttribute('aria-expanded', String(open));
+		});
+	});
+
+	/* Reveal on scroll. */
+	var reveals = d.querySelectorAll('.reveal');
+	if ('IntersectionObserver' in window && !reduce) {
+		var io = new IntersectionObserver(function (entries) {
+			entries.forEach(function (en) {
+				if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+			});
+		}, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+		reveals.forEach(function (el) { io.observe(el); });
+	} else {
+		reveals.forEach(function (el) { el.classList.add('is-in'); });
+	}
+
+	/* Service explorer: tabs + need/challenge choosers. */
+	d.querySelectorAll('[data-explorer]').forEach(function (ex) {
+		var tabs = Array.prototype.slice.call(ex.querySelectorAll('[role="tab"]'));
+		function select(tab) {
+			tabs.forEach(function (t) {
+				var on = t === tab;
+				t.setAttribute('aria-selected', String(on));
+				t.tabIndex = on ? 0 : -1;
+				var p = d.getElementById(t.getAttribute('aria-controls'));
+				if (p) { p.hidden = !on; }
+			});
+		}
+		tabs.forEach(function (t, i) {
+			t.addEventListener('click', function () { select(t); });
+			t.addEventListener('keydown', function (e) {
+				var n = null;
+				if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+					var rtl = root.dir === 'rtl';
+					var step = (e.key === 'ArrowRight') !== rtl ? 1 : -1;
+					n = tabs[(i + step + tabs.length) % tabs.length];
+				}
+				if (n) { e.preventDefault(); select(n); n.focus(); }
+			});
+		});
+		ex.querySelectorAll('.chooser').forEach(function (ch) {
+			var btns = ch.querySelectorAll('.chooser__list button');
+			var cards = ch.querySelectorAll('.chip-card');
+			function show(btn) {
+				var targets = (btn.getAttribute('data-targets') || '').split(',');
+				btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+				cards.forEach(function (c) { c.hidden = targets.indexOf(c.getAttribute('data-service')) === -1; });
+			}
+			btns.forEach(function (b) { b.addEventListener('click', function () { show(b); }); });
+			if (btns[0]) { show(btns[0]); }
+		});
+	});
+
+	/* Financial Atlas: choose a service, trace its route from Riyadh. */
+	d.querySelectorAll('[data-atlas]').forEach(function (at) {
+		var btns = at.querySelectorAll('.atlas__list button');
+		var items = at.querySelectorAll('.atlas__item');
+		var routes = at.querySelectorAll('.route');
+		var rails = at.querySelectorAll('.rail');
+		function show(key) {
+			btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-service') === key)); });
+			items.forEach(function (i) { i.hidden = i.getAttribute('data-service') !== key; });
+			routes.forEach(function (r) { r.classList.toggle('is-on', r.getAttribute('data-route') === key); });
+			rails.forEach(function (r) { r.classList.toggle('is-on', r.getAttribute('data-rail') === key); });
+		}
+		btns.forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-service')); }); });
+		rails.forEach(function (r) { r.addEventListener('click', function () { show(r.getAttribute('data-rail')); }); });
+		if (btns[0]) { show(btns[0].getAttribute('data-service')); }
+	});
+
+	/* Advisory journey: desktop progress follows scroll; click/focus also activates a step. */
+	d.querySelectorAll('[data-journey]').forEach(function (j) {
+		var steps = Array.prototype.slice.call(j.querySelectorAll('.step'));
+		var bar = j.querySelector('.journey__line span');
+		function set(n) {
+			steps.forEach(function (s, i) { s.classList.toggle('is-active', i === n); });
+			if (bar) { j.style.setProperty('--p', ((n + 1) / steps.length * 100) + '%'); }
+		}
+		steps.forEach(function (s, i) {
+			s.addEventListener('click', function () { set(i); });
+			s.tabIndex = 0;
+			s.addEventListener('focus', function () { set(i); });
+		});
+		if (reduce || !('IntersectionObserver' in window)) { set(0); return; }
+		var wide = window.matchMedia('(min-width:1025px)');
+		function sync() {
+			if (!wide.matches) { return; }
+			var r = j.getBoundingClientRect();
+			var vh = window.innerHeight;
+			var p = (vh * 0.65 - r.top) / (r.height * 0.8);
+			set(Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length))));
+		}
+		window.addEventListener('scroll', sync, { passive: true });
+		sync();
+	});
+})();
