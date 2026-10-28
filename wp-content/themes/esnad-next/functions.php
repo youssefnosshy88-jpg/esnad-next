@@ -72,6 +72,11 @@ add_filter( 'the_content', static function ( string $html ): string {
 	return is_singular() ? (string) preg_replace( '#<figure[^>]*wp-block-image[^>]*>\s*<img[^>]+(?:favicon|Favicon)[^>]*>\s*</figure>#i', '', $html ) : $html;
 }, 19 );
 
+/** Drop the stray "back" labels the old builder left as headings. */
+add_filter( 'the_content', static function ( string $html ): string {
+	return is_singular() ? (string) preg_replace( '#<h[1-6][^>]*>\s*العودة\s*</h[1-6]>#u', '', $html ) : $html;
+}, 18 );
+
 /** The page hero owns the single <h1>; any <h1> inside migrated content becomes an <h2>. */
 add_filter( 'the_content', static function ( string $html ): string {
 	return is_singular() ? (string) preg_replace( '/<(\/?)h1\b/i', '<$1h2', $html ) : $html;

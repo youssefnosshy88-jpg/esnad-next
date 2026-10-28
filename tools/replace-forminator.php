@@ -25,7 +25,7 @@ $posts = $wpdb->get_results( "SELECT ID, post_content FROM {$wpdb->posts} WHERE 
 $stats = array( 'contact' => 0, 'removed' => 0, 'careers' => 0, 'invest' => 0, 'unknown' => 0 );
 foreach ( $posts as $p ) {
 	$new = preg_replace_callback(
-		'/<!-- wp:shortcode -->\s*\[forminator_form[^\]]*?id="?(\d+)"?[^\]]*\]\s*<!-- \/wp:shortcode -->/',
+		'/(?:<!-- wp:shortcode -->\s*)?\[forminator_form[^\]]*?id=(?:"|&#8221;|&#8243;|”|″)?(\d+)[^\]]*\](?:\s*<!-- \/wp:shortcode -->)?/u',
 		static function ( array $m ) use ( $contact_forms, $remove_forms, $careers_forms, $invest_forms, $block, $para, &$stats ): string {
 			$id = (int) $m[1];
 			if ( in_array( $id, $contact_forms, true ) ) {
