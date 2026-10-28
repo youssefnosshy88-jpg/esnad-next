@@ -112,6 +112,44 @@
 		topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
 	}
 
+	/* Reading progress bar. */
+	var bar = d.querySelector('.read-bar span');
+	if (bar) {
+		var upd = function () { var m = Math.max(1, d.documentElement.scrollHeight - window.innerHeight); bar.parentNode.style.setProperty('--rp', Math.min(1, window.scrollY / m).toFixed(3)); };
+		window.addEventListener('scroll', upd, { passive: true }); upd();
+	}
+
+	/* Stagger index for children of curtain blocks. */
+	d.querySelectorAll('.cards, .pillars, .needs, .docs, .articles, .faq, .info-cards, .year-grid, .people, .values, .vm').forEach(function (g) {
+		Array.prototype.slice.call(g.children, 0, 14).forEach(function (ch, i) { ch.style.setProperty('--i', i); });
+	});
+
+	if (!reduce) {
+		/* Hero parallax: video and lattice drift slower than the page. */
+		var heroMedia = d.querySelector('.hero__media');
+		var heroArt = d.querySelector('.hero__art');
+		if (heroMedia) {
+			var par = function () {
+				var y = Math.min(window.scrollY, 900);
+				heroMedia.style.transform = 'translate3d(0,' + (y * 0.25).toFixed(1) + 'px,0) scale(1.08)';
+				if (heroArt) { heroArt.style.transform = 'translate3d(0,' + (y * 0.12).toFixed(1) + 'px,0)'; }
+			};
+			window.addEventListener('scroll', par, { passive: true }); par();
+		}
+		/* Soft 3D tilt on service cards (pointer devices only). */
+		if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+			d.querySelectorAll('.card').forEach(function (card) {
+				card.addEventListener('pointermove', function (e) {
+					var r = card.getBoundingClientRect();
+					var px = (e.clientX - r.left) / r.width - 0.5;
+					var py = (e.clientY - r.top) / r.height - 0.5;
+					card.style.transform = 'perspective(900px) rotateX(' + (-py * 5).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg) translateY(-6px)';
+				});
+				card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+			});
+		}
+	}
+
 	/* Service explorer: tabs + need/challenge choosers. */
 	d.querySelectorAll('[data-explorer]').forEach(function (ex) {
 		var tabs = Array.prototype.slice.call(ex.querySelectorAll('[role="tab"]'));
@@ -151,7 +189,7 @@
 
 	/* Financial Atlas: choose a service, trace its route from Riyadh. */
 	d.querySelectorAll('[data-atlas]').forEach(function (at) {
-		var btns = at.querySelectorAll('.atlas__list button');
+		var btns = at.querySelectorAll('.atlas__list button, .node');
 		var items = at.querySelectorAll('.atlas__item');
 		var routes = at.querySelectorAll('.route');
 		var rails = at.querySelectorAll('.rail');

@@ -14,6 +14,7 @@ $hero  = is_front_page();
 </head>
 <body <?php body_class( $hero ? 'has-hero' : '' ); ?>>
 <?php wp_body_open(); ?>
+<div class="read-bar" aria-hidden="true"><span></span></div>
 <a class="skip-link" href="#main"><?php echo esc_html( esnad_t( 'انتقل إلى المحتوى', 'Skip to content' ) ); ?></a>
 
 <header class="site-header" id="site-header" data-over-hero="<?php echo $hero ? '1' : '0'; ?>">

@@ -72,6 +72,24 @@ add_filter( 'the_content', static function ( string $html ): string {
 	return is_singular() ? (string) preg_replace( '/<(\/?)h1\b/i', '<$1h2', $html ) : $html;
 }, 20 );
 
+/** Service pages: wrap each H2 section in a numbered card so long pages read as clear chapters. */
+add_filter( 'the_content', static function ( string $html ): string {
+	if ( ! is_singular( 'page' ) || ! esnad_is_service_page() ) {
+		return $html;
+	}
+	$parts = preg_split( '/(?=<h2\b)/i', $html );
+	if ( ! is_array( $parts ) || count( $parts ) < 3 ) {
+		return $html;
+	}
+	$out = (string) array_shift( $parts );
+	$n   = 0;
+	foreach ( $parts as $p ) {
+		$n++;
+		$out .= '<section class="svc-sec"><span class="svc-sec__no" aria-hidden="true">' . str_pad( (string) $n, 2, '0', STR_PAD_LEFT ) . '</span>' . $p . '</section>';
+	}
+	return $out;
+}, 25 );
+
 /** [esnad_clients]: the approved client logo wall (used by the migrated About page). */
 add_shortcode( 'esnad_clients', static function (): string {
 	return '<div class="clients clients--dark clients--inline">' . esnad_clients_marquee() . '</div>';

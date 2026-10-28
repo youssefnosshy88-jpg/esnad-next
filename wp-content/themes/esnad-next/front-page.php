@@ -94,6 +94,19 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	</div>
 </section>
 
+<!-- TEXT BAND: the eight service names as an outlined ticker -->
+<div class="ticker" aria-hidden="true">
+	<div class="ticker__row">
+		<?php for ( $k = 0; $k < 2; $k++ ) : ?>
+			<ul class="ticker__track">
+				<?php foreach ( $services as $svc ) : ?>
+					<li><?php echo esc_html( $svc['title'] ); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endfor; ?>
+	</div>
+</div>
+
 <!-- 03 ABOUT -->
 <section class="section about" id="about">
 	<div class="container about__grid">
@@ -190,27 +203,49 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 
 		<div class="atlas__grid" dir="ltr" data-atlas>
 			<figure class="atlas__map">
-				<svg viewBox="0 0 <?php echo (int) $ksa['w']; ?> <?php echo (int) $ksa['h']; ?>" role="img" aria-labelledby="atlas-map-title atlas-map-desc">
-					<title id="atlas-map-title"><?php echo esc_html( esnad_t( 'خريطة مبسطة للمملكة العربية السعودية', 'Simplified map of Saudi Arabia' ) ); ?></title>
-					<desc id="atlas-map-desc"><?php echo esc_html( esnad_t( 'تُظهر موقع المقر الرئيسي في الرياض والمسارات نحو خدمات الشركة.', 'Shows the Riyadh headquarters and routes to the company\'s services.' ) ); ?></desc>
-					<defs>
-						<radialGradient id="glow"><stop offset="0" stop-color="#C7901D" stop-opacity=".55"/><stop offset="1" stop-color="#C7901D" stop-opacity="0"/></radialGradient>
-					</defs>
-					<path class="atlas__land" d="<?php echo esc_attr( $ksa['path'] ); ?>"/>
-					<g class="atlas__routes">
-						<?php $i = 0; foreach ( $services as $svc ) :
-							$ry = 40 + $i * 80;
-							$rx = $ksa['riyadh'][0]; $rY = $ksa['riyadh'][1];
-							$d  = sprintf( 'M%1$s,%2$s C%3$s,%4$s %5$s,%6$s 860,%7$s', $rx, $rY, $rx + 120, $rY - 40, 700, $ry, $ry );
-							?>
-							<path class="route" data-route="<?php echo esc_attr( $svc['key'] ); ?>" d="<?php echo esc_attr( $d ); ?>" pathLength="1"/>
-							<circle class="rail" data-rail="<?php echo esc_attr( $svc['key'] ); ?>" cx="860" cy="<?php echo (int) $ry; ?>" r="6"/>
-						<?php $i++; endforeach; ?>
-					</g>
-					<circle class="hq-glow" cx="<?php echo esc_attr( $ksa['riyadh'][0] ); ?>" cy="<?php echo esc_attr( $ksa['riyadh'][1] ); ?>" r="46" fill="url(#glow)"/>
-					<circle class="hq" cx="<?php echo esc_attr( $ksa['riyadh'][0] ); ?>" cy="<?php echo esc_attr( $ksa['riyadh'][1] ); ?>" r="7"/>
-					<text class="hq-label" x="<?php echo esc_attr( $ksa['riyadh'][0] - 14 ); ?>" y="<?php echo esc_attr( $ksa['riyadh'][1] + 30 ); ?>" text-anchor="end"><?php echo esc_html( esnad_t( 'الرياض', 'Riyadh' ) ); ?></text>
-				</svg>
+				<?php
+				/* Service constellation inside the outline. Positions are illustrative (not locations): every service radiates from the Riyadh headquarters. */
+				$pos = array(
+					'governance'  => array( 330, 215 ),
+					'risk'        => array( 505, 185 ),
+					'funds'       => array( 625, 270 ),
+					'compliance'  => array( 215, 345 ),
+					'licensing'   => array( 650, 405 ),
+					'audit'       => array( 330, 480 ),
+					'arrangement' => array( 500, 520 ),
+					'feasibility' => array( 640, 540 ),
+				);
+				$rx = $ksa['riyadh'][0];
+				$ry = $ksa['riyadh'][1];
+				?>
+				<div class="atlas__stage" style="aspect-ratio:<?php echo (int) $ksa['w']; ?>/<?php echo (int) $ksa['h']; ?>">
+					<svg viewBox="0 0 <?php echo (int) $ksa['w']; ?> <?php echo (int) $ksa['h']; ?>" role="img" aria-labelledby="atlas-map-title atlas-map-desc">
+						<title id="atlas-map-title"><?php echo esc_html( esnad_t( 'خريطة مبسطة للمملكة العربية السعودية', 'Simplified map of Saudi Arabia' ) ); ?></title>
+						<desc id="atlas-map-desc"><?php echo esc_html( esnad_t( 'تُظهر المقر الرئيسي في الرياض وخدمات الشركة موزعة حوله.', 'Shows the Riyadh headquarters with the company\'s services arranged around it.' ) ); ?></desc>
+						<defs>
+							<radialGradient id="glow"><stop offset="0" stop-color="#C7901D" stop-opacity=".55"/><stop offset="1" stop-color="#C7901D" stop-opacity="0"/></radialGradient>
+						</defs>
+						<path class="atlas__land" d="<?php echo esc_attr( $ksa['path'] ); ?>"/>
+						<g class="atlas__routes">
+							<?php foreach ( $services as $svc ) :
+								$p = $pos[ $svc['key'] ] ?? array( $rx, $ry );
+								$d = sprintf( 'M%1$s,%2$s Q%3$s,%4$s %5$s,%6$s', $rx, $ry, ( $rx + $p[0] ) / 2, min( $ry, $p[1] ) - 40, $p[0], $p[1] );
+								?>
+								<path class="route route--base" d="<?php echo esc_attr( $d ); ?>"/>
+								<path class="route" data-route="<?php echo esc_attr( $svc['key'] ); ?>" d="<?php echo esc_attr( $d ); ?>" pathLength="1"/>
+							<?php endforeach; ?>
+						</g>
+						<circle class="hq-glow" cx="<?php echo esc_attr( $rx ); ?>" cy="<?php echo esc_attr( $ry ); ?>" r="46" fill="url(#glow)"/>
+						<circle class="hq" cx="<?php echo esc_attr( $rx ); ?>" cy="<?php echo esc_attr( $ry ); ?>" r="8"/>
+					</svg>
+					<span class="hq-tag" style="left:<?php echo esc_attr( round( $rx / $ksa['w'] * 100, 2 ) ); ?>%;top:<?php echo esc_attr( round( $ry / $ksa['h'] * 100, 2 ) ); ?>%"><?php echo esc_html( esnad_t( 'الرياض', 'Riyadh' ) ); ?></span>
+					<?php $n = 0; foreach ( $services as $svc ) : $n++; $p = $pos[ $svc['key'] ] ?? array( $rx, $ry ); ?>
+						<button type="button" class="node" data-service="<?php echo esc_attr( $svc['key'] ); ?>" aria-pressed="<?php echo 1 === $n ? 'true' : 'false'; ?>" style="left:<?php echo esc_attr( round( $p[0] / $ksa['w'] * 100, 2 ) ); ?>%;top:<?php echo esc_attr( round( $p[1] / $ksa['h'] * 100, 2 ) ); ?>%">
+							<b><?php echo esc_html( str_pad( (string) $n, 2, '0', STR_PAD_LEFT ) ); ?></b>
+							<span><?php echo esc_html( $svc['title'] ); ?></span>
+						</button>
+					<?php endforeach; ?>
+				</div>
 			</figure>
 
 			<div class="atlas__panel" dir="<?php echo esc_attr( $dir ); ?>">
@@ -219,7 +254,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 					<p><?php echo esc_html( esnad_t( $c['street_ar'], $c['street_en'] ) ); ?></p>
 					<p dir="ltr"><a href="tel:<?php echo esc_attr( $c['phone_tel'] ); ?>"><?php echo esc_html( $c['phone'] ); ?></a></p>
 				</div>
-				<p class="atlas__hint"><?php echo esc_html( esnad_t( 'اختر خدمة لعرض مسارها من الرياض:', 'Choose a service to trace its route from Riyadh:' ) ); ?></p>
+				<p class="atlas__hint"><?php echo esc_html( esnad_t( 'اضغط على أي خدمة داخل الخريطة لعرض تفاصيلها:', 'Select a service on the map to see its details:' ) ); ?></p>
 				<ul class="atlas__list">
 					<?php $first = true; foreach ( $services as $svc ) : ?>
 						<li><button type="button" data-service="<?php echo esc_attr( $svc['key'] ); ?>" aria-pressed="<?php echo $first ? 'true' : 'false'; ?>"><?php echo esc_html( $svc['title'] ); ?></button></li>

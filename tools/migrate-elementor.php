@@ -283,6 +283,149 @@ function esnad_m_walk( array $nodes, string $title, array &$stats ): string {
 	return $out;
 }
 
+
+/** Flatten an Elementor tree into an ordered list of widgets. */
+function esnad_m_flat( array $nodes ): array {
+	$out = array();
+	foreach ( $nodes as $el ) {
+		if ( ( $el['elType'] ?? '' ) === 'widget' ) {
+			$out[] = $el;
+		} elseif ( ! empty( $el['elements'] ) ) {
+			$out = array_merge( $out, esnad_m_flat( $el['elements'] ) );
+		}
+	}
+	return $out;
+}
+
+/**
+ * Designed layouts for pages whose content is a repeated pattern (people, yearly disclosures, vision/mission/values).
+ * Only the original words are used; nothing is added except the section label "Values" derived from the page title.
+ * Returns null when the page is not one of the special pages.
+ */
+function esnad_m_special( int $id, array $data, string $title ): ?string {
+	$people_pages = array( 17102, 29458, 16843, 29480 );
+	$disc_pages   = array( 16854, 29478 );
+	$about_pages  = array( 40905, 43104 );
+	if ( ! in_array( $id, array_merge( $people_pages, $disc_pages, $about_pages ), true ) ) {
+		return null;
+	}
+	$w  = esnad_m_flat( $data );
+	$ar = (bool) preg_match( '/\p{Arabic}/u', $title );
+
+	if ( in_array( $id, $people_pages, true ) ) {
+		$people = array();
+		$cur    = null;
+		foreach ( $w as $e ) {
+			$s = $e['settings'] ?? array();
+			if ( 'heading' === $e['widgetType'] ) {
+				$t = esnad_m_plain( $s['title'] ?? '' );
+				if ( '' === $t || $t === $title ) {
+					continue;
+				}
+				if ( $cur && '' === $cur['role'] && '' === $cur['bio'] ) {
+					$cur['role'] = $t;
+				} else {
+					if ( $cur ) {
+						$people[ $cur['name'] ] = $people[ $cur['name'] ] ?? $cur;
+					}
+					$cur = array( 'name' => $t, 'role' => '', 'bio' => '', 'mail' => '' );
+				}
+			} elseif ( 'text-editor' === $e['widgetType'] && $cur && '' === $cur['bio'] ) {
+				$cur['bio'] = esnad_m_text( $s['editor'] ?? '' );
+			} elseif ( 'social-icons' === $e['widgetType'] && $cur ) {
+				foreach ( (array) ( $s['social_icon_list'] ?? array() ) as $it ) {
+					$u = (string) ( $it['link']['url'] ?? '' );
+					if ( 0 === strpos( $u, 'mailto:' ) ) {
+						$cur['mail'] = substr( $u, 7 );
+					}
+				}
+			}
+		}
+		if ( $cur ) {
+			$people[ $cur['name'] ] = $people[ $cur['name'] ] ?? $cur;
+		}
+		$html = '<div class="people">';
+		foreach ( $people as $p ) {
+			$initial = mb_substr( preg_replace( '/^(Mr\.|Ms\.|Mrs\.|السيد|السيدة)\s*/u', '', $p['name'] ), 0, 1 );
+			$html   .= '<article class="person"><div class="person__avatar" aria-hidden="true">' . esc_html( $initial ) . '</div><div class="person__body"><h3>' . esc_html( $p['name'] ) . '</h3>';
+			$html   .= '' !== $p['role'] ? '<p class="person__role">' . esc_html( $p['role'] ) . '</p>' : '';
+			$html   .= '<div class="person__bio">' . $p['bio'] . '</div>';
+			$html   .= '' !== $p['mail'] ? '<a class="person__mail" href="mailto:' . esc_attr( $p['mail'] ) . '">' . esc_html( $p['mail'] ) . '</a>' : '';
+			$html   .= '</div></article>';
+		}
+		return "<!-- wp:html -->\n" . $html . "</div>\n<!-- /wp:html -->";
+	}
+
+	if ( in_array( $id, $disc_pages, true ) ) {
+		$html = '<div class="year-grid">';
+		foreach ( $w as $e ) {
+			if ( 'elementskit-image-box' !== $e['widgetType'] ) {
+				continue;
+			}
+			$s   = $e['settings'];
+			$t   = esnad_m_plain( $s['ekit_image_box_title_text'] ?? '' );
+			$u   = $s['ekit_image_box_btn_url']['url'] ?? '';
+			$yr  = preg_match( '/(20\d{2})/', $t, $m ) ? $m[1] : '';
+			$lbl = esnad_m_plain( $s['ekit_image_box_btn_text'] ?? '' ) ?: ( $ar ? 'تحميل' : 'Download' );
+			if ( '' === $t ) {
+				continue;
+			}
+			$html .= '<a class="year" href="' . esc_url( $u ) . '" target="_blank" rel="noopener"><b aria-hidden="true">' . esc_html( $yr ) . '</b><span>' . esc_html( $t ) . '</span><i>' . esc_html( $lbl ) . '</i></a>';
+		}
+		return "<!-- wp:html -->\n" . $html . "</div>\n<!-- /wp:html -->";
+	}
+
+	// About: vision and mission cards, values grid, clients.
+	$cards = array();
+	$cur   = '';
+	$vals  = array();
+	$tail  = '';
+	foreach ( $w as $e ) {
+		$s = $e['settings'] ?? array();
+		if ( 'heading' === $e['widgetType'] ) {
+			$t = esnad_m_plain( $s['title'] ?? '' );
+			if ( '' === $t || $t === $title ) {
+				continue;
+			}
+			if ( preg_match( '/[:：]\s*$/u', $t ) ) {
+				$cur = rtrim( $t, ' :：' );
+			} elseif ( preg_match( '/^(عملائنا|Our Clients)$/u', $t ) ) {
+				$tail = $t;
+			}
+		} elseif ( 'text-editor' === $e['widgetType'] && '' !== $cur ) {
+			$cards[ $cur ] = $cards[ $cur ] ?? esnad_m_text( $s['editor'] ?? '' );
+			$cur           = '';
+		} elseif ( 'wpr-posts-timeline' === $e['widgetType'] ) {
+			foreach ( (array) ( $s['timeline_repeater_list'] ?? array() ) as $row ) {
+				$k = rtrim( esnad_m_plain( $row['repeater_story_title'] ?? '' ), ' :' );
+				if ( '' !== $k && ! isset( $vals[ $k ] ) ) {
+					$vals[ $k ] = esnad_m_text( $row['repeater_description'] ?? '' );
+				}
+			}
+		}
+	}
+	$html = '<div class="vm">';
+	$n    = 0;
+	foreach ( $cards as $k => $body ) {
+		$n++;
+		$html .= '<article class="vm__card"><span class="vm__no" aria-hidden="true">0' . $n . '</span><h3>' . esc_html( $k ) . '</h3>' . $body . '</article>';
+	}
+	$html .= '</div>';
+	if ( $vals ) {
+		$html .= '<h2>' . ( $ar ? 'القيم' : 'Values' ) . '</h2><div class="values">';
+		$n     = 0;
+		foreach ( $vals as $k => $body ) {
+			$n++;
+			$html .= '<article class="value"><span class="value__no" aria-hidden="true">0' . $n . '</span><h3>' . esc_html( $k ) . '</h3>' . $body . '</article>';
+		}
+		$html .= '</div>';
+	}
+	$out = "<!-- wp:html -->\n" . $html . "\n<!-- /wp:html -->";
+	if ( '' !== $tail ) {
+		$out .= "\n\n" . esnad_m_heading( $tail, 2 ) . "<!-- wp:shortcode -->\n[esnad_clients]\n<!-- /wp:shortcode -->";
+	}
+	return $out;
+}
 function esnad_t_label( string $k, string $title ): string {
 	return 'download' === $k ? ( preg_match( '/\p{Arabic}/u', $title ) ? 'تحميل' : 'Download' ) : $k;
 }
@@ -312,7 +455,8 @@ foreach ( $ids as $id ) {
 	}
 	$stats  = array( 'dropped' => array() );
 	$title  = esnad_m_plain( get_the_title( $id ) );
-	$blocks = trim( str_replace( array( "\x01", "\x02" ), '', preg_match( '/\x01/', $walked = esnad_m_walk( $data, $title, $stats ) ) ? esnad_m_dedupe( $walked ) : $walked ) );
+	$special = esnad_m_special( (int) $id, $data, $title );
+	$blocks  = null !== $special ? $special : trim( str_replace( array( "\x01", "\x02" ), '', preg_match( '/\x01/', $walked = esnad_m_walk( $data, $title, $stats ) ) ? esnad_m_dedupe( $walked ) : $walked ) );
 	foreach ( $stats['dropped'] as $w => $n ) {
 		$dropped_all[ $w ] = ( $dropped_all[ $w ] ?? 0 ) + $n;
 	}

@@ -578,5 +578,87 @@ address.footer-col{font-style:normal}
 .social--contact a{inline-size:42px;block-size:42px;background:var(--esnad-dark);color:#fff}
 .page-hero__arch{display:none}
 .page-hero__no{position:absolute;inset-inline-end:max(clamp(16px,4vw,48px),calc((100% - var(--container-width))/2));inset-block-end:34px;z-index:1;font-size:clamp(96px,12vw,180px);line-height:1;font-weight:700;color:transparent;-webkit-text-stroke:2px rgba(199,144,29,.7)}
+/* Atlas: services live inside the map */
+.atlas__grid{grid-template-columns:8fr 4fr}
+.atlas__stage{position:relative;inline-size:100%}
+.atlas__stage svg{position:absolute;inset:0;inline-size:100%;block-size:100%}
+.route--base{stroke:rgba(199,144,29,.28);stroke-width:1;stroke-dasharray:3 6;opacity:1;filter:none;stroke-dashoffset:0}
+.hq-tag{position:absolute;transform:translate(-50%,14px);padding:3px 12px;border-radius:999px;background:var(--esnad-gold);color:#1b1b1b;font-weight:700;font-size:13px;white-space:nowrap;pointer-events:none}
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;padding:4px 14px 4px 4px;border:1px solid rgba(199,144,29,.55);border-radius:999px;background:rgba(22,30,26,.82);backdrop-filter:blur(4px);color:#fff;font:600 13px/1.25 var(--font);cursor:pointer;max-inline-size:210px;text-align:start;transition:background .3s,color .3s,border-color .3s,transform .4s var(--ease-premium),box-shadow .3s}
+.node b{flex:none;display:grid;place-items:center;inline-size:28px;block-size:28px;border-radius:50%;background:var(--esnad-gold);color:#1b1b1b;font-size:12px}
+.node span{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.node:hover{border-color:var(--esnad-gold);transform:translate(-50%,-50%) scale(1.05)}
+.node[aria-pressed="true"]{background:var(--esnad-gold);color:#1b1b1b;border-color:#fff;box-shadow:0 0 0 6px rgba(199,144,29,.25),0 12px 28px -8px rgba(0,0,0,.6);z-index:3}
+.node[aria-pressed="true"] b{background:#1b1b1b;color:var(--esnad-gold)}
+@media (min-width:901px){.atlas__list{display:none}}
+@media (max-width:900px){
+  .atlas__grid{grid-template-columns:1fr}
+  .node{padding:3px}
+  .node span{display:none}
+}
+/* ══ Round 4: designed layouts + signature effects ══════════════════════ */
+/* Reading / scroll progress bar */
+.read-bar{position:fixed;inset-inline:0;inset-block-start:0;z-index:120;block-size:3px;background:transparent;pointer-events:none}
+.read-bar span{display:block;block-size:100%;inline-size:calc(var(--rp,0) * 100%);background:linear-gradient(90deg,var(--esnad-gold),#e8c36a);transition:inline-size .12s linear}
+
+/* Outlined service ticker (idea from the reference's big type bands) */
+.ticker{background:var(--esnad-ivory);border-block:1px solid var(--esnad-border);overflow:hidden;direction:ltr;padding-block:14px;margin-block-start:28px}
+.ticker__row{display:flex;gap:0}
+.ticker__track{display:flex;flex:none;align-items:center;min-inline-size:100%;animation:marq 60s linear infinite}
+.ticker__track li{flex:none;font-size:clamp(28px,4vw,52px);font-weight:700;line-height:1.2;padding-inline:28px;color:transparent;-webkit-text-stroke:1.2px var(--esnad-green);white-space:nowrap;position:relative}
+.ticker__track li::after{content:"";position:absolute;inset-inline-end:-6px;inset-block-start:50%;inline-size:12px;block-size:12px;margin-block-start:-6px;background:var(--esnad-gold);-webkit-mask:url(../img/star.svg) center/contain no-repeat;mask:url(../img/star.svg) center/contain no-repeat}
+@media (prefers-reduced-motion:reduce){.ticker__track{animation:none}.ticker__track[aria-hidden]{display:none}}
+
+/* Staggered entrance for the children of an opened curtain block */
+@media (prefers-reduced-motion:no-preference){
+  .curtain.is-open>*{animation:rise .8s var(--ease-premium) both;animation-delay:calc(var(--i,0) * 70ms + .35s)}
+}
+.card{transform-style:preserve-3d;will-change:transform}
+
+/* Service page chapters */
+.svc-sec{position:relative;margin-block-start:22px;padding:26px 28px 24px;padding-inline-start:96px;background:#fff;border:1px solid var(--esnad-border);border-radius:var(--radius-medium);box-shadow:0 18px 36px -30px rgba(34,40,38,.45);transition:transform .5s var(--ease-premium),box-shadow .5s}
+.svc-sec:hover{transform:translateY(-3px);box-shadow:0 26px 44px -26px rgba(34,40,38,.5)}
+.svc-sec__no{position:absolute;inset-inline-start:22px;inset-block-start:14px;font-size:54px;line-height:1;font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--esnad-gold)}
+.svc-sec>h2{margin-block-start:0!important;padding-inline-start:0}
+.svc-sec>h2::before{display:none}
+.svc-sec::before{content:"";position:absolute;inset-inline-end:0;inset-block-start:0;inline-size:120px;block-size:120px;background:url(../img/pattern-star.svg) 0 0/60px;opacity:.07;-webkit-mask-image:radial-gradient(circle at top right,#000,transparent 70%);mask-image:radial-gradient(circle at top right,#000,transparent 70%)}
+.is-rtl .svc-sec::before{-webkit-mask-image:radial-gradient(circle at top left,#000,transparent 70%);mask-image:radial-gradient(circle at top left,#000,transparent 70%)}
+@media (max-width:640px){.svc-sec{padding:60px 18px 20px}.svc-sec__no{inset-block-start:10px;font-size:40px}}
+
+/* People (board / executive) */
+.people{display:grid;gap:20px}
+.person{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:26px;background:#fff;border:1px solid var(--esnad-border);border-radius:var(--radius-medium);position:relative;overflow:hidden;transition:transform .5s var(--ease-premium),box-shadow .5s}
+.person:hover{transform:translateY(-3px);box-shadow:0 26px 44px -28px rgba(34,40,38,.5)}
+.person::after{content:"";position:absolute;inset-inline-end:-30px;inset-block-start:-30px;inline-size:140px;block-size:140px;background:url(../img/pattern-star.svg) 0 0/70px;opacity:.08}
+.person__avatar{display:grid;place-items:center;inline-size:84px;block-size:84px;border-radius:50%;background:var(--esnad-dark);color:var(--esnad-gold);font-size:38px;font-weight:700;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--esnad-gold)}
+.person h3{margin:0 0 2px;font-size:22px}
+.person__role{margin:0 0 10px;color:var(--esnad-gold-dark);font-weight:600}
+.person__bio{color:var(--esnad-text);font-size:15.5px}
+.person__bio p:last-child{margin-bottom:0}
+.person__mail{display:inline-block;margin-block-start:10px;font-size:14px;direction:ltr}
+@media (max-width:640px){.person{grid-template-columns:1fr}.person__avatar{inline-size:64px;block-size:64px;font-size:28px}}
+
+/* Yearly disclosures */
+.year-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.year{position:relative;display:flex;flex-direction:column;gap:6px;padding:22px 22px 20px;background:var(--esnad-dark);color:#fff;border-radius:var(--radius-medium);text-decoration:none;overflow:hidden;transition:transform .5s var(--ease-premium),box-shadow .5s}
+.year::before{content:"";position:absolute;inset:0;background:url(../img/pattern-najdi.svg) 0 0/56px;opacity:.06}
+.year:hover{transform:translateY(-4px);box-shadow:0 26px 44px -22px rgba(34,40,38,.7);color:#fff}
+.year b{position:relative;font-size:64px;line-height:1;font-weight:700;color:transparent;-webkit-text-stroke:1.6px var(--esnad-gold)}
+.year span{position:relative;font-weight:600;font-size:15.5px}
+.year i{position:relative;align-self:flex-start;margin-block-start:6px;padding:6px 16px;border-radius:999px;background:var(--esnad-gold);color:#1b1b1b;font-style:normal;font-weight:700;font-size:14px}
+
+/* Vision / mission / values */
+.vm{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.vm__card,.value{position:relative;padding:26px 26px 22px;background:#fff;border:1px solid var(--esnad-border);border-radius:var(--radius-medium);overflow:hidden}
+.vm__card{background:linear-gradient(135deg,var(--esnad-green),var(--esnad-dark));color:#fff;border:0}
+.vm__card h3{color:var(--esnad-gold);font-size:24px}
+.vm__card p{color:rgba(255,255,255,.9);margin:0}
+.vm__no,.value__no{position:absolute;inset-inline-end:18px;inset-block-start:6px;font-size:78px;line-height:1;font-weight:700;color:transparent;-webkit-text-stroke:1.5px rgba(199,144,29,.55)}
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.value h3{font-size:20px;color:var(--esnad-dark);padding-inline-end:70px}
+.value p{margin:0;color:var(--esnad-muted);font-size:15.5px}
+.value__no{-webkit-text-stroke:1.5px rgba(199,144,29,.5)}
+@media (max-width:760px){.vm,.values{grid-template-columns:1fr}}
+.entry-content .vm__card h3::before,.entry-content .value h3::before,.entry-content .person h3::before{display:none}
 @media print{.to-top{display:none}}
 @media print{.site-header,.nav-toggle,.cta,.atlas,.hero__media,.najdi-band{display:none}}
