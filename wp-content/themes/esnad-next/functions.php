@@ -36,7 +36,7 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 add_action( 'wp_head', static function (): void {
 	$uri = get_template_directory_uri() . '/assets/fonts/';
 	$sub = esnad_is_rtl() ? 'arabic' : 'latin';
-	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "tajawal-$sub-400.woff2" ) );
+	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "cairo-$sub.woff2" ) );
 }, 1 );
 
 /** Official logo mark as favicon when no Site Icon is set in the Customizer. */

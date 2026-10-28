@@ -101,6 +101,79 @@ add_action( 'wp_head', static function (): void {
 	echo '<script type="application/ld+json">' . wp_json_encode( array( '@context' => 'https://schema.org', '@graph' => $graph ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "</script>\n";
 }, 5 );
 
+/**
+ * Meta description, Open Graph and Twitter cards.
+ * Rank Math remains the source of truth: its per-page title/description fields are used here,
+ * and this block only prints when Rank Math has not already printed its own head tags.
+ */
+function esnad_seo_vars( string $text, ?WP_Post $post ): string {
+	$sitename = get_bloginfo( 'name' );
+	$map      = array(
+		'%title%'    => $post ? get_the_title( $post ) : $sitename,
+		'%sitename%' => $sitename,
+		'%sitedesc%' => get_bloginfo( 'description' ),
+		'%sep%'      => '–',
+		'%page%'     => '',
+		'%excerpt%'  => $post ? wp_trim_words( wp_strip_all_tags( (string) $post->post_content ), 30, '' ) : '',
+	);
+	return trim( (string) preg_replace( '/\s+/', ' ', strtr( $text, $map ) ) );
+}
+
+function esnad_seo_description( ?WP_Post $post ): string {
+	if ( $post ) {
+		$custom = (string) get_post_meta( $post->ID, 'rank_math_description', true );
+		if ( '' !== $custom ) {
+			return esnad_seo_vars( $custom, $post );
+		}
+		$ex = has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_strip_all_tags( strip_shortcodes( (string) $post->post_content ) );
+		$ex = trim( (string) preg_replace( '/\s+/u', ' ', $ex ) );
+		if ( '' !== $ex ) {
+			return wp_trim_words( $ex, 32, '…' );
+		}
+	}
+	return get_bloginfo( 'description' );
+}
+
+add_filter( 'pre_get_document_title', static function ( string $title ): string {
+	if ( has_action( 'rank_math/head' ) || ! is_singular() ) {
+		return $title;
+	}
+	$post   = get_queried_object();
+	$custom = $post instanceof WP_Post ? (string) get_post_meta( $post->ID, 'rank_math_title', true ) : '';
+	return '' !== $custom ? esnad_seo_vars( $custom, $post ) : $title;
+} );
+
+add_action( 'wp_head', static function (): void {
+	if ( has_action( 'rank_math/head' ) ) {
+		return;
+	}
+	$post = is_singular() ? get_queried_object() : null;
+	$post = $post instanceof WP_Post ? $post : null;
+	$desc = esnad_seo_description( $post );
+	$url  = $post ? get_permalink( $post ) : home_url( add_query_arg( array() ) );
+	$img  = $post && has_post_thumbnail( $post ) ? (string) get_the_post_thumbnail_url( $post, 'large' ) : get_template_directory_uri() . '/assets/img/logo-' . ( esnad_is_rtl() ? 'ar' : 'en' ) . '.png';
+	$ttl  = wp_get_document_title();
+	$tags = array(
+		array( 'name', 'description', $desc ),
+		array( 'property', 'og:type', is_singular( 'post' ) ? 'article' : 'website' ),
+		array( 'property', 'og:title', $ttl ),
+		array( 'property', 'og:description', $desc ),
+		array( 'property', 'og:url', $url ),
+		array( 'property', 'og:site_name', get_bloginfo( 'name' ) ),
+		array( 'property', 'og:locale', esnad_is_rtl() ? 'ar_SA' : 'en_US' ),
+		array( 'property', 'og:image', $img ),
+		array( 'name', 'twitter:card', 'summary_large_image' ),
+		array( 'name', 'twitter:title', $ttl ),
+		array( 'name', 'twitter:description', $desc ),
+		array( 'name', 'twitter:image', $img ),
+	);
+	foreach ( $tags as $t ) {
+		if ( '' !== $t[2] ) {
+			printf( '<meta %s="%s" content="%s">' . "\n", esc_attr( $t[0] ), esc_attr( $t[1] ), esc_attr( $t[2] ) );
+		}
+	}
+}, 4 );
+
 /** Serve /llms.txt: a plain-text map of the site for AI crawlers (replaces the host's placeholder file). */
 add_action( 'init', static function (): void {
 	if ( isset( $_SERVER['REQUEST_URI'] ) && '/llms.txt' === wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) ) {

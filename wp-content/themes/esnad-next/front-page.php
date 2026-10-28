@@ -84,15 +84,13 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	</div>
 </section>
 
-<div class="najdi-band" aria-hidden="true"></div>
-
 <!-- 02 TRUST STRIP -->
 <section class="trust" aria-label="<?php echo esc_attr( esnad_t( 'معلومات الشركة الموثقة', 'Verified company information' ) ); ?>">
 	<div class="container trust__grid">
-		<div><span class="trust__k"><?php echo esc_html( esnad_t( 'الجهة المرخِّصة', 'Licensing authority' ) ); ?></span><span class="trust__v"><?php echo esc_html( esnad_t( 'هيئة السوق المالية', 'Capital Market Authority' ) ); ?></span></div>
-		<div><span class="trust__k"><?php echo esc_html( esnad_t( 'رقم الترخيص', 'License number' ) ); ?></span><span class="trust__v" dir="ltr"><?php echo esc_html( $c['license'] ); ?></span></div>
-		<div><span class="trust__k"><?php echo esc_html( esnad_t( 'الأنشطة المرخصة', 'Licensed activities' ) ); ?></span><span class="trust__v"><?php echo esc_html( esnad_t( 'الترتيب والمشورة في أعمال الأوراق المالية', 'Arranging and advising in securities business' ) ); ?></span></div>
-		<div><span class="trust__k"><?php echo esc_html( esnad_t( 'المقر الرئيسي', 'Headquarters' ) ); ?></span><span class="trust__v"><?php echo esc_html( esnad_t( 'الرياض، المملكة العربية السعودية', 'Riyadh, Saudi Arabia' ) ); ?></span></div>
+		<div class="trust__card"><span class="trust__ic"><?php echo esnad_icon( 'shield', 24 ); // phpcs:ignore ?></span><span class="trust__txt"><span class="trust__k"><?php echo esc_html( esnad_t( 'الجهة المرخِّصة', 'Licensing authority' ) ); ?></span><span class="trust__v"><?php echo esc_html( esnad_t( 'هيئة السوق المالية', 'Capital Market Authority' ) ); ?></span></span></div>
+		<div class="trust__card"><span class="trust__ic"><?php echo esnad_icon( 'doc', 24 ); // phpcs:ignore ?></span><span class="trust__txt"><span class="trust__k"><?php echo esc_html( esnad_t( 'رقم الترخيص', 'License number' ) ); ?></span><span class="trust__v trust__v--num" dir="ltr"><?php echo esc_html( $c['license'] ); ?></span></span></div>
+		<div class="trust__card"><span class="trust__ic"><?php echo esnad_icon( 'check', 24 ); // phpcs:ignore ?></span><span class="trust__txt"><span class="trust__k"><?php echo esc_html( esnad_t( 'الأنشطة المرخصة', 'Licensed activities' ) ); ?></span><span class="trust__v"><?php echo esc_html( esnad_t( 'الترتيب والمشورة في أعمال الأوراق المالية', 'Arranging and advising in securities business' ) ); ?></span></span></div>
+		<div class="trust__card"><span class="trust__ic"><?php echo esnad_icon( 'pin', 24 ); // phpcs:ignore ?></span><span class="trust__txt"><span class="trust__k"><?php echo esc_html( esnad_t( 'المقر الرئيسي', 'Headquarters' ) ); ?></span><span class="trust__v"><?php echo esc_html( esnad_t( 'الرياض، المملكة العربية السعودية', 'Riyadh, Saudi Arabia' ) ); ?></span></span></div>
 	</div>
 </section>
 
