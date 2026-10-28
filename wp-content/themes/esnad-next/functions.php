@@ -108,6 +108,18 @@ add_filter( 'the_content', static function ( string $html ): string {
 	return $out;
 }, 25 );
 
+/** Services directory (both languages): the numbered service list sits before the clients heading. */
+add_filter( 'the_content', static function ( string $html ): string {
+	if ( ! is_singular( 'page' ) || ! in_array( get_the_ID(), array( 36118, 36126, 31392 ), true ) ) {
+		return $html;
+	}
+	ob_start();
+	get_template_part( 'template-parts/service-list' );
+	$list  = (string) ob_get_clean();
+	$parts = preg_split( '/(?=<h2[^>]*>\s*(?:عملائنا|Our Clients))/u', $html, 2 );
+	return is_array( $parts ) && 2 === count( $parts ) ? $parts[0] . $list . $parts[1] : $html . $list;
+}, 26 );
+
 /** [esnad_clients]: the approved client logo wall (used by the migrated About page). */
 add_shortcode( 'esnad_clients', static function (): string {
 	return esnad_clients_grid();

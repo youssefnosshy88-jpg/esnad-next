@@ -764,3 +764,22 @@ body{font-size:17.5px}
 
 /* Section titles: one gold keyword (Antra Home 6 pattern, original implementation) */
 .h2 em{font-style:normal;color:var(--esnad-gold)}
+
+/* Directory list inside page content: no prose list markers; denser logo wall */
+.entry-content .svlist__titles{display:block;list-style:none;margin:0;padding:0}
+.entry-content .svlist__titles li{padding:0}
+.entry-content .svlist__titles li::before{content:none}
+.entry-content .svlist{margin-block:40px}
+.client-grid,.entry-content .client-grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.entry-content .client-grid li{padding:8px;border-radius:12px}
+
+/* Directory blocks use the full container instead of the narrow reading column */
+.entry-content .svlist,.entry-content .client-grid{margin-inline:calc((100% - min(1180px,100vw - 48px)) / 2);max-inline-size:none}
+.entry-content .svlist__cap-title{margin:0;font-weight:700;color:#fff}
+.entry-content .svlist__caption p{margin:0}
+@media (max-width:1240px){.entry-content .svlist,.entry-content .client-grid{margin-inline:0}}
+
+.entry-content a.svlist__item{color:var(--esnad-dark);text-decoration:none}
+.entry-content a.svlist__item.is-active{color:var(--esnad-gold-dark)}
+.entry-content a.svlist__item .svlist__no{color:var(--esnad-muted)}
+.entry-content a.svlist__item.is-active .svlist__no{color:var(--esnad-gold-dark)}

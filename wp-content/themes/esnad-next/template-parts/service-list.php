@@ -10,7 +10,7 @@ $services = array_values( esnad_services() );
 				<img src="<?php echo esc_url( $svc['img'] ); ?>" alt="" width="720" height="480" loading="<?php echo 0 === $i ? 'eager' : 'lazy'; ?>" decoding="async">
 				<div class="svlist__caption">
 					<span class="svlist__cap-no" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
-					<h2 class="svlist__cap-title"><?php echo esc_html( $svc['title'] ); ?></h2>
+					<p class="svlist__cap-title"><?php echo esc_html( $svc['title'] ); ?></p>
 					<p><?php echo esc_html( wp_trim_words( (string) $svc['text'], 26, '…' ) ); ?></p>
 					<a class="btn btn--gold btn--sm" href="<?php echo esc_url( $svc['url'] ); ?>"<?php echo 0 === $i ? '' : ' tabindex="-1"'; ?>><?php echo esc_html( esnad_t( 'تفاصيل الخدمة', 'Service details' ) ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore ?></a>
 				</div>

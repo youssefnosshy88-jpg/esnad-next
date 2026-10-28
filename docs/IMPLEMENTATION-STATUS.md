@@ -2,9 +2,11 @@
 
 Last updated 2026-10-29. Staging: https://green-gorilla-647751.hostingersite.com (noindex, mail blocked). Production is untouched.
 
-## Blocker right now
-Hostinger closes SSH connections ("closed by remote host"), so the latest local changes are **not deployed**. Last confirmed staging state: commit `6037e84` (fade-up reveal, new dropdown, logo wall fix). Local and pushed-later changes waiting for deploy:
-Tajawal self-hosted font, Esnad mark as atlas hub, atlas nodes 7/8 spacing, finance motifs replacing stars/lattices, plain ticker, static client grid on the vision page, `docs/`.
+## Deployment
+Deployed and checked on staging on 2026-10-29: Tajawal self-hosted (6 files load, 200), Esnad mark as atlas hub, atlas nodes 7/8 separated, finance motifs, plain ticker, gold keywords in homepage titles (9), numbered service directory (hover swaps the panel; list now sits before the clients heading), static 62-logo grid on the vision page and services directory, values in three columns.
+
+### Hosting limit (cause of the earlier failed deploys)
+hPanel shows the Business plan (account `elwaheed.com`, 11 websites) at 100% resource usage in the last 24 h. The limiting resource is max processes (NPROC): average 100 of 120. Other resources were fine (CPU 1%, memory about 630 MB of 3 GB, PHP workers 8 of 60, disk 15 of 50 GB, inodes 320k of 600k). When processes are near the limit the host refuses new SSH commands ("exec request failed"). The client stopped the running processes from hPanel and deploys then worked. A permanent fix is a plan upgrade or moving other sites off this account; that is the client's decision.
 
 ## Stages
 
