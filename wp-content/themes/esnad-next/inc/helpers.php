@@ -181,7 +181,7 @@ function esnad_nav(): array {
 	$s = esnad_services();
 	$services_children = array();
 	foreach ( $s as $svc ) {
-		$services_children[] = array( 'label' => $svc['title'], 'url' => $svc['url'] );
+		$services_children[] = array( 'label' => $svc['title'], 'url' => $svc['url'], 'text' => wp_trim_words( (string) $svc['text'], 11, '…' ) );
 	}
 	return array(
 		array( 'label' => esnad_t( 'عن الشركة', 'About' ), 'url' => esnad_url( 'about' ), 'children' => array(

@@ -74,7 +74,12 @@ add_filter( 'the_content', static function ( string $html ): string {
 
 /** Drop the stray "back" labels the old builder left as headings. */
 add_filter( 'the_content', static function ( string $html ): string {
-	return is_singular() ? (string) preg_replace( '#<h[1-6][^>]*>\s*العودة\s*</h[1-6]>#u', '', $html ) : $html;
+	if ( ! is_singular() ) {
+		return $html;
+	}
+	$html = (string) preg_replace( '#<h[1-6][^>]*>\s*العودة\s*</h[1-6]>#u', '', $html );
+	// Stray builder tokens such as "H:42676ff287c7:1" left as loose text.
+	return (string) preg_replace( '#(?:<p>)?(?<=>|^)\s*[A-Z]{1,2}:[0-9a-f]{8,}:\d+\s*(?:</p>)?#', '', $html );
 }, 18 );
 
 /** The page hero owns the single <h1>; any <h1> inside migrated content becomes an <h2>. */

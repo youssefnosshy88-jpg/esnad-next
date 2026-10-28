@@ -63,8 +63,21 @@ $hero  = is_front_page();
 								<?php echo esnad_icon( 'chevron', 14 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</button>
 							<ul class="sub" id="sub-<?php echo (int) $i; ?>">
-								<?php foreach ( $item['children'] as $child ) : ?>
-									<li><a href="<?php echo esc_url( $child['url'] ); ?>"><?php echo esc_html( $child['label'] ); ?></a></li>
+								<?php if ( ! empty( $item['mega'] ) ) : ?>
+										<li class="sub__intro">
+											<span class="sub__eyebrow"><?php echo esc_html( esnad_t( 'خدماتنا', 'Our services' ) ); ?></span>
+											<strong><?php echo esc_html( esnad_t( 'استشارات مالية متخصصة', 'Specialised financial advisory' ) ); ?></strong>
+											<p><?php echo esc_html( esnad_t( 'خدمات استشارية تساعد الشركات على تقييم خياراتها وتعزيز حوكمتها وتنظيم خطوات نموها.', 'Advisory services that help companies assess options, strengthen governance and organise their growth steps.' ) ); ?></p>
+											<a class="sub__all" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( esnad_t( 'عرض كل الخدمات', 'View all services' ) ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+										</li>
+									<?php endif; ?>
+									<?php foreach ( $item['children'] as $n => $child ) : ?>
+									<li>
+											<a href="<?php echo esc_url( $child['url'] ); ?>">
+												<?php if ( ! empty( $item['mega'] ) ) : ?><span class="sub__no" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $n + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span><?php endif; ?>
+												<span class="sub__body"><span class="sub__title"><?php echo esc_html( $child['label'] ); ?></span><?php if ( ! empty( $child['text'] ) ) : ?><small><?php echo esc_html( $child['text'] ); ?></small><?php endif; ?></span>
+											</a>
+										</li>
 								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?>

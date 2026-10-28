@@ -84,7 +84,7 @@
 
 	/* Stage-curtain reveal: panels part when a block scrolls into view. */
 	if ('IntersectionObserver' in window && !reduce) {
-		var targets = d.querySelectorAll('.explorer .cards, .pillars, .needs, .docs, .articles, .faq, .about__grid, .atlas__grid, .journey__steps, .marquee, .contact-grid, .info-cards, .chooser');
+		var targets = d.querySelectorAll('.explorer .cards, .pillars, .needs, .docs, .articles, .faq, .about__grid, .atlas__grid, .journey__steps, .marquee, .contact-grid, .info-cards, .chooser, .people, .year-grid, .vm, .values');
 		var cio = new IntersectionObserver(function (entries) {
 			entries.forEach(function (en) {
 				if (en.isIntersecting) { en.target.classList.add('is-open'); cio.unobserve(en.target); }
