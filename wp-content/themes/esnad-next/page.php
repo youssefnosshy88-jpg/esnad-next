@@ -64,7 +64,7 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 			<article <?php post_class( 'entry-content' ); ?>>
 				<?php the_content(); ?>
 				<?php if ( in_array( get_the_ID(), array( 36118, 36126, 31392 ), true ) ) {
-					get_template_part( 'template-parts/service-cards' );
+					get_template_part( 'template-parts/service-list' );
 				} ?>
 				<?php if ( esnad_is_blog_page() ) :
 					$list = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 24, 'no_found_rows' => true, 'ignore_sticky_posts' => true ) );

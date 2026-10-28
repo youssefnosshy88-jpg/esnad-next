@@ -212,8 +212,8 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 					'compliance'  => array( 215, 345 ),
 					'licensing'   => array( 650, 405 ),
 					'audit'       => array( 330, 480 ),
-					'arrangement' => array( 500, 520 ),
-					'feasibility' => array( 640, 540 ),
+					'arrangement' => array( 410, 580 ),
+					'feasibility' => array( 665, 530 ),
 				);
 				$rx = $ksa['riyadh'][0];
 				$ry = $ksa['riyadh'][1];
@@ -238,7 +238,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 						<circle class="hq-glow" cx="<?php echo esc_attr( $rx ); ?>" cy="<?php echo esc_attr( $ry ); ?>" r="46" fill="url(#glow)"/>
 						<circle class="hq" cx="<?php echo esc_attr( $rx ); ?>" cy="<?php echo esc_attr( $ry ); ?>" r="8"/>
 					</svg>
-					<span class="hq-tag" style="left:<?php echo esc_attr( round( $rx / $ksa['w'] * 100, 2 ) ); ?>%;top:<?php echo esc_attr( round( $ry / $ksa['h'] * 100, 2 ) ); ?>%"><?php echo esc_html( esnad_t( 'الرياض', 'Riyadh' ) ); ?></span>
+					<span class="hq-tag hq-tag--logo" style="left:<?php echo esc_attr( round( $rx / $ksa['w'] * 100, 2 ) ); ?>%;top:<?php echo esc_attr( round( $ry / $ksa['h'] * 100, 2 ) ); ?>%"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/favicon.png' ); ?>" alt="<?php echo esc_attr( esnad_t( 'شركة إسناد المالية - المقر الرئيسي', 'Esnad Advisory Company - headquarters' ) ); ?>" width="34" height="34"></span>
 					<?php $n = 0; foreach ( $services as $svc ) : $n++; $p = $pos[ $svc['key'] ] ?? array( $rx, $ry ); ?>
 						<button type="button" class="node" data-service="<?php echo esc_attr( $svc['key'] ); ?>" aria-pressed="<?php echo 1 === $n ? 'true' : 'false'; ?>" style="left:<?php echo esc_attr( round( $p[0] / $ksa['w'] * 100, 2 ) ); ?>%;top:<?php echo esc_attr( round( $p[1] / $ksa['h'] * 100, 2 ) ); ?>%">
 							<b><?php echo esc_html( str_pad( (string) $n, 2, '0', STR_PAD_LEFT ) ); ?></b>

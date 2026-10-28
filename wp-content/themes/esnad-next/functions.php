@@ -36,7 +36,10 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 add_action( 'wp_head', static function (): void {
 	$uri = get_template_directory_uri() . '/assets/fonts/';
 	$sub = esnad_is_rtl() ? 'arabic' : 'latin';
-	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "cairo-$sub.woff2" ) );
+	// Only the two weights used above the fold (body and headings); 500 loads on demand.
+	foreach ( array( 400, 700 ) as $w ) {
+		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "tajawal-$sub-$w.woff2" ) );
+	}
 }, 1 );
 
 /** Official logo mark as favicon when no Site Icon is set in the Customizer. */
@@ -107,7 +110,7 @@ add_filter( 'the_content', static function ( string $html ): string {
 
 /** [esnad_clients]: the approved client logo wall (used by the migrated About page). */
 add_shortcode( 'esnad_clients', static function (): string {
-	return '<div class="clients clients--dark clients--inline">' . esnad_clients_marquee() . '</div>';
+	return esnad_clients_grid();
 } );
 
 /** Is the current page the articles page (either language)? */

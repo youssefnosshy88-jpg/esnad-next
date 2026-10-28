@@ -92,6 +92,20 @@ function esnad_clients_marquee(): string {
 	return $out . '</div>';
 }
 
+/** Every client logo in a plain, static grid (no motion): used inside page content. */
+function esnad_clients_grid(): string {
+	$logos = esnad_json( 'clients.json' );
+	if ( ! $logos ) {
+		return '';
+	}
+	$base  = content_url( 'uploads/' );
+	$items = '';
+	foreach ( $logos as $logo ) {
+		$items .= '<li><img src="' . esc_url( $base . $logo ) . '" alt="" width="140" height="140" loading="lazy" decoding="async"></li>';
+	}
+	return '<ul class="client-grid" aria-label="' . esc_attr( esnad_t( 'شعارات عملائنا', 'Our clients\' logos' ) ) . '">' . $items . '</ul>';
+}
+
 /** Corporate facts (source: existing homepage, footer and contact page). */
 function esnad_company(): array {
 	return array(

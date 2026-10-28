@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /** Site header: logo, navigation (with services mega-menu), language switch, consultation CTA. */
 defined( 'ABSPATH' ) || exit;
 $uri   = get_template_directory_uri() . '/assets/img/';
@@ -20,7 +20,7 @@ $hero  = is_front_page();
 <header class="site-header" id="site-header" data-over-hero="<?php echo $hero ? '1' : '0'; ?>">
 	<div class="topbar">
 		<div class="container topbar__in">
-			<span class="topbar__loc"><?php echo esnad_icon( 'star', 14 ); // phpcs:ignore ?> <?php echo esc_html( esnad_t( 'الرياض، المملكة العربية السعودية', 'Riyadh, Kingdom of Saudi Arabia' ) ); ?></span>
+			<span class="topbar__loc"><?php echo esnad_icon( 'pin', 14 ); // phpcs:ignore ?> <?php echo esc_html( esnad_t( 'الرياض، المملكة العربية السعودية', 'Riyadh, Kingdom of Saudi Arabia' ) ); ?></span>
 			<span class="topbar__date"><time data-hijri></time><i aria-hidden="true">·</i><time data-greg></time></span>
 			<span class="topbar__tools">
 				<?php echo esnad_social_links( 'social social--top' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

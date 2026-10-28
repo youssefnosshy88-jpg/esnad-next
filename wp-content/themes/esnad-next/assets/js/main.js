@@ -98,6 +98,29 @@
 		});
 	}
 
+	/* Numbered service directory: hover or focus selects a service; on touch the first tap selects, the panel link opens it. */
+	d.querySelectorAll('[data-svlist]').forEach(function (box) {
+		var items = box.querySelectorAll('.svlist__item');
+		var slides = box.querySelectorAll('.svlist__slide');
+		var coarse = window.matchMedia && window.matchMedia('(hover: none)').matches;
+		var select = function (n) {
+			items.forEach(function (it, i) { it.classList.toggle('is-active', i === n); });
+			slides.forEach(function (s, i) {
+				var on = i === n;
+				s.classList.toggle('is-active', on);
+				if (on) { s.removeAttribute('aria-hidden'); } else { s.setAttribute('aria-hidden', 'true'); }
+				var a = s.querySelector('a'); if (a) { if (on) { a.removeAttribute('tabindex'); } else { a.setAttribute('tabindex', '-1'); } }
+			});
+		};
+		items.forEach(function (it, i) {
+			it.addEventListener('mouseenter', function () { select(i); });
+			it.addEventListener('focus', function () { select(i); });
+			it.addEventListener('click', function (e) {
+				if (coarse && !it.classList.contains('is-active')) { e.preventDefault(); select(i); }
+			});
+		});
+	});
+
 	/* Back to top with scroll-progress ring. */
 	var topBtn = d.querySelector('.to-top');
 	if (topBtn) {
