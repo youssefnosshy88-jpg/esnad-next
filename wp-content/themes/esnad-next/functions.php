@@ -9,6 +9,14 @@ define( 'ESNAD_VER', '1.0.0' );
 
 require_once __DIR__ . '/inc/helpers.php';
 require_once __DIR__ . '/inc/seo.php';
+// Optional layers are loaded defensively: a parse error here must not take the site down.
+foreach ( array( 'landing.php' ) as $esnad_opt ) {
+	try {
+		require_once __DIR__ . '/inc/' . $esnad_opt;
+	} catch ( Throwable $e ) {
+		error_log( 'esnad-next: ' . $esnad_opt . ' failed: ' . $e->getMessage() );
+	}
+}
 
 add_action( 'after_setup_theme', static function (): void {
 	add_theme_support( 'title-tag' );
