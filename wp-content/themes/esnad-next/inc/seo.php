@@ -152,6 +152,10 @@ add_action( 'wp_head', static function (): void {
 	$desc = esnad_seo_description( $post );
 	$url  = $post ? get_permalink( $post ) : home_url( add_query_arg( array() ) );
 	$img  = $post && has_post_thumbnail( $post ) ? (string) get_the_post_thumbnail_url( $post, 'large' ) : get_template_directory_uri() . '/assets/img/logo-' . ( esnad_is_rtl() ? 'ar' : 'en' ) . '.png';
+	// Social previews cannot use SVG; the old portrait banners are not used either, so the company logo stands in.
+	if ( preg_match( '#/(dma_\d\d|c[1-5]\.png)#i', $img ) ) {
+		$img = get_template_directory_uri() . '/assets/img/logo-' . ( esnad_is_rtl() ? 'ar' : 'en' ) . '.png';
+	}
 	$ttl  = wp_get_document_title();
 	$tags = array(
 		array( 'name', 'description', $desc ),
@@ -173,6 +177,16 @@ add_action( 'wp_head', static function (): void {
 		}
 	}
 }, 4 );
+
+/** Same rule when Rank Math prints the social image (production): old portrait banners fall back to the logo. */
+foreach ( array( 'rank_math/opengraph/facebook/image', 'rank_math/opengraph/twitter/image' ) as $esnad_og_hook ) {
+	add_filter( $esnad_og_hook, static function ( $image ) {
+		if ( is_string( $image ) && preg_match( '#/(dma_\d\d|c[1-5]\.png)#i', $image ) ) {
+			return get_template_directory_uri() . '/assets/img/logo-' . ( esnad_is_rtl() ? 'ar' : 'en' ) . '.png';
+		}
+		return $image;
+	} );
+}
 
 /** Serve /llms.txt: a plain-text map of the site for AI crawlers (replaces the host's placeholder file). */
 add_action( 'init', static function (): void {

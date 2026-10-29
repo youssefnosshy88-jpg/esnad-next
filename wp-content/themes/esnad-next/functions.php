@@ -102,6 +102,28 @@ add_filter( 'the_content', static function ( string $html ): string {
 	return (string) preg_replace( '#(?:<p>)?(?<=>|^)\s*[A-Z]{1,2}:[0-9a-f]{8,}:\d+\s*(?:</p>)?#', '', $html );
 }, 18 );
 
+/**
+ * The old pages carried stock-looking portrait banners (dma_NN) and person cut-outs (c1..c5) for each service.
+ * They are replaced by the original illustration of the same service; the cut-out on the directory page is dropped.
+ */
+add_filter( 'the_content', static function ( string $html ): string {
+	if ( ! is_singular() || false === strpos( $html, '<img' ) ) {
+		return $html;
+	}
+	$html = (string) preg_replace( '#<figure[^>]*>\s*<img[^>]+/2024/09/c2\.png[^>]*>\s*</figure>#i', '', $html );
+	$by_dma = array( '12' => 'governance', '14' => 'risk', '15' => 'audit', '16' => 'funds', '17' => 'licensing', '18' => 'compliance', '19' => 'arrangement', '20' => 'feasibility' );
+	$by_cut = array( 'c1' => 'feasibility', 'c3' => 'audit', 'c4' => 'funds', 'c5' => 'licensing' );
+	$base   = get_template_directory_uri() . '/assets/img/services/';
+	return (string) preg_replace_callback(
+		'#<img\b[^>]*\bsrc="[^"]*/(?:dma_(12|14|15|16|17|18|19|20)[^"/]*|2024/09/(c[1345])\.png)"[^>]*>#i',
+		static function ( array $m ) use ( $by_dma, $by_cut, $base ): string {
+			$key = '' !== $m[1] ? ( $by_dma[ $m[1] ] ?? '' ) : ( $by_cut[ strtolower( $m[2] ?? '' ) ] ?? '' );
+			return '' === $key ? $m[0] : '<img src="' . esc_url( $base . $key . '.svg' ) . '" alt="" width="720" height="480" loading="lazy" decoding="async">';
+		},
+		$html
+	);
+}, 12 );
+
 /** The page hero owns the single <h1>; any <h1> inside migrated content becomes an <h2>. */
 add_filter( 'the_content', static function ( string $html ): string {
 	return is_singular() ? (string) preg_replace( '/<(\/?)h1\b/i', '<$1h2', $html ) : $html;

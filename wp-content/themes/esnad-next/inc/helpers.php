@@ -168,7 +168,10 @@ function esnad_services(): array {
 			'title' => $row[ $lang ]['title'],
 			'text'  => $row[ $lang ]['text'],
 			'url'   => $url ? $url : home_url( $row[ $lang ]['url'] ),
-			'img'   => content_url( 'uploads/' . $row['img'] ),
+			// Original illustration per service (theme asset); the old uploaded photo is only a fallback.
+			'img'   => file_exists( get_template_directory() . '/assets/img/services/' . $key . '.svg' )
+				? get_template_directory_uri() . '/assets/img/services/' . $key . '.svg?v=' . filemtime( get_template_directory() . '/assets/img/services/' . $key . '.svg' )
+				: content_url( 'uploads/' . $row['img'] ),
 		);
 	}
 	return $services;
