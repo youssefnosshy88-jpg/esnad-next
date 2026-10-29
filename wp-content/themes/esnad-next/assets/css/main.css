@@ -1004,3 +1004,72 @@ html[lang="en"] .lp-hero p,html[lang="en"] .lp-sec p{line-height:1.8}
 .lp--article .lp-sec:not(.lp-lead) figure{text-align:center}
 
 .lp--article .lp-lead:not(:has(p)) figure img{max-block-size:200px}
+
+/* ==========================================================================
+   Institutional layer (final): restrained, editorial, square-edged.
+   Reference: private banks and advisory houses. Gold only as a thin accent.
+   ========================================================================== */
+:root{--radius-small:3px;--radius-medium:6px;--radius-large:10px;--section-spacing:clamp(72px,9vw,124px)}
+
+/* Type: fewer weights, larger headlines, tighter leading */
+h1,h2,h3,h4{font-weight:700}
+.h2{font-size:clamp(30px,3.4vw,46px);line-height:1.2;letter-spacing:-.01em}
+.section__head{max-inline-size:820px;margin-block-end:clamp(30px,3.4vw,52px)}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:none}
+.hero__title{font-weight:700;font-size:clamp(40px,6vw,78px);line-height:1.12;max-inline-size:18ch;letter-spacing:-.015em}
+.hero__lead{font-size:clamp(17px,1.4vw,20px);line-height:1.9;max-inline-size:56ch}
+.page-hero h1{font-weight:700;letter-spacing:-.01em}
+
+/* Controls: rectangular, firm */
+.btn{border-radius:3px;border-width:1px;min-block-size:50px;padding:12px 30px;letter-spacing:0}
+.btn--sm{min-block-size:42px;padding:8px 22px;font-size:15px}
+.btn--gold{background:var(--esnad-gold);color:#17201b}
+.btn--gold:hover{background:#17201b;color:#fff}
+.btn--outline,.btn--ghost{border-color:rgba(255,255,255,.5)}
+.lang-switch,.hero__trust,.blog-filter button,.consent .btn{border-radius:3px}
+.nav-toggle{border-radius:3px}
+
+/* Navigation: text with a thin gold rule, no pills */
+.menu__item>a{border-radius:0;padding:10px 16px;background:transparent!important;font-weight:600}
+.menu__item>a::after{content:"";position:absolute;inset-inline:16px;inset-block-end:4px;block-size:2px;background:var(--esnad-gold);border-radius:0;transform:scaleX(0);transform-origin:center;transition:transform .3s var(--ease-premium)}
+.menu__item>a:hover::after,.menu__item.is-current>a::after{transform:scaleX(1)}
+.menu__item>a:hover,.menu__item>a[aria-current]{color:var(--esnad-dark)}
+.is-mega>.sub{border-radius:0}
+.site-header{border-block-end:1px solid var(--esnad-border);box-shadow:none}
+.site-header.is-solid{box-shadow:0 1px 0 var(--esnad-border)}
+
+/* Hero facts: a flat bar under the hero instead of floating cards */
+.trust{margin-block-start:0;padding-block:0;background:#17201b;border-block-start:1px solid rgba(199,144,29,.55)}
+.trust__grid{gap:0}
+.trust__card{background:transparent;border:0;border-radius:0;box-shadow:none;min-block-size:0;padding:26px 24px;color:#fff;border-inline-start:1px solid rgba(255,255,255,.12)}
+.trust__card:first-child{border-inline-start:0}
+.trust__ic{background:transparent;border-radius:0;inline-size:auto;block-size:auto;color:var(--esnad-gold)}
+.trust__k{color:rgba(255,255,255,.62);font-size:13px}
+.trust__v{color:#fff;font-size:17px}
+.trust__v--num{color:var(--esnad-gold);font-size:24px}
+@media (max-width:900px){.trust__grid{grid-template-columns:repeat(2,1fr)}.trust__card:nth-child(odd){border-inline-start:0}.trust__card{border-block-end:1px solid rgba(255,255,255,.1)}}
+
+/* Surfaces: hairlines instead of shadows */
+.about__media,.svc-sec,.person,.lp-card,.lp-fact,.vm__card,.value,.doc,.pillar,.step,.need,.faq__item,.info-cards li,.aside__list{box-shadow:none}
+.about__media{border:1px solid var(--esnad-border)}
+.card{border:1px solid var(--esnad-border);box-shadow:none;border-radius:6px}
+.card:hover{border-color:var(--esnad-gold);box-shadow:none;transform:none}
+.card__go{border-radius:3px}
+.svc-sec:hover,.person:hover,.step:hover{transform:none;box-shadow:none}
+.lp-hero>figure img,.lp-partners,.lp-cta,.entry-content .lp--thanks,.articles--grid .article a>img,.article__media,.related__item img,.client-grid li{border-radius:6px}
+.lp-list li,.lp-fact,.lp-card,.toc{border-radius:6px!important}
+.svlist__panel{border-radius:8px}
+
+/* Steps: plain numbered columns with a top rule (no corner ornaments) */
+.step{background-image:none!important;border:0;border-block-start:2px solid var(--esnad-dark);border-radius:0;background-color:transparent;padding:20px 8px 8px}
+.step.is-active{background-color:transparent;border-block-start-color:var(--esnad-gold)}
+.step__no{border-radius:0;background:transparent;color:var(--esnad-gold-dark);inline-size:auto;block-size:auto;place-items:start;font-size:15px;letter-spacing:.06em}
+
+/* Logo: the official artwork, crisp, easing smaller once the page scrolls */
+.brand img{block-size:58px;inline-size:auto;transition:block-size .35s var(--ease-premium)}
+.site-header.is-solid .brand img{block-size:46px}
+@media (max-width:1100px){.brand img{block-size:48px}.site-header.is-solid .brand img{block-size:42px}}
+
+/* Facts bar on phones: one compact row per fact; no corner ornaments on the company card */
+@media (max-width:620px){.trust__grid{grid-template-columns:1fr}.trust__card{padding:16px 18px;border-inline-start:0}.trust__v,.trust__v--num{font-size:17px}}
+.about__media,.about__media::before,.about__media::after{background-image:none!important}

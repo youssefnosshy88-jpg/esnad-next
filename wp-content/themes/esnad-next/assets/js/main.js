@@ -203,7 +203,7 @@
 			window.addEventListener('scroll', par, { passive: true }); par();
 		}
 		/* Soft 3D tilt on service cards (pointer devices only). */
-		if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+		if (false) { /* removed on purpose: an institutional look keeps cards still */
 			d.querySelectorAll('.card').forEach(function (card) {
 				card.addEventListener('pointermove', function (e) {
 					var r = card.getBoundingClientRect();

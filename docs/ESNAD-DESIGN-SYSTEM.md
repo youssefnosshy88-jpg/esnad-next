@@ -34,3 +34,12 @@ Header with mega panel (intro card + numbered services), cards (service, article
 
 ## Decorative language
 Bars glyph (`star.svg`, used as bullet), rising bars + trend (`chart.svg`) for page-hero and menu card, axis-tick band above the footer and under page heroes.
+
+## Institutional layer (2026-10-29)
+Direction from the client: look like the best financial firms worldwide, with freedom to change the site. Applied as the last block of `main.css`:
+- Square-edged: radius tokens 3 / 6 / 10 px (were 12 / 20 / 32); rectangular buttons; no pill navigation.
+- Hairlines instead of shadows; cards stay still (the 3D tilt was removed).
+- Headlines 700 weight, larger and tighter; one gold accent (thin rules, one keyword per title).
+- Hero facts (authority, licence number, licensed activity, headquarters) sit in a flat dark bar under the hero.
+- Process steps are plain numbered columns with a top rule.
+- Official logo kept as supplied; the header logo eases from 58 px to 46 px on scroll. New logo concepts were shown to the client and none was approved yet.
