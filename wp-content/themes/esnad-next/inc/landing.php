@@ -208,6 +208,16 @@ function esnad_restructure( string $html, string $mode ): string {
 	foreach ( iterator_to_array( $xp->query( '//figure[.//img[contains(@src,"avicon")]]' ) ) as $fig ) {
 		$fig->parentNode->removeChild( $fig );
 	}
+	// A first heading that repeats the page title (already the hero H1) is dropped.
+	$title_norm = trim( (string) preg_replace( '/\s+/u', ' ', html_entity_decode( wp_strip_all_tags( (string) get_the_title() ), ENT_QUOTES, 'UTF-8' ) ) );
+	foreach ( esnad_lp_kids( $root ) as $n ) {
+		if ( esnad_lp_is( $n, 'h2' ) ) {
+			if ( esnad_lp_text( $n ) === $title_norm ) {
+				$root->removeChild( $n );
+			}
+			break;
+		}
+	}
 
 	if ( 'thanks' === $mode ) {
 		foreach ( iterator_to_array( $xp->query( '//figure' ) ) as $fig ) {

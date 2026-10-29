@@ -997,3 +997,10 @@ html[lang="en"] .lp-hero p,html[lang="en"] .lp-sec p{line-height:1.8}
 @media (max-width:620px){.entry-content .cards{grid-template-columns:1fr}}
 .entry-content a.card{color:inherit;text-decoration:none}
 .entry-content a.card .card__more{color:var(--esnad-gold-dark)}
+
+/* Migrated pages carried inline alignment (centred or justified): body text starts at the reading edge */
+.lp p,.lp li{text-align:start!important}
+.lp--article .lp-lead figure img{max-block-size:380px;inline-size:auto;margin-inline:auto}
+.lp--article .lp-sec:not(.lp-lead) figure{text-align:center}
+
+.lp--article .lp-lead:not(:has(p)) figure img{max-block-size:200px}
