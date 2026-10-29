@@ -8,8 +8,8 @@
 @font-face{font-family:Tajawal;font-weight:700;font-display:swap;src:url(../fonts/tajawal-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 :root{
-  --esnad-dark:#222826;--esnad-charcoal:#2B2B2B;--esnad-green:#415247;--esnad-gold:#C7901D;--esnad-gold-dark:#8C6110;
-  --esnad-white:#fff;--esnad-ivory:#F5F3EC;--esnad-light:#FAF9F5;
+  --esnad-dark:#222826;--esnad-charcoal:#2B2B2B;--esnad-green:#415247;--esnad-gold:#C7901D;--esnad-gold-dark:#7F570E;
+  --esnad-white:#fff;--esnad-ivory:#E6DDC8;--esnad-light:#EFE8D8;
   --esnad-text:#353C38;--esnad-muted:#535C56;--esnad-border:rgba(34,40,38,.12);
   --radius-small:12px;--radius-medium:20px;--radius-large:32px;
   --container-width:1380px;--section-spacing:clamp(44px,5vw,76px);

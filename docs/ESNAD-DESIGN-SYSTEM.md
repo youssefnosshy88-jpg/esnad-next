@@ -9,8 +9,8 @@ Institutional, precise, minimal. Motifs are financial (bars, trend line, axis ti
 | `--esnad-dark` | #222826 | dark sections, text on light |
 | `--esnad-green` | #415247 | gradients, headings accents |
 | `--esnad-gold` | #C7901D | accents, active, CTA |
-| `--esnad-gold-dark` | #8C6110 | gold text on light (AA) |
-| `--esnad-ivory` / `--esnad-light` | #F5F3EC / #FAF9F5 | light sections |
+| `--esnad-gold-dark` | #7F570E | gold text on light and on sand (AA) |
+| `--esnad-light` / `--esnad-ivory` | #EFE8D8 / #E6DDC8 | warm sand page background and alternate sections (cards stay white) |
 
 ## Typography
 Tajawal, self-hosted (`assets/fonts`, weights 400/500/700, Arabic and Latin subsets, `font-display:swap`). Only 400 and 700 are preloaded. Body 17.5 px / 1.75.
