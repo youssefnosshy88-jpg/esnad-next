@@ -86,8 +86,8 @@ $en = '<!-- wp:html -->' . "\n" . '<div class="draft-note"><strong>Draft pending
 	. $h( 'Data we collect' )
 	. $p( 'We only collect what you type into our forms:' )
 	. $ul( array(
-		'Consultation request: name, contact details (e-mail and mobile), organisation, requested service and a short description of your need.',
-		'Contact form: name, e-mail, mobile (optional) and your message.',
+		'Consultation request: name, contact details (email and mobile), organisation, requested service and a short description of your need.',
+		'Contact form: name, email, mobile (optional) and your message.',
 		'Complaint form: name, contact details and the details of the complaint.',
 		'Limited technical data used to protect the forms from abuse, such as the network address and the number of attempts per hour.',
 	) )
@@ -100,7 +100,7 @@ $en = '<!-- wp:html -->' . "\n" . '<div class="draft-note"><strong>Draft pending
 		'To protect the website from spam and misuse.',
 	) )
 	. $h( 'Sharing' )
-	. $p( 'We do not sell or rent your data. We may share it with technical providers who host the website or send e-mail on our behalf, and with public authorities when the law requires it.' )
+	. $p( 'We do not sell or rent your data. We may share it with technical providers who host the website or send email on our behalf, and with public authorities when the law requires it.' )
 	. $h( 'Retention and security' )
 	. $p( 'We keep your data for as long as needed for the purpose it was collected or as the law requires. [The company will state the approved retention period]. We apply technical and organisational measures, and only the relevant staff can view requests.' )
 	. $h( 'Cookies' )
@@ -111,7 +111,7 @@ $en = '<!-- wp:html -->' . "\n" . '<div class="draft-note"><strong>Draft pending
 	. $h( 'Your rights' )
 	. $p( 'You may access your data, ask for correction or deletion, and withdraw consent at any time, as the law allows. To exercise a right, write to info@esnadadvisory.sa.' )
 	. $h( 'Contact' )
-	. $p( 'Esnad Advisory Company - Riyadh, King Faisal Road, Al Murabba District. Phone: 00966920014522. E-mail: info@esnadadvisory.sa.' )
+	. $p( 'Esnad Advisory Company - Riyadh, King Faisal Road, Al Murabba District. Phone: 00966920014522. Email: info@esnadadvisory.sa.' )
 	. $p( 'We may update this policy; the date of the last update will appear on this page.' );
 
 $ar_id = esnad_lg_page( 'privacy-policy', 'سياسة الخصوصية وملفات الارتباط', $ar, 'ar' );

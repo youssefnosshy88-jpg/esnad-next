@@ -247,8 +247,8 @@ function esnad_notice(): array {
 	}
 	// English rendering of the same notice: pending compliance review.
 	return array(
-		'Esnad Financial Company is licensed by the Capital Market Authority to provide advisory services in securities business and arranging, and is not licensed to engage in share trading or forex markets. Please note that some persons impersonate the corporate identity of Esnad Financial Company; please beware of them.',
-		'Esnad Financial does not collect funds through social media. Subscription to the investment opportunities offered is made through the Esnad Financial website only.',
+		'Esnad Advisory Company is licensed by the Capital Market Authority to provide advisory services in securities business and arranging. It is not licensed to trade in shares or forex. Please be aware that some individuals impersonate Esnad Advisory Company; beware of them.',
+		'Esnad Advisory Company does not collect funds through social media. Subscriptions to the investment opportunities offered are made only through the Esnad Advisory website.',
 	);
 }
 

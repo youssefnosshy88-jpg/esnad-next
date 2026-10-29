@@ -16,7 +16,7 @@ $arrow    = esnad_icon( 'arrow', 18 );
 
 $about_text = esnad_t(
 	'شركة ذات مسؤولية محدودة مقرها الرياض برأس مال قدره مليون ريال سعودي. حصلت علي ترخيص هيئة السوق المالية رقم (20-19206) بتاريخ 1441/1/11 الموافق 2019/9/1 م لتقديم خدمات الترتيب والمشورة في أعمال الأوراق المالية وقد بدأت ممارسة العمل بعد استيفاء جميع الشروط اللازمة لممارسة النشاط وذلك بتاريخ 1441/6/9 الموافق 2020/2/3 م ومسجلة بسجل تجاري رقم (1010575421) ورقم موحد (7008921160) وتتخصص الشركة في تقديم المشورة في أعمال الأوراق المالية. الشركة حاصلة على نشاط الترتيب بعد الحصول على موافقة الهيئة على تعديل قوائم أعمالها بتاريخ 2024/06/04 م.',
-	'A limited liability company based in Riyadh with a capital of one million Saudi Riyals. It obtained a license from the Capital Market Authority (License No. 20-19206) on 11/01/1441 AH, corresponding to 01/09/2019 AD, to provide arranging and advisory services in securities activities. The company commenced operations after fulfilling all the necessary conditions to conduct its business on 09/06/1441 AH, corresponding to 03/02/2020 AD. It is registered under Commercial Registration No. 1010575421 and Unified Number 7008921160. The company specializes in providing advisory services in securities activities. It has obtained arranging activity approval after receiving the Authority\'s consent to amend its business lists on 04/06/2024 AD.'
+	'A limited liability company based in Riyadh with a capital of one million Saudi Riyals. It obtained a license from the Capital Market Authority (License No. 20-19206) on 11/01/1441 AH, corresponding to 1 September 2019, to provide arranging and advisory services in securities activities. The company commenced operations on 09/06/1441 AH, corresponding to 3 February 2020, after fulfilling all the conditions required to conduct its business. It is registered under Commercial Registration No. 1010575421 and Unified Number 7008921160. The company specializes in providing advisory services in securities activities. It obtained approval for the arranging activity on 4 June 2024, after the Authority consented to amend its list of activities.'
 );
 
 /* Service explorer data: which services answer which need or challenge (navigation aid, not advice). */
@@ -43,7 +43,7 @@ $modes = array(
 $journey = array(
 	array( esnad_t( 'فهم الاحتياج', 'Understanding the need' ), esnad_t( 'نبدأ بالإنصات: نحدد هدف الجهة وسياق عملها والمتطلبات التنظيمية المرتبطة به.', 'We start by listening: the organization\'s goal, its context and the regulatory requirements that apply.' ) ),
 	array( esnad_t( 'دراسة الوضع الحالي', 'Reviewing the current position' ), esnad_t( 'نراجع الوثائق والسياسات والإجراءات القائمة لنفهم نقطة البداية بدقة.', 'We review existing documents, policies and procedures to understand the starting point precisely.' ) ),
-	array( esnad_t( 'التحليل والتقييم', 'Analysis and assessment' ), esnad_t( 'نحلل المعطيات ونقيّم الخيارات المتاحة وفق المعايير والضوابط ذات الصلة.', 'We analyse the information and assess the available options against the relevant standards and controls.' ) ),
+	array( esnad_t( 'التحليل والتقييم', 'Analysis and assessment' ), esnad_t( 'نحلل المعطيات ونقيّم الخيارات المتاحة وفق المعايير والضوابط ذات الصلة.', 'We analyze the information and assess the available options against the relevant standards and controls.' ) ),
 	array( esnad_t( 'إعداد التوصيات', 'Preparing recommendations' ), esnad_t( 'نصوغ توصيات عملية وواضحة مبنية على نتائج التحليل.', 'We prepare clear, practical recommendations built on the results of the analysis.' ) ),
 	array( esnad_t( 'تسليم المخرجات والمتابعة', 'Delivery and follow-up' ), esnad_t( 'نسلّم المخرجات ونواصل التواصل لدعم تطبيقها.', 'We deliver the outputs and stay in touch to support their implementation.' ) ),
 );
@@ -75,7 +75,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 				<span class="line">A clearer view.</span> <span class="line line--gold">For considered financial decisions.</span>
 			<?php endif; ?>
 		</h1>
-		<p class="hero__lead"><?php echo esc_html( esnad_t( 'خدمات استشارية مالية متخصصة تدعم الشركات في تقييم الخيارات وتعزيز الحوكمة وتنظيم خطوات النمو.', 'Specialised financial advisory services that help companies assess options, strengthen governance and organise their growth steps.' ) ); ?></p>
+		<p class="hero__lead"><?php echo esc_html( esnad_t( 'خدمات استشارية مالية متخصصة تدعم الشركات في تقييم الخيارات وتعزيز الحوكمة وتنظيم خطوات النمو.', 'Specialized financial advisory services that help companies assess options, strengthen governance and organize their growth steps.' ) ); ?></p>
 		<div class="hero__cta">
 			<a class="btn btn--gold" href="#services"><?php echo esc_html( esnad_t( 'اكتشف خدماتنا', 'Discover our services' ) ); ?></a>
 			<a class="btn btn--outline" href="<?php echo esc_url( esnad_url( 'contact' ) ); ?>"><?php echo esc_html( esnad_t( 'تواصل معنا', 'Contact us' ) ); ?></a>
@@ -132,9 +132,9 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<h2 class="screen-reader-text" id="mile-title"><?php echo esc_html( esnad_t( 'محطات الشركة', 'Company milestones' ) ); ?></h2>
 		<ol class="mile">
-			<li class="reveal"><b class="mile__y" aria-hidden="true">2019</b><span class="mile__t"><?php echo esc_html( esnad_t( 'الحصول على ترخيص هيئة السوق المالية رقم (20-19206)', 'CMA license No. 20-19206 obtained' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '1441/1/11 هـ الموافق 2019/9/1 م', '11/01/1441 AH · 01/09/2019 AD' ) ); ?></span></li>
-			<li class="reveal"><b class="mile__y" aria-hidden="true">2020</b><span class="mile__t"><?php echo esc_html( esnad_t( 'بدء ممارسة النشاط', 'Commencement of operations' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '1441/6/9 هـ الموافق 2020/2/3 م', '09/06/1441 AH · 03/02/2020 AD' ) ); ?></span></li>
-			<li class="reveal"><b class="mile__y" aria-hidden="true">2024</b><span class="mile__t"><?php echo esc_html( esnad_t( 'الموافقة على نشاط الترتيب بتعديل قوائم الأعمال', 'Arranging activity approved after amending the business lists' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '2024/06/04 م', '04/06/2024 AD' ) ); ?></span></li>
+			<li class="reveal"><b class="mile__y" aria-hidden="true">2019</b><span class="mile__t"><?php echo esc_html( esnad_t( 'الحصول على ترخيص هيئة السوق المالية رقم (20-19206)', 'CMA license No. 20-19206 obtained' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '1441/1/11 هـ الموافق 2019/9/1 م', '11/01/1441 AH · 1 September 2019' ) ); ?></span></li>
+			<li class="reveal"><b class="mile__y" aria-hidden="true">2020</b><span class="mile__t"><?php echo esc_html( esnad_t( 'بدء ممارسة النشاط', 'Commencement of operations' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '1441/6/9 هـ الموافق 2020/2/3 م', '09/06/1441 AH · 3 February 2020' ) ); ?></span></li>
+			<li class="reveal"><b class="mile__y" aria-hidden="true">2024</b><span class="mile__t"><?php echo esc_html( esnad_t( 'الموافقة على نشاط الترتيب بتعديل قوائم الأعمال', 'Arranging activity approved after the list of activities was amended' ) ); ?></span><span class="mile__d"><?php echo esc_html( esnad_t( '2024/06/04 م', '4 June 2024' ) ); ?></span></li>
 		</ol>
 	</div>
 </section>
@@ -147,7 +147,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 			<h2 class="h2" id="services-title"><?php echo esnad_gold( esnad_t( 'ثماني خدمات استشارية متكاملة', 'Eight integrated advisory services' ), esnad_t( 'استشارية', 'advisory' ) ); ?></h2>
 					</header>
 
-			<?php get_template_part( 'template-parts/service-list' ); ?>
+			<?php get_template_part( 'template-parts/service-cards' ); ?>
 	</div>
 </section>
 
@@ -287,7 +287,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 			<?php $fatca = esnad_fatca(); ?>
 			<a class="doc" href="<?php echo esc_url( $fatca[1] ); ?>" target="_blank" rel="noopener">
 				<?php echo esnad_icon( 'download', 32 ); // phpcs:ignore ?>
-				<span><b><?php echo esc_html( $fatca[0] ); ?></b><small><?php echo esc_html( esnad_t( 'تحميل الملف', 'Download File' ) ); ?></small></span>
+				<span><b><?php echo esc_html( $fatca[0] ); ?></b><small><?php echo esc_html( esnad_t( 'تحميل الملف', 'Download' ) ); ?></small></span>
 			</a>
 		</div>
 	</div>

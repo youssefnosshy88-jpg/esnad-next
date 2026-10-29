@@ -1,6 +1,6 @@
 <?php
 /**
- * Organisation chart: the original picture (885 x 291) redrawn as accessible HTML.
+ * Organization chart: the original picture (885 x 291) redrawn as accessible HTML.
  * Structure and names follow the original chart; the Arabic wording of the boxes is pending the company's approval.
  */
 
@@ -21,7 +21,7 @@ function esnad_orgchart_html( string $original_img ): string {
 		array( 'الخدمات المساندة', 'Shared Service' ),
 		array( 'المالية', 'Accounting and Finance' ),
 	);
-	$out  = '<figure class="org" aria-label="' . esc_attr( esnad_t( 'الهيكل التنظيمي لشركة إسناد المالية', 'Organisation chart of Esnad Advisory Company' ) ) . '">';
+	$out  = '<figure class="org" aria-label="' . esc_attr( esnad_t( 'الهيكل التنظيمي لشركة إسناد المالية', 'Organization chart of Esnad Advisory Company' ) ) . '">';
 	$out .= '<div class="org__top">';
 	$out .= $box( 'مسؤول الالتزام ومكافحة غسل الأموال وتمويل الإرهاب', 'Compliance and AML Officer', 'org__side org__side--a' );
 	$out .= $box( 'مجلس الإدارة', 'Board of Directors', 'org__board' );

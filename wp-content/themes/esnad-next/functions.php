@@ -45,6 +45,10 @@ add_action( 'wp_head', static function (): void {
 	$uri = get_template_directory_uri() . '/assets/fonts/';
 	$sub = esnad_is_rtl() ? 'arabic' : 'latin';
 	// Only the two weights used above the fold (body and headings); 500 loads on demand.
+	if ( ! esnad_is_rtl() ) {
+		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . 'inter-latin.woff2' ) );
+		return;
+	}
 	foreach ( array( 400, 700 ) as $w ) {
 		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $uri . "tajawal-$sub-$w.woff2" ) );
 	}
@@ -127,7 +131,7 @@ add_filter( 'the_content', static function ( string $html ): string {
 		return $html;
 	}
 	ob_start();
-	get_template_part( 'template-parts/service-list' );
+	get_template_part( 'template-parts/service-cards' );
 	$list  = (string) ob_get_clean();
 	$parts = preg_split( '/(?=<h2[^>]*>\s*(?:عملائنا|Our Clients))/u', $html, 2 );
 	return is_array( $parts ) && 2 === count( $parts ) ? $parts[0] . $list . $parts[1] : $html . $list;

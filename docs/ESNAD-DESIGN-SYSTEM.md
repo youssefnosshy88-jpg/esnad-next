@@ -15,6 +15,11 @@ Institutional, precise, minimal. Motifs are financial (bars, trend line, axis ti
 ## Typography
 Tajawal, self-hosted (`assets/fonts`, weights 400/500/700, Arabic and Latin subsets, `font-display:swap`). Only 400 and 700 are preloaded. Body 17.5 px / 1.75.
 
+English pages use Inter (self-hosted `inter-latin.woff2`, variable 400-700, about 48 KB) with Tajawal as the Arabic fallback; body 16.5 px, headings with slight negative tracking. American spelling is the standard (organization, specialized, analyze); the company name in English is always "Esnad Advisory Company"; dates are written "1 September 2019" next to the Hijri date.
+
+## Services display
+Services appear as cards (picture, number, title, summary, "Read more") on the home page and the services directory. The numbered list with a swapping panel (`template-parts/service-list.php`) is kept in the repository but not used, by the client's choice.
+
 ## Layout
 RTL-first with logical properties. Container width token `--container-width`. Alternating dark/light sections.
 

@@ -47,7 +47,7 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 						<ul class="info-cards">
 							<li><?php echo esnad_icon( 'pin', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'العنوان', 'Address' ) ); ?></span><b><?php echo esc_html( esnad_t( $c['street_ar'] . ' - ' . $c['city_ar'] . ' - السعودية', $c['street_en'] . ', ' . $c['city_en'] . ', K.S.A' ) ); ?></b></li>
 							<li><?php echo esnad_icon( 'phone', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'هاتف', 'Phone' ) ); ?></span><a href="tel:<?php echo esc_attr( $c['phone_tel'] ); ?>" dir="ltr"><?php echo esc_html( $c['phone'] ); ?></a></li>
-							<li><?php echo esnad_icon( 'mail', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'البريد الإلكتروني', 'E-Mail' ) ); ?></span><a href="mailto:<?php echo esc_attr( $c['email'] ); ?>"><?php echo esc_html( $c['email'] ); ?></a></li>
+							<li><?php echo esnad_icon( 'mail', 26 ); // phpcs:ignore ?><span><?php echo esc_html( esnad_t( 'البريد الإلكتروني', 'Email' ) ); ?></span><a href="mailto:<?php echo esc_attr( $c['email'] ); ?>"><?php echo esc_html( $c['email'] ); ?></a></li>
 						</ul>
 						<div class="contact-social"><span><?php echo esc_html( esnad_t( 'تابعنا على', 'Follow us on' ) ); ?></span><?php echo esnad_social_links( 'social social--contact' ); // phpcs:ignore ?></div>
 						<?php if ( $img ) : ?>
@@ -56,7 +56,7 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 					</div>
 					<div class="contact-form" id="contact-form">
 						<h2><?php echo esc_html( esnad_t( 'نموذج الاتصال', 'Contact form' ) ); ?></h2>
-						<p><?php echo esc_html( esnad_t( 'لا تتردد في الاتصال بنا إذا كان لديك أي استفسارات أو أسئلة أو كنت ترغب في إرسال ملاحظات.', 'Please feel free to contact us if you have any inquiries, questions or would like to send a feedback or complaint.' ) ); ?></p>
+						<p><?php echo esc_html( esnad_t( 'لا تتردد في الاتصال بنا إذا كان لديك أي استفسارات أو أسئلة أو كنت ترغب في إرسال ملاحظات.', 'Feel free to contact us with any inquiry or question, or to send feedback or a complaint.' ) ); ?></p>
 						<?php echo do_shortcode( '[esnad_contact_form]' ); ?>
 					</div>
 				</div>

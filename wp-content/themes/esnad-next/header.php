@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /** Site header: logo, navigation (with services mega-menu), language switch, consultation CTA. */
 defined( 'ABSPATH' ) || exit;
 $uri   = get_template_directory_uri() . '/assets/img/';
@@ -66,8 +66,8 @@ $hero  = is_front_page();
 								<?php if ( ! empty( $item['mega'] ) ) : ?>
 										<li class="sub__intro">
 											<span class="sub__eyebrow"><?php echo esc_html( esnad_t( 'خدماتنا', 'Our services' ) ); ?></span>
-											<strong><?php echo esc_html( esnad_t( 'استشارات مالية متخصصة', 'Specialised financial advisory' ) ); ?></strong>
-											<p><?php echo esc_html( esnad_t( 'خدمات استشارية تساعد الشركات على تقييم خياراتها وتعزيز حوكمتها وتنظيم خطوات نموها.', 'Advisory services that help companies assess options, strengthen governance and organise their growth steps.' ) ); ?></p>
+											<strong><?php echo esc_html( esnad_t( 'استشارات مالية متخصصة', 'Specialized financial advisory' ) ); ?></strong>
+											<p><?php echo esc_html( esnad_t( 'خدمات استشارية تساعد الشركات على تقييم خياراتها وتعزيز حوكمتها وتنظيم خطوات نموها.', 'Advisory services that help companies assess options, strengthen governance and organize their growth steps.' ) ); ?></p>
 											<a class="sub__all" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( esnad_t( 'عرض كل الخدمات', 'View all services' ) ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
 										</li>
 									<?php endif; ?>

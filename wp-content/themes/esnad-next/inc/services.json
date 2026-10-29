@@ -1,4 +1,4 @@
-﻿[
+[
     {
         "key":  "governance",
         "ar":  {
@@ -8,7 +8,7 @@
                },
         "en":  {
                    "title":  "Governance Services",
-                   "text":  "Corporate governance aims to increase the efficiency and effectiveness of the management of organizations and provides the company with a stable base from which to carry out its work with clearly defined roles and authorities and through the necessary checks and balances. Therefore, corporate governance is a practical business tool",
+                   "text":  "Corporate governance increases the efficiency and effectiveness of how organizations are managed. It gives the company a stable base to work from, with clearly defined roles and authorities and the necessary checks and balances.",
                    "url":  "https://www.esnadadvisory.sa/en/governance-services/"
                },
         "img":  "2024/09/dma_12-web-2.jpg"
@@ -22,7 +22,7 @@
                },
         "en":  {
                    "title":  "Risk Management",
-                   "text":  "Risk management is the process of measuring and evaluating risks and developing strategies for managing them, as well as defining the strategy to be followed to manage and monitor future risks. The risk management services in Esnad Advisory Company include many services, including develop the risk framework \u0026 develop",
+                   "text":  "Risk management is the process of measuring and evaluating risks, developing strategies to manage them, and defining the approach for monitoring future risks. Our services include periodic risk assessment, developing the risk framework and preparing risk management plans.",
                    "url":  "https://www.esnadadvisory.sa/en/risk-managment-services/"
                },
         "img":  "2024/09/dma_14-web.jpg"
@@ -35,8 +35,8 @@
                    "url":  "/fund-development-services/"
                },
         "en":  {
-                   "title":  "Funds development and structuring",
-                   "text":  "Investment funds aim to achieve the goals and requirements of investors, and commensurate with the levels of risk acceptable to them. Based on the objectives of each fund, investment strategies are followed to achieve them, so the financial stocks that make up the assets of these funds differ according to their different objectives",
+                   "title":  "Fund Development and Structuring",
+                   "text":  "Investment funds aim to meet investors\u0027 goals and requirements and to match the risk levels they accept. Each fund follows investment strategies suited to its objectives, so the securities that make up its assets differ from one fund to another.",
                    "url":  "https://www.esnadadvisory.sa/en/fund-development-services/"
                },
         "img":  "2024/09/dma_16-web-1.jpg"
@@ -49,8 +49,8 @@
                    "url":  "/compliance-services/"
                },
         "en":  {
-                   "title":  "Compliance,Anti Money laundering \u0026 CTF",
-                   "text":  "The Department of Compliance and Combating Money Laundering and Terrorism Financing is essential in financial companies, as it is not possible to establish a financial company and accept a license application by the Capital Market Authority except with the presence of this section, where compliance and commitment and combating",
+                   "title":  "Compliance, Anti-Money Laundering \u0026 CTF",
+                   "text":  "The compliance and anti-money laundering and counter-terrorism financing function is essential in financial companies: a financial company cannot be established, and a license application cannot be accepted by the Capital Market Authority, without it.",
                    "url":  "https://www.esnadadvisory.sa/en/compliance-services/"
                },
         "img":  "2025/05/Image.jpg"
@@ -64,7 +64,7 @@
                },
         "en":  {
                    "title":  "Licensing Services",
-                   "text":  "Investors in the Saudi stock market need to obtain the required licenses to operate in a regulatory environment by applying to the Capital Market Authority. We at Esnad Advisory Company handle the license file and operation on behalf of the client by preparing documents required by the Capital Market Authority",
+                   "text":  "Investors in the Saudi capital market need the required licenses to operate in a regulated environment, by applying to the Capital Market Authority. At Esnad Advisory Company we handle the license file on the client\u0027s behalf, preparing the documents the Authority requires.",
                    "url":  "https://www.esnadadvisory.sa/en/licensing-services/"
                },
         "img":  "2024/09/dma_17-web-1.jpg"
@@ -78,7 +78,7 @@
                },
         "en":  {
                    "title":  "Internal Audit",
-                   "text":  "Without internal audit, companies will suffer greatly due to the absence of effective supervisory role. Without controls, this increases the rate of committing mistakes, which the more they are committed, the more prevents companies from achieving their goals and aspirations. At Esnad Advisory Company, we have experts in internal auditing who",
+                   "text":  "Without internal audit, companies suffer from the absence of an effective oversight role. Without controls, errors and irregularities increase and stop companies from reaching their goals. At Esnad Advisory Company, our internal audit experts help you reach yours.",
                    "url":  "https://www.esnadadvisory.sa/en/internal-audit-services/"
                },
         "img":  "2024/09/dma_15-web-1.jpg"
@@ -91,8 +91,8 @@
                    "url":  "/arrangement-services/"
                },
         "en":  {
-                   "title":  "Arrangement services",
-                   "text":  "The arranging department focuses on coordinating and managing financial transactions, such as project financing and issuance of securities, while ensuring compliance with financial laws and standards. Its primary role is to facilitate transactions between the company and customers, reduce financial risks, and improve operational efficiency...",
+                   "title":  "Arrangement Services",
+                   "text":  "The arranging function coordinates and manages financial transactions such as project financing and securities issuance, while ensuring compliance with financial laws and standards. Its core role is to facilitate dealings between the company and clients, reduce financial risk and improve operational efficiency.",
                    "url":  "https://www.esnadadvisory.sa/en/arrangement-services-2/"
                },
         "img":  "2024/09/dma_19-web-1.jpg"
@@ -105,8 +105,8 @@
                    "url":  "/feasibility-studies-services/"
                },
         "en":  {
-                   "title":  "Feasibility studies",
-                   "text":  "Feasibility studies services aim to evaluate the feasibility of investment projects by analyzing the financial, technical, and marketing aspects. These studies help determine the project’s ability to generate profits and meet technical and market requirements, which supports making informed investment decisions...",
+                   "title":  "Feasibility Studies",
+                   "text":  "Feasibility studies evaluate investment projects by analyzing their financial, technical and marketing aspects. They show whether a project can generate profit and meet technical and market requirements, supporting informed investment decisions.",
                    "url":  "https://www.esnadadvisory.sa/en/feasibility-studies-services/"
                },
         "img":  "2024/09/dma_20-web.jpg"
