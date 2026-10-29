@@ -118,7 +118,8 @@ add_filter( 'the_content', static function ( string $html ): string {
 		'#<img\b[^>]*\bsrc="[^"]*/(?:dma_(12|14|15|16|17|18|19|20)[^"/]*|2024/09/(c[1345])\.png)"[^>]*>#i',
 		static function ( array $m ) use ( $by_dma, $by_cut, $base ): string {
 			$key = '' !== $m[1] ? ( $by_dma[ $m[1] ] ?? '' ) : ( $by_cut[ strtolower( $m[2] ?? '' ) ] ?? '' );
-			return '' === $key ? $m[0] : '<img src="' . esc_url( $base . $key . '.svg' ) . '" alt="" width="720" height="480" loading="lazy" decoding="async">';
+			$ver = '' !== $key && file_exists( get_template_directory() . '/assets/img/services/' . $key . '.svg' ) ? '?v=' . filemtime( get_template_directory() . '/assets/img/services/' . $key . '.svg' ) : '';
+			return '' === $key ? $m[0] : '<img src="' . esc_url( $base . $key . '.svg' . $ver ) . '" alt="" width="720" height="480" loading="lazy" decoding="async">';
 		},
 		$html
 	);

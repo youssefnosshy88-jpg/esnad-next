@@ -60,10 +60,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 
 <!-- 01 HERO -->
 <section class="hero" aria-labelledby="hero-title">
-	<div class="hero__media" aria-hidden="true">
-		<?php /* The same looping clip the current site uses; loaded after page load, skipped on slow/saver connections and reduced motion. */ ?>
-		<video class="hero__video" muted loop playsinline preload="none" data-src-lg="<?php echo esc_url( $uploads . '2022/06/videohive_480p.mp4' ); ?>" data-src-sm="<?php echo esc_url( $uploads . '2022/06/videohive.mp4' ); ?>"></video>
-	</div>
+		<?php echo esnad_emblem( 'emblem-ghost.svg', 'hero__emblem' ); // phpcs:ignore ?>
 	<div class="hero__art" aria-hidden="true"></div>
 	
 	<div class="container hero__inner">

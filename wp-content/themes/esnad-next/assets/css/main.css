@@ -1073,3 +1073,64 @@ h1,h2,h3,h4{font-weight:700}
 /* Facts bar on phones: one compact row per fact; no corner ornaments on the company card */
 @media (max-width:620px){.trust__grid{grid-template-columns:1fr}.trust__card{padding:16px 18px;border-inline-start:0}.trust__v,.trust__v--num{font-size:17px}}
 .about__media,.about__media::before,.about__media::after{background-image:none!important}
+
+/* ==========================================================================
+   Emblem language: every shape comes from the logo (octagon, 45-degree cuts,
+   four pieces in gold / olive / gray, a diamond window) and from the name
+   "Esnad" (support): structure, pillars, balance.
+   ========================================================================== */
+:root{--cut:18px;--four:linear-gradient(90deg,#C7901D 0 25%,#34492C 25% 50%,#4d4d4d 50% 75%,#4a6542 75%)}
+
+/* 45-degree chamfer on two opposite corners, the way the logo is cut */
+.card,.about__media,.lp-fact,.lp-card,.lp-list li,.vm__card,.value,.person,.svc-sec,.doc,.faq__item,.info-cards li,.toc,.lp-cta,.lp-partners,.entry-content .lp--thanks,.pillar,.need,.aside__list,.vm__card,.consent,.sub__intro{
+  border-radius:0!important;
+  clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)))}
+.card__img,.lp-hero>figure img,.articles--grid .article a>img,.related__item img,.article__media{border-radius:0!important;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.client-grid li{border-radius:0;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+.btn,.lang-switch{border-radius:0!important;border:0!important;
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.btn--outline,.btn--ghost{background:rgba(255,255,255,.16);color:#fff}
+.btn--outline:hover,.btn--ghost:hover{background:#fff;color:#17201b}
+.btn--line{background:#fff;color:#17201b}
+.lang-switch{background:var(--esnad-ivory);padding:9px 18px}
+.hero__trust{border-radius:0;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+
+/* The octagon as the bullet for labels, replacing stars and bars */
+.eyebrow::before{inline-size:13px;block-size:13px;background:var(--esnad-gold);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.entry-content h2::before{-webkit-mask:none;mask:none;background:var(--esnad-gold);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);inline-size:14px;block-size:14px;inset-block-start:.55em}
+.entry-content ul li::before,.ticker__track li::after{-webkit-mask:none;mask:none;background:var(--esnad-gold);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+
+/* The four pieces as a colour strip: under the hero facts, above the footer, under page heroes */
+.trust{border-block-start:0}
+.trust::before{content:"";display:block;block-size:6px;background:var(--four)}
+.najdi-band,.page-hero::after{block-size:8px!important;background:var(--four)!important;border:0!important}
+
+/* Hero: abstract, built from the emblem; no stock photo */
+.hero__art{background:linear-gradient(135deg,#17241d 0%,#1f3026 55%,#2a4130 100%)}
+.hero__emblem{position:absolute;inset-block-start:50%;inset-inline-end:-4%;z-index:-1;inline-size:min(58vw,640px);transform:translateY(-48%)}
+.hero__emblem svg{display:block;inline-size:100%;block-size:auto}
+@media (prefers-reduced-motion:no-preference){
+  .hero__emblem g polygon{opacity:0;animation:piece 1s var(--ease-premium) forwards}
+  .hero__emblem g polygon:nth-child(1){--x:-60px;--y:-60px;animation-delay:.15s}
+  .hero__emblem g polygon:nth-child(2){--x:60px;--y:-60px;animation-delay:.3s}
+  .hero__emblem g polygon:nth-child(3){--x:-60px;--y:60px;animation-delay:.45s}
+  .hero__emblem g polygon:nth-child(4){--x:60px;--y:60px;animation-delay:.6s}
+}
+@keyframes piece{from{opacity:0;transform:translate(var(--x),var(--y))}to{opacity:1;transform:none}}
+@media (max-width:900px){.hero__emblem{inset-inline-end:-30%;inline-size:420px;opacity:.28}}
+
+/* Page heroes and footer carry the same emblem as a quiet watermark */
+.page-hero__star{-webkit-mask:none!important;mask:none!important;background:url(../img/emblem-ghost.svg) center/contain no-repeat!important;opacity:.55!important;aspect-ratio:1!important;inline-size:min(260px,26vw)!important;animation:none!important}
+.site-footer{position:relative;overflow:hidden}
+.site-footer::after{content:"";position:absolute;inset-inline-start:-90px;inset-block-end:-130px;inline-size:420px;block-size:420px;background:url(../img/emblem-ghost.svg) center/contain no-repeat;opacity:.07;pointer-events:none}
+
+/* Services: each one is a variation of the logo, set on a calm tile */
+.card__img{background:var(--esnad-ivory)}
+.card__img img{object-fit:contain;padding:16px 0;transition:transform .6s var(--ease-premium)}
+.card:hover .card__img img{transform:scale(1.07)}
+.card__no{-webkit-text-stroke-color:rgba(52,73,44,.4)!important}
+.entry-content figure img[src*="/services/"],.lp-hero>figure img[src*="/services/"]{background:var(--esnad-ivory);padding:34px;object-fit:contain}
+
+.hero__emblem{opacity:.58}
+.hero__emblem svg{filter:saturate(.85)}

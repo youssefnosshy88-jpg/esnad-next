@@ -43,3 +43,11 @@ Direction from the client: look like the best financial firms worldwide, with fr
 - Hero facts (authority, licence number, licensed activity, headquarters) sit in a flat dark bar under the hero.
 - Process steps are plain numbered columns with a top rule.
 - Official logo kept as supplied; the header logo eases from 58 px to 46 px on scroll. New logo concepts were shown to the client and none was approved yet.
+
+## Emblem language (supersedes the decorative notes above)
+The whole design is derived from the logo and the name. The official logo is untouched.
+- **Emblem:** an octagon in four pieces (gold, olive, gray, olive) with a diamond window in the centre, drawn in `assets/img/emblem*.svg` and inlined with `esnad_emblem()`.
+- **Service marks:** `assets/img/services/{key}.svg`: the same emblem with one glyph per service in the window (pillars, gauge, pie, check, seal, magnifier, linked nodes, rising bars).
+- **Shapes:** 45-degree chamfers on two opposite corners (`--cut`), octagon bullets, the four-colour strip (`--four`) under the hero facts, above the footer and under page heroes.
+- **Hero:** abstract, the emblem assembling from four pieces on deep olive; no stock photo or video.
+- **Watermarks:** emblem ghost in page heroes and the footer.

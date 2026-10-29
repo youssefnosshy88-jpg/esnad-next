@@ -92,6 +92,19 @@ function esnad_clients_marquee(): string {
 	return $out . '</div>';
 }
 
+/** Inline emblem (the abstract mark built from the logo's four pieces); unique mask id per use. */
+function esnad_emblem( string $file = 'emblem-ghost.svg', string $class = '' ): string {
+	static $n = 0;
+	$path = get_template_directory() . '/assets/img/' . $file;
+	if ( ! file_exists( $path ) ) {
+		return '';
+	}
+	$svg = (string) file_get_contents( $path );
+	++$n;
+	$svg = str_replace( array( 'id="h"', 'url(#h)', ' role="img"' ), array( 'id="h' . $n . '"', 'url(#h' . $n . ')', ' aria-hidden="true" focusable="false"' ), $svg );
+	return '<span class="emblem ' . esc_attr( $class ) . '" aria-hidden="true">' . $svg . '</span>';
+}
+
 /** Section title with one gold keyword: the text is escaped, then the keyword is wrapped in <em>. */
 function esnad_gold( string $text, string $word ): string {
 	$html = esc_html( $text );
