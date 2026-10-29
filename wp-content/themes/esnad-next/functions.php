@@ -10,7 +10,7 @@ define( 'ESNAD_VER', '1.0.0' );
 require_once __DIR__ . '/inc/helpers.php';
 require_once __DIR__ . '/inc/seo.php';
 // Optional layers are loaded defensively: a parse error here must not take the site down.
-foreach ( array( 'landing.php', 'article.php' ) as $esnad_opt ) {
+foreach ( array( 'landing.php', 'article.php', 'orgchart.php', 'settings.php' ) as $esnad_opt ) {
 	try {
 		require_once __DIR__ . '/inc/' . $esnad_opt;
 	} catch ( Throwable $e ) {
@@ -73,6 +73,11 @@ add_filter( 'language_attributes', static function ( string $out ): string {
 add_filter( 'body_class', static function ( array $classes ): array {
 	$classes[] = esnad_is_rtl() ? 'is-rtl' : 'is-ltr';
 	return $classes;
+} );
+
+/** The site name follows the page language (titles, Open Graph and schema read it). */
+add_filter( 'pre_option_blogname', static function ( $value ) {
+	return is_admin() || ! function_exists( 'esnad_t' ) ? $value : esnad_t( 'شركة إسناد المالية', 'Esnad Advisory Company' );
 } );
 
 add_filter( 'excerpt_length', static fn(): int => 28 );

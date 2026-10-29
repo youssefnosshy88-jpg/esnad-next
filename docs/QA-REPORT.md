@@ -15,6 +15,13 @@ Desktop and mobile samples of home, about, executive, disclosure, careers, Sanad
 - Vision page: values in three columns, logo wall 639 px tall.
 - Still unverified: first-tap-select behaviour on a real touch device (only emulated width was used).
 
+## Checked 2026-10-29 (accessibility and performance, scripted, Chromium only)
+- Contrast script (WCAG AA ratios, large text 3:1): found and fixed gold keyword headings on light sections (2.5 to 2.7:1 before; now the darker gold) and landing-page buttons that took the prose link colour (1.9:1 before; now dark text on gold). Remaining reports were false positives on the dark gradient CTA band (white on a gradient the script cannot read).
+- Structure: no images without `alt`, no unnamed buttons or links, no unlabeled inputs, no duplicate IDs, no heading level skips, `lang` and `dir` correct, skip link and `main` landmark present (landing page and service page).
+- Page titles and Open Graph site name now follow the page language (English pages said "شركة إسناد المالية" before).
+- Performance on the shared staging host (indicative, not a Lighthouse run): home TTFB 350 ms, DOMContentLoaded 418 ms, load 419 ms, 30 requests, layout shift 0.000. LCP entry was not reported by the pane; a real LCP/INP measurement still needs production hosting.
+- Consent bar: with a test GA ID it appeared, Decline stored the choice and loaded nothing from Google, the footer button reopened it. The test ID was removed afterwards.
+
 ## Not yet done
 - Core Web Vitals (LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms): not measured; the shared staging host is slow and intermittently refuses connections, so measure on production hosting.
 - WCAG 2.2 AA audit: not run. Known good: skip link, focus-visible styles, labelled forms, reduced-motion honoured. Contrast of gold on light uses the darker gold token.

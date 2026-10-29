@@ -14,6 +14,12 @@ If the host answers "Connection closed", wait a few minutes: Hostinger rate-limi
 Content was converted from Elementor JSON to block content by `tools/migrate-elementor.php`, then `tools/create-form-pages.php`, `tools/replace-forminator.php`, and the careers fix, orchestrated by `tools/migrate-all.sh` (run with `ESNAD_WRITE=1`). They update `post_content` directly with `$wpdb->update` (WPML save hooks fatal in CLI) and are idempotent. Run on staging only.
 Before any content run: `wp db export` to a file outside the web root and keep it outside Git.
 
+## Settings the company edits (no code)
+Settings > General, section "إسناد - Esnad": form recipient e-mail and the Google Analytics 4 ID. With no GA ID there is no analytics and no consent bar. Legal pages are created by `tools/create-legal-pages.php` (`wp eval-file`, idempotent); the text is a draft until the company approves it.
+
+## Optional layers (guarded includes in `functions.php`)
+`inc/landing.php` (landing, investment and thank-you pages), `inc/article.php` (articles), `inc/orgchart.php` (organisation chart, page IDs 16852 and 29468), `inc/settings.php` (settings and consent bar). Each is wrapped in a try/catch include, so a fault falls back to the original content instead of breaking the site.
+
 ## Rollback
 - Code: redeploy the previous commit (`git checkout <sha>` then run the deploy script).
 - Content: `wp db import` the pre-run export; post revisions also exist for each page.

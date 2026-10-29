@@ -144,52 +144,10 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 	<div class="container">
 		<header class="section__head reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'خدماتنا', 'Our Services' ) ); ?></p>
-			<h2 class="h2" id="services-title"><?php echo esnad_gold( esnad_t( 'استكشف الخدمات حسب ما يناسب احتياجك', 'Explore services by what you need' ), esnad_t( 'الخدمات', 'services' ) ); ?></h2>
-			<p class="section__sub"><?php echo esc_html( esnad_t( 'أداة للتنقل بين خدماتنا فقط، وليست استشارة مالية أو استثمارية.', 'A navigation aid for our services only. It is not financial or investment advice.' ) ); ?></p>
-		</header>
+			<h2 class="h2" id="services-title"><?php echo esnad_gold( esnad_t( 'ثماني خدمات استشارية متكاملة', 'Eight integrated advisory services' ), esnad_t( 'استشارية', 'advisory' ) ); ?></h2>
+					</header>
 
-		<div class="explorer" data-explorer>
-			<div class="explorer__tabs" role="tablist" aria-label="<?php echo esc_attr( esnad_t( 'طريقة التصفح', 'Browse by' ) ); ?>">
-				<?php $first = true; foreach ( $modes as $key => $label ) : ?>
-					<button type="button" role="tab" id="tab-<?php echo esc_attr( $key ); ?>" aria-controls="panel-<?php echo esc_attr( $key ); ?>" aria-selected="<?php echo $first ? 'true' : 'false'; ?>" tabindex="<?php echo $first ? '0' : '-1'; ?>"><?php echo esc_html( $label ); ?></button>
-				<?php $first = false; endforeach; ?>
-			</div>
-
-			<div class="explorer__panel" role="tabpanel" id="panel-type" aria-labelledby="tab-type">
-				<div class="cards">
-					<?php $n = 0; foreach ( $services as $svc ) : $n++; ?>
-						<a class="card" href="<?php echo esc_url( $svc['url'] ); ?>">
-							<span class="card__img"><img src="<?php echo esc_url( $svc['img'] ); ?>" alt="" width="720" height="480" loading="lazy" decoding="async"><b class="card__no" aria-hidden="true"><?php echo esc_html( str_pad( (string) $n, 2, '0', STR_PAD_LEFT ) ); ?></b><span class="card__go" aria-hidden="true"><?php echo esnad_icon( 'arrow-up-right', 22 ); // phpcs:ignore ?></span></span>
-							<span class="card__body">
-								<span class="card__title"><?php echo esc_html( $svc['title'] ); ?></span>
-								<span class="card__text"><?php echo esc_html( $svc['text'] ); ?></span>
-								<span class="card__more"><?php echo esc_html( esnad_t( 'اقرأ المزيد', 'Read more' ) ); ?> <?php echo $arrow; // phpcs:ignore ?></span>
-							</span>
-						</a>
-					<?php endforeach; ?>
-				</div>
-			</div>
-
-			<?php foreach ( array( 'need' => $needs, 'challenge' => $challenges ) as $mode => $list ) : ?>
-				<div class="explorer__panel" role="tabpanel" id="panel-<?php echo esc_attr( $mode ); ?>" aria-labelledby="tab-<?php echo esc_attr( $mode ); ?>" hidden>
-					<div class="chooser">
-						<ul class="chooser__list">
-							<?php foreach ( $list as $i => $row ) : ?>
-								<li><button type="button" data-targets="<?php echo esc_attr( implode( ',', $row[1] ) ); ?>" aria-pressed="<?php echo 0 === $i ? 'true' : 'false'; ?>"><?php echo esc_html( $row[0] ); ?></button></li>
-							<?php endforeach; ?>
-						</ul>
-						<div class="chooser__result" aria-live="polite">
-							<?php foreach ( $services as $svc ) : ?>
-								<a class="chip-card" data-service="<?php echo esc_attr( $svc['key'] ); ?>" href="<?php echo esc_url( $svc['url'] ); ?>">
-									<span class="chip-card__title"><?php echo esc_html( $svc['title'] ); ?></span>
-									<span class="chip-card__text"><?php echo esc_html( $svc['text'] ); ?></span>
-								</a>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
+			<?php get_template_part( 'template-parts/service-list' ); ?>
 	</div>
 </section>
 
@@ -290,47 +248,6 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 			<?php endforeach; ?>
 		</ol>
 		<div class="journey__line" aria-hidden="true"><span></span></div>
-	</div>
-</section>
-
-<!-- 07 WHY ESNAD -->
-<section class="section section--ivory" id="why" aria-labelledby="why-title">
-	<div class="container">
-		<header class="section__head reveal">
-			<p class="eyebrow"><?php echo esc_html( esnad_t( 'لماذا إسناد', 'Why Esnad' ) ); ?></p>
-			<h2 class="h2" id="why-title"><?php echo esnad_gold( esnad_t( 'أربعة أسس تقوم عليها خدماتنا', 'Four foundations behind our work' ), esnad_t( 'أربعة أسس', 'Four foundations' ) ); ?></h2>
-		</header>
-		<div class="pillars">
-			<?php foreach ( $pillars as $p ) : ?>
-				<article class="pillar reveal">
-					<span class="pillar__icon"><?php echo esnad_icon( $p[0], 28 ); // phpcs:ignore ?></span>
-					<h3><?php echo esc_html( $p[1] ); ?></h3>
-					<p><?php echo esc_html( $p[2] ); ?></p>
-				</article>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
-<!-- 08 BUSINESS NEEDS -->
-<section class="section" id="needs" aria-labelledby="needs-title">
-	<div class="container">
-		<header class="section__head reveal">
-			<p class="eyebrow"><?php echo esc_html( esnad_t( 'احتياجات الأعمال', 'Business needs' ) ); ?></p>
-			<h2 class="h2" id="needs-title"><?php echo esnad_gold( esnad_t( 'ما تحتاجه جهتك، وأين تجد الخدمة المناسبة', 'What your organization needs, and where to find the service' ), esnad_t( 'الخدمة المناسبة', 'the service' ) ); ?></h2>
-		</header>
-		<div class="needs">
-			<?php foreach ( $needs as $row ) : ?>
-				<div class="need reveal">
-					<h3><?php echo esc_html( $row[0] ); ?></h3>
-					<ul>
-						<?php foreach ( $row[1] as $key ) : if ( empty( $services[ $key ] ) ) { continue; } ?>
-							<li><a href="<?php echo esc_url( $services[ $key ]['url'] ); ?>"><?php echo esc_html( $services[ $key ]['title'] ); ?> <?php echo $arrow; // phpcs:ignore ?></a></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-			<?php endforeach; ?>
-		</div>
 	</div>
 </section>
 

@@ -121,6 +121,33 @@
 		});
 	});
 
+	/* Analytics consent: nothing loads until the visitor accepts; the choice lives in localStorage. */
+	var consent = d.querySelector('[data-consent]');
+	if (consent) {
+		var gaId = consent.getAttribute('data-ga');
+		var KEY = 'esnad-consent';
+		var read = function () { try { return window.localStorage.getItem(KEY); } catch (e) { return null; } };
+		var write = function (v) { try { window.localStorage.setItem(KEY, v); } catch (e) { /* private mode: the choice just is not remembered */ } };
+		var loaded = false;
+		var loadGa = function () {
+			if (loaded || !gaId) { return; }
+			loaded = true;
+			var s = d.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+			d.head.appendChild(s);
+			window.dataLayer = window.dataLayer || [];
+			window.gtag = function () { window.dataLayer.push(arguments); };
+			window.gtag('js', new Date());
+			window.gtag('config', gaId, { anonymize_ip: true });
+		};
+		var state = read();
+		if (state === 'yes') { loadGa(); } else if (state !== 'no') { consent.hidden = false; }
+		consent.querySelector('[data-consent-yes]').addEventListener('click', function () { write('yes'); consent.hidden = true; loadGa(); });
+		consent.querySelector('[data-consent-no]').addEventListener('click', function () { write('no'); consent.hidden = true; });
+		d.querySelectorAll('[data-consent-open]').forEach(function (b) { b.addEventListener('click', function () { consent.hidden = false; }); });
+	}
+
 	/* Article category filter (progressive: without JS every article stays visible). */
 	d.querySelectorAll('.blog-filter').forEach(function (bar) {
 		var grid = d.querySelector('[data-blog]');

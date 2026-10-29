@@ -57,6 +57,12 @@ $about = $nav[0]['children'];
 			</dl>
 			<p><a class="text-link" href="<?php echo esc_url( esnad_url( 'disclosure' ) ); ?>"><?php echo esc_html( esnad_t( 'الإفصاح والقوائم المالية', 'Disclosure and financial statements' ) ); ?></a></p>
 			<p><a class="text-link" href="<?php echo esc_url( esnad_complaints_url() ); ?>"><?php echo esc_html( esnad_t( 'الشكاوى', 'Complaints' ) ); ?></a></p>
+			<?php $esnad_priv = get_page_by_path( esnad_is_rtl() ? 'privacy-policy' : 'privacy-policy-en' ); if ( $esnad_priv ) : ?>
+				<p><a class="text-link" href="<?php echo esc_url( get_permalink( $esnad_priv ) ); ?>"><?php echo esc_html( esnad_t( 'سياسة الخصوصية وملفات الارتباط', 'Privacy policy and cookies' ) ); ?></a></p>
+			<?php endif; ?>
+			<?php if ( function_exists( 'esnad_consent_enabled' ) && esnad_consent_enabled() ) : ?>
+				<p><button type="button" class="text-link text-link--btn" data-consent-open><?php echo esc_html( esnad_t( 'إعدادات ملفات الارتباط', 'Cookie settings' ) ); ?></button></p>
+			<?php endif; ?>
 		</div>
 
 		<address class="footer-col">
