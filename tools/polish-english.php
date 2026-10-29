@@ -75,7 +75,8 @@ $pages = array(
 		'Please upload your updated CV here for future vacancies.' => 'Send us your updated CV for future vacancies.',
 		'Upload CV' => 'Send your CV',
 		'Search jobs' => '',
-		'Career' => 'Careers',
+		'Career' => '', // the page title already shows it
+		'Careers' => '',
 	),
 );
 
