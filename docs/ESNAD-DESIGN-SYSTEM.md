@@ -51,3 +51,6 @@ The whole design is derived from the logo and the name. The official logo is unt
 - **Shapes:** 45-degree chamfers on two opposite corners (`--cut`), octagon bullets, the four-colour strip (`--four`) under the hero facts, above the footer and under page heroes.
 - **Hero:** abstract, the emblem assembling from four pieces on deep olive; no stock photo or video.
 - **Watermarks:** emblem ghost in page heroes and the footer.
+
+### Service pictures (revised)
+Repeating the logo in every service was judged too much. Each service now has its own calm illustration (soft sand and sage with a touch of gold), drawn as SVG in `assets/img/services/{key}.svg`: governance (institution with columns and scales), risk (umbrella over a volatile chart), funds (coin stacks, pie and a sprout), compliance (checklist, magnifier, shield), licensing (certificate, seal, key), internal audit (ledger and magnifier), arrangement (issuer, bridge with a coin, investors), feasibility (plan sheet, rising bars, flag, pencil, calculator). The emblem remains only in the hero, page heroes and footer.

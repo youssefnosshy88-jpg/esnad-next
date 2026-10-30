@@ -1134,3 +1134,8 @@ h1,h2,h3,h4{font-weight:700}
 
 .hero__emblem{opacity:.58}
 .hero__emblem svg{filter:saturate(.85)}
+
+/* Service pictures are full-bleed illustrations again (not emblems on a tile) */
+.card__img img{object-fit:cover;padding:0}
+.card:hover .card__img img{transform:scale(1.05)}
+.entry-content figure img[src*="/services/"],.lp-hero>figure img[src*="/services/"]{background:none;padding:0;object-fit:cover;aspect-ratio:3/2}
