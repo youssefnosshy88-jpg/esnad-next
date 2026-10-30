@@ -54,3 +54,6 @@ The whole design is derived from the logo and the name. The official logo is unt
 
 ### Service pictures (revised)
 Repeating the logo in every service was judged too much. Each service now has its own calm illustration (soft sand and sage with a touch of gold), drawn as SVG in `assets/img/services/{key}.svg`: governance (institution with columns and scales), risk (umbrella over a volatile chart), funds (coin stacks, pie and a sprout), compliance (checklist, magnifier, shield), licensing (certificate, seal, key), internal audit (ledger and magnifier), arrangement (issuer, bridge with a coin, investors), feasibility (plan sheet, rising bars, flag, pencil, calculator). The emblem remains only in the hero, page heroes and footer.
+
+### Clients as orbits
+Home page clients are shown as four concentric rings (9, 14, 18 and 21 logos) turning slowly around the emblem (`esnad_clients_orbit()`, `.orbit` in `main.css`). Logos stay upright (rings and logos counter-rotate), the whole orbit pauses when the pointer enters it, and the logo under the pointer grows 2.1x with a gold ring. Phones get a three-row swipe strip instead; reduced-motion users get the still arrangement. Inner pages keep the plain static logo grid (accessible, no motion).

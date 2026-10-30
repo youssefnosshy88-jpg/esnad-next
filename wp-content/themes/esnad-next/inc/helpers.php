@@ -92,6 +92,50 @@ function esnad_clients_marquee(): string {
 	return $out . '</div>';
 }
 
+/**
+ * Clients as orbits: four concentric rings turn slowly around the company's emblem; each logo stays upright,
+ * the rings pause on hover and the logo under the pointer grows. On phones a swipeable three-row strip replaces it.
+ */
+function esnad_clients_orbit(): string {
+	$logos = esnad_json( 'clients.json' );
+	if ( ! $logos ) {
+		return '';
+	}
+	$base   = content_url( 'uploads/' );
+	$total  = count( $logos );
+	$plan   = array(
+		array( 'r' => 18.0, 'n' => 9, 't' => 150, 'dir' => 'normal' ),
+		array( 'r' => 28.2, 'n' => 14, 't' => 210, 'dir' => 'reverse' ),
+		array( 'r' => 37.6, 'n' => 18, 't' => 270, 'dir' => 'normal' ),
+		array( 'r' => 46.4, 'n' => 21, 't' => 330, 'dir' => 'reverse' ),
+	);
+	$item   = 7.0; // logo diameter as a share of the whole orbit
+	$i      = 0;
+	$rings  = '';
+	foreach ( $plan as $k => $ring ) {
+		$n = ( count( $plan ) - 1 === $k ) ? max( 0, $total - $i ) : min( $ring['n'], $total - $i );
+		if ( $n <= 0 ) {
+			break;
+		}
+		$size  = round( $item / ( 2 * $ring['r'] ) * 100, 3 );
+		$items = '';
+		for ( $j = 0; $j < $n; $j++ ) {
+			$a      = 2 * M_PI * $j / $n - M_PI / 2 + $k * 0.35;
+			$left   = round( 50 + 50 * cos( $a ), 3 );
+			$top    = round( 50 + 50 * sin( $a ), 3 );
+			$items .= '<li style="left:' . $left . '%;top:' . $top . '%;width:' . $size . '%"><span><img src="' . esc_url( $base . $logos[ $i ] ) . '" alt="" width="120" height="120" loading="lazy" decoding="async"></span></li>';
+			++$i;
+		}
+		$rings .= '<ol class="ring" style="left:' . round( 50 - $ring['r'], 3 ) . '%;top:' . round( 50 - $ring['r'], 3 ) . '%;width:' . round( 2 * $ring['r'], 3 ) . '%;--t:' . (int) $ring['t'] . 's;--dir:' . $ring['dir'] . ';--idir:' . ( 'normal' === $ring['dir'] ? 'reverse' : 'normal' ) . '">' . $items . '</ol>';
+	}
+	$strip = '';
+	foreach ( $logos as $logo ) {
+		$strip .= '<li><img src="' . esc_url( $base . $logo ) . '" alt="" width="96" height="96" loading="lazy" decoding="async"></li>';
+	}
+	$label = esc_attr( esnad_t( 'شعارات عملائنا', 'Our clients\' logos' ) );
+	return '<div class="orbit reveal" role="group" aria-label="' . $label . '"><div class="orbit__core">' . esnad_emblem( 'emblem-ghost.svg', 'orbit__emblem' ) . '<strong>' . esc_html( esnad_t( 'عملاؤنا', 'Our clients' ) ) . '</strong></div>' . $rings . '</div><ul class="orbit-swipe" aria-label="' . $label . '">' . $strip . '</ul>';
+}
+
 /** Inline emblem (the abstract mark built from the logo's four pieces); unique mask id per use. */
 function esnad_emblem( string $file = 'emblem-ghost.svg', string $class = '' ): string {
 	static $n = 0;

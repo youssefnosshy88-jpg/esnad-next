@@ -1139,3 +1139,32 @@ h1,h2,h3,h4{font-weight:700}
 .card__img img{object-fit:cover;padding:0}
 .card:hover .card__img img{transform:scale(1.05)}
 .entry-content figure img[src*="/services/"],.lp-hero>figure img[src*="/services/"]{background:none;padding:0;object-fit:cover;aspect-ratio:3/2}
+
+/* ==========================================================================
+   Clients as orbits
+   ========================================================================== */
+.clients--dark{background:radial-gradient(70% 90% at 50% 55%,#26382d 0%,#17241d 70%)}
+.orbit{position:relative;inline-size:min(100%,880px);aspect-ratio:1;margin:8px auto 0;direction:ltr}
+.orbit__core{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:8px;z-index:1;text-align:center;color:#fff}
+.orbit__emblem{display:block;inline-size:clamp(70px,11vw,120px)}
+.orbit__emblem svg{display:block;inline-size:100%;block-size:auto}
+.orbit__core strong{font-size:clamp(16px,2vw,24px);font-weight:700;color:#fff}
+.ring{position:absolute;aspect-ratio:1;margin:0;padding:0;list-style:none;border:1px dashed rgba(199,144,29,.32);border-radius:50%;animation:orb var(--t) linear infinite var(--dir)}
+.ring li{position:absolute;aspect-ratio:1;transform:translate(-50%,-50%)}
+.ring li>span{display:block;inline-size:100%;block-size:100%;animation:orb var(--t) linear infinite var(--idir)}
+.ring img{display:block;inline-size:100%;block-size:100%;border-radius:50%;background:#fff;object-fit:contain;padding:13%;box-shadow:0 0 0 2px rgba(199,144,29,.55),0 12px 24px -12px rgba(0,0,0,.7);transition:transform .45s var(--ease-premium),box-shadow .3s}
+.ring li:hover{z-index:6}
+.ring img:hover{transform:scale(2.1);box-shadow:0 0 0 3px #C7901D,0 22px 40px -12px rgba(0,0,0,.8)}
+.orbit:hover .ring,.orbit:hover .ring li>span{animation-play-state:paused}
+@keyframes orb{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ring,.ring li>span{animation:none}}
+.orbit-swipe{display:none}
+@media (max-width:760px){
+  .orbit{display:none}
+  .orbit-swipe{display:grid;grid-template-rows:repeat(3,76px);grid-auto-flow:column;grid-auto-columns:76px;gap:10px;margin:0;padding:6px 16px 16px;list-style:none;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .orbit-swipe li{scroll-snap-align:start}
+  .orbit-swipe img{display:block;inline-size:76px;block-size:76px;object-fit:contain;padding:10px;background:#fff;border-radius:50%;box-shadow:0 0 0 2px rgba(199,144,29,.5)}
+}
+
+.ring{pointer-events:none}
+.ring li{pointer-events:auto}

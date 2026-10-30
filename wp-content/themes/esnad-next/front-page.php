@@ -257,7 +257,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 			<h2 class="h2" id="clients-title"><?php echo esc_html( esnad_t( 'عملائنا', 'Our Clients' ) ); ?></h2>
 		</header>
 	</div>
-	<?php echo esnad_clients_marquee(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	<div class="container"><?php echo esnad_clients_orbit(); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 </section>
 <?php endif; ?>
 
