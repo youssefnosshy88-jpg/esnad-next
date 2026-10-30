@@ -136,6 +136,36 @@ function esnad_clients_orbit(): string {
 	return '<div class="orbit reveal" role="group" aria-label="' . $label . '"><div class="orbit__core">' . esnad_emblem( 'emblem-ghost.svg', 'orbit__emblem' ) . '<strong>' . esc_html( esnad_t( 'عملاؤنا', 'Our clients' ) ) . '</strong></div>' . $rings . '</div><ul class="orbit-swipe" aria-label="' . $label . '">' . $strip . '</ul>';
 }
 
+/**
+ * Clients as an octagon mosaic (the logo's own shape). Large tiles, all visible; on a pointer device the
+ * tiles near the cursor come into colour and grow like a lens (progressive enhancement in main.js).
+ * Phones get the swipe strip. Tiles that have neighbours below and beside carry a diamond where four meet.
+ */
+function esnad_clients_mosaic(): string {
+	$logos = esnad_json( 'clients.json' );
+	if ( ! $logos ) {
+		return '';
+	}
+	$base  = content_url( 'uploads/' );
+	$total = count( $logos );
+	$items = '';
+	foreach ( $logos as $i => $logo ) {
+		$cls = '';
+		foreach ( array( 8, 6 ) as $cols ) {
+			if ( ( $i + 1 ) % $cols && $i + $cols + 1 < $total ) {
+				$cls .= ' d' . $cols;
+			}
+		}
+		$items .= '<li class="t' . $cls . '" style="--i:' . (int) $i . '"><span class="o"><span class="n"><img src="' . esc_url( $base . $logo ) . '" alt="" width="160" height="160" loading="lazy" decoding="async"></span></span></li>';
+	}
+	$strip = '';
+	foreach ( $logos as $logo ) {
+		$strip .= '<li><img src="' . esc_url( $base . $logo ) . '" alt="" width="96" height="96" loading="lazy" decoding="async"></li>';
+	}
+	$label = esc_attr( esnad_t( 'شعارات عملائنا', 'Our clients\' logos' ) );
+	return '<ul class="mosaic reveal" data-mosaic aria-label="' . $label . '">' . $items . '</ul><ul class="orbit-swipe" aria-label="' . $label . '">' . $strip . '</ul>';
+}
+
 /** Inline emblem (the abstract mark built from the logo's four pieces); unique mask id per use. */
 function esnad_emblem( string $file = 'emblem-ghost.svg', string $class = '' ): string {
 	static $n = 0;

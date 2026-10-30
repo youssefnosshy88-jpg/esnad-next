@@ -148,6 +148,27 @@
 		d.querySelectorAll('[data-consent-open]').forEach(function (b) { b.addEventListener('click', function () { consent.hidden = false; }); });
 	}
 
+	/* Client mosaic: a lens follows the pointer; tiles near it gain colour and size, far ones calm down. */
+	d.querySelectorAll('[data-mosaic]').forEach(function (m) {
+		if (reduce || !window.matchMedia('(hover:hover) and (pointer:fine)').matches) { return; }
+		var tiles = Array.prototype.slice.call(m.querySelectorAll('.t'));
+		var R = 320, raf = 0, px = 0, py = 0;
+		var set = function (v) { tiles.forEach(function (t) { t.style.setProperty('--k', v); }); };
+		var paint = function () {
+			raf = 0;
+			tiles.forEach(function (t) {
+				var r = t.getBoundingClientRect();
+				var dx = r.left + r.width / 2 - px, dy = r.top + r.height / 2 - py;
+				var k = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / R);
+				t.style.setProperty('--k', (k * k * (3 - 2 * k)).toFixed(3));
+			});
+		};
+		m.addEventListener('pointermove', function (e) { px = e.clientX; py = e.clientY; if (!raf) { raf = window.requestAnimationFrame(paint); } });
+		m.addEventListener('pointerenter', function () { m.classList.add('is-lens'); });
+		m.addEventListener('pointerleave', function () { m.classList.remove('is-lens'); set(1); });
+		set(1);
+	});
+
 	/* Article category filter (progressive: without JS every article stays visible). */
 	d.querySelectorAll('.blog-filter').forEach(function (bar) {
 		var grid = d.querySelector('[data-blog]');
