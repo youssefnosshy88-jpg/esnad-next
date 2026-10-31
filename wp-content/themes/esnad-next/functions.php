@@ -89,7 +89,8 @@ add_filter( 'excerpt_more', static fn(): string => '' );
 /** Excerpts: the old posts end with dangling dots or a lone "و"; close them cleanly with one ellipsis. */
 add_filter( 'get_the_excerpt', static function ( string $text ): string {
 	$text = (string) preg_replace( '/(?:\s+و)?[\s.\x{2026}]{2,}$/u', '', trim( $text ) );
-	return rtrim( $text, " ,،" ) . '…';
+	$text = rtrim( $text, " ,،" );
+	return preg_match( '/[.!?؟]$/u', $text ) ? $text : $text . '…';
 }, 20 );
 
 /** Drop the oversized favicon/logo marks that the old builder pasted into page bodies. */
@@ -199,15 +200,15 @@ add_filter( 'the_content', static function ( string $html ): string {
 	$pairs = array(
 		'إختلاف' => 'اختلاف', 'إلتزام' => 'التزام', 'إتباع' => 'اتباع', 'إعتماد' => 'اعتماد', 'إختيار' => 'اختيار',
 		'إجتماع' => 'اجتماع', 'إقتصاد' => 'اقتصاد', 'إتفاق' => 'اتفاق', 'إستمرار' => 'استمرار', 'قوم بتحليل' => 'نقوم بتحليل',
-		'متوفرون في' => 'متوفرين في', 'تشمل خدماتنا الأتي :' => 'تشمل خدماتنا ما يلي:', 'أعلي' => 'أعلى', 'شئ' => 'شيء', 'المالـــية' => 'المالية', 'اسناد' => 'إسناد', 'ادارة' => 'إدارة',
+		'متوفرون في' => 'متوفرين في', 'تشمل خدماتنا الأتي :' => 'تشمل خدماتنا ما يلي:', 'أعلي' => 'أعلى', 'شئ' => 'شيء', 'المالـــية' => 'المالية', 'إختبار' => 'اختبار', 'إختلاس' => 'اختلاس', 'إختلف' => 'اختلف', 'إعتبار' => 'اعتبار', 'إقتراح' => 'اقتراح', 'إختصار' => 'اختصار', 'إقتصر' => 'اقتصر', 'ـ' => '', 'اسناد' => 'إسناد', 'ادارة' => 'إدارة',
 	);
 	$html = strtr( $html, $pairs );
 	// Form-X words (استـ) never take a hamza on the alef.
 	$html = (string) preg_replace( '/(?<![\x{0600}-\x{06FF}])((?:ال|بال|وال|لل|ب|و|ل|ك|ف)?)إست/u', '$1است', $html );
 	// Particles spelled with a final yaa instead of alef maqsura.
 	$html = (string) preg_replace_callback(
-		'/(?<![\x{0600}-\x{06FF}])(علي|إلي|حتي|متي)(?![\x{0600}-\x{06FF}])/u',
-		static fn( array $m ): string => array( 'علي' => 'على', 'إلي' => 'إلى', 'حتي' => 'حتى', 'متي' => 'متى' )[ $m[1] ],
+		'/(?<![\x{0600}-\x{06FF}])(علي|إلي|حتي|متي|مستوي|الأولي|أخري|الأخري|الأدني|الكبري|مدي)(?![\x{0600}-\x{06FF}])/u',
+		static fn( array $m ): string => array( 'علي' => 'على', 'إلي' => 'إلى', 'حتي' => 'حتى', 'متي' => 'متى', 'مستوي' => 'مستوى', 'الأولي' => 'الأولى', 'أخري' => 'أخرى', 'الأخري' => 'الأخرى', 'الأدني' => 'الأدنى', 'الكبري' => 'الكبرى', 'مدي' => 'مدى' )[ $m[1] ],
 		$html
 	);
 	$html = (string) preg_replace( '/(?<=[\x{0600}-\x{06FF}])\s*,\s*(?=[\x{0600}-\x{06FF}])/u', '، ', $html );

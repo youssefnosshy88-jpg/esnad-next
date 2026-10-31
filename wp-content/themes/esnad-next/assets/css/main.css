@@ -1292,3 +1292,4 @@ html[dir="ltr"] .mp__item.is-active .mp__sub{animation-name:mpInL}
   .mpanel__foot{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:899px){.mp__link,.mp__item.is-active .mp__link{color:#fff}.mp__link:hover{padding-inline-start:0}}
+html[lang="en"] .blog-filter button,html[lang="en"] .article__cat{text-transform:capitalize}
