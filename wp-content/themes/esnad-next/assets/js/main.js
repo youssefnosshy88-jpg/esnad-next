@@ -14,34 +14,48 @@
 		window.addEventListener('scroll', onScroll, { passive: true });
 	}
 
-	/* Mobile navigation drawer. */
-	var toggle = d.querySelector('.nav-toggle');
-	var nav = d.getElementById('primary-nav');
-	if (toggle && nav) {
-		toggle.addEventListener('click', function () {
-			var open = toggle.getAttribute('aria-expanded') !== 'true';
-			toggle.setAttribute('aria-expanded', String(open));
-			nav.classList.toggle('is-open', open);
+	/* Index menu: full-screen panel under the header. Desktop: hover or focus picks a section, its links show beside it. Phones: each section expands in place. */
+	var btn = d.querySelector('.menu-btn');
+	var panel = d.getElementById('menu-panel');
+	if (btn && panel) {
+		var wide = window.matchMedia('(min-width: 900px)');
+		var setOpen = function (open) {
+			btn.setAttribute('aria-expanded', String(open));
+			panel.classList.toggle('is-open', open);
+			d.body.classList.toggle('menu-open', open);
 			d.body.style.overflow = open ? 'hidden' : '';
-		});
+			if (open) { panel.removeAttribute('inert'); } else { panel.setAttribute('inert', ''); }
+		};
+		setOpen(false);
+		btn.addEventListener('click', function () { setOpen(btn.getAttribute('aria-expanded') !== 'true'); });
 		d.addEventListener('keydown', function (e) {
-			if (e.key === 'Escape') {
-				toggle.setAttribute('aria-expanded', 'false');
-				nav.classList.remove('is-open');
-				d.body.style.overflow = '';
-				d.querySelectorAll('.has-sub.is-open').forEach(function (li) { li.classList.remove('is-open'); });
+			if (e.key === 'Escape' && panel.classList.contains('is-open')) { setOpen(false); btn.focus(); }
+		});
+		panel.addEventListener('click', function (e) {
+			if (e.target === panel || e.target.classList.contains('mpanel__in')) { setOpen(false); }
+			var a = e.target.closest ? e.target.closest('a[href]') : null;
+			if (a && a.getAttribute('href').charAt(0) === '#') { setOpen(false); }
+		});
+		var items = panel.querySelectorAll('.mp__item');
+		var pick = function (li) {
+			if (!wide.matches) { return; }
+			items.forEach(function (it) { it.classList.toggle('is-active', it === li); });
+		};
+		items.forEach(function (li) {
+			var link = li.querySelector('.mp__link');
+			link.addEventListener('mouseenter', function () { pick(li); });
+			link.addEventListener('focus', function () { pick(li); });
+			var more = li.querySelector('.mp__more');
+			if (more) {
+				more.addEventListener('click', function () {
+					var open = !li.classList.contains('is-open');
+					li.classList.toggle('is-open', open);
+					more.setAttribute('aria-expanded', String(open));
+				});
 			}
 		});
+		wide.addEventListener && wide.addEventListener('change', function () { if (wide.matches) { setOpen(false); } });
 	}
-	/* Sub-menus: buttons toggle aria-expanded (works for touch and keyboard). */
-	d.querySelectorAll('.sub-toggle').forEach(function (btn) {
-		btn.addEventListener('click', function () {
-			var li = btn.closest('.has-sub');
-			var open = !li.classList.contains('is-open');
-			li.classList.toggle('is-open', open);
-			btn.setAttribute('aria-expanded', String(open));
-		});
-	});
 
 	/* Reveal on scroll. */
 	var reveals = d.querySelectorAll('.reveal');
@@ -61,9 +75,19 @@
 	try {
 		var hd = d.querySelector('[data-hijri]');
 		var gd = d.querySelector('[data-greg]');
-		var now = new Date();
-		if (hd) { hd.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-ca-islamic-umalqura-nu-latn' : 'en-US-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
-		if (gd) { gd.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
+		var clock = d.querySelector('[data-clock]');
+		var tz = 'Asia/Riyadh';
+		var mon = window.innerWidth < 600 ? 'short' : 'long';
+		var paint = function () {
+			var now = new Date();
+			if (hd) { hd.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-ca-islamic-umalqura-nu-latn' : 'en-US-u-ca-islamic-umalqura', { day: 'numeric', month: mon, year: 'numeric', timeZone: tz }).format(now); }
+			if (gd) { gd.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: mon, year: 'numeric', timeZone: tz }).format(now); }
+			if (clock) { clock.textContent = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-GB', { hour: '2-digit', minute: '2-digit', hour12: lang === 'ar', timeZone: tz }).format(now); }
+		};
+		paint();
+		/* Repaint on the minute so the pinned time stays right. */
+		var tick = function () { setTimeout(function () { paint(); tick(); }, 60000 - (Date.now() % 60000) + 50); };
+		tick();
 	} catch (e) { /* date strip is decorative */ }
 
 	/* Hero video: load only after the page has loaded, on capable connections, never with reduced motion. */

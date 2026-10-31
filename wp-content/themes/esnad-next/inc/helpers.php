@@ -303,9 +303,9 @@ function esnad_nav(): array {
 			array( 'label' => esnad_t( 'التوظيف', 'Careers' ), 'url' => esnad_url( 'careers' ) ),
 		) ),
 		array( 'label' => esnad_t( 'خدماتنا', 'Services' ), 'url' => esnad_url( 'services' ), 'children' => $services_children, 'mega' => true ),
-		array( 'label' => esnad_t( 'الإفصاح والمعلومات التنظيمية', 'Regulatory Information' ), 'url' => esnad_url( 'disclosure' ) ),
-		array( 'label' => esnad_t( 'المقالات', 'Insights' ), 'url' => esnad_url( 'blog' ) ),
-		array( 'label' => esnad_t( 'اتصل بنا', 'Contact' ), 'url' => esnad_url( 'contact' ) ),
+		array( 'label' => esnad_t( 'الإفصاح والمعلومات التنظيمية', 'Regulatory Information' ), 'url' => esnad_url( 'disclosure' ), 'text' => esnad_t( 'المعلومات التنظيمية والإفصاحات والتقارير الخاصة بالشركة.', 'Regulatory information, disclosures and reports of the company.' ) ),
+		array( 'label' => esnad_t( 'المقالات', 'Insights' ), 'url' => esnad_url( 'blog' ), 'text' => esnad_t( 'مقالات حول الحوكمة والمخاطر والالتزام والخدمات المالية.', 'Articles on governance, risk, compliance and financial services.' ) ),
+		array( 'label' => esnad_t( 'اتصل بنا', 'Contact' ), 'url' => esnad_url( 'contact' ), 'text' => esnad_t( 'تواصل مع فريق الشركة أو اطلب استشارة.', 'Get in touch with our team or request a consultation.' ) ),
 	);
 }
 

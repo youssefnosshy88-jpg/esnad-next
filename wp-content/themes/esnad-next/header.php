@@ -1,9 +1,13 @@
 <?php
-/** Site header: logo, navigation (with services mega-menu), language switch, consultation CTA. */
+/** Site header: logo, two quick links, language and consultation, and the full-screen index menu. */
 defined( 'ABSPATH' ) || exit;
 $uri   = get_template_directory_uri() . '/assets/img/';
 $logo  = esnad_is_rtl() ? $uri . 'logo-ar.png' : $uri . 'logo-en.png'; // official full-colour logos, as on the current site
 $hero  = is_front_page();
+$here  = untrailingslashit( (string) get_permalink() );
+$home  = esc_url( home_url( esnad_is_rtl() ? '/' : '/en/' ) );
+$on_services = esnad_is_service_page() || untrailingslashit( esnad_url( 'services' ) ) === $here;
+$on_about    = untrailingslashit( esnad_url( 'about' ) ) === $here;
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -21,7 +25,7 @@ $hero  = is_front_page();
 	<div class="topbar">
 		<div class="container topbar__in">
 			<span class="topbar__loc"><?php echo esnad_icon( 'pin', 14 ); // phpcs:ignore ?> <?php echo esc_html( esnad_t( 'الرياض، المملكة العربية السعودية', 'Riyadh, Kingdom of Saudi Arabia' ) ); ?></span>
-			<span class="topbar__date"><time data-hijri></time><i aria-hidden="true">·</i><time data-greg></time></span>
+			<span class="topbar__date" aria-label="<?php echo esc_attr( esnad_t( 'التاريخ والوقت بتوقيت الرياض', 'Date and time in Riyadh' ) ); ?>"><time data-hijri></time><i aria-hidden="true">·</i><time data-greg></time><i aria-hidden="true">·</i><time class="topbar__clock" data-clock></time></span>
 			<span class="topbar__tools">
 				<?php echo esnad_social_links( 'social social--top' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<form class="topsearch" role="search" method="get" action="<?php echo esc_url( home_url( esnad_is_rtl() ? '/' : '/en/' ) ); ?>">
@@ -33,63 +37,79 @@ $hero  = is_front_page();
 		</div>
 	</div>
 	<div class="container site-header__bar">
-		<a class="brand" href="<?php echo esc_url( home_url( esnad_is_rtl() ? '/' : '/en/' ) ); ?>" aria-label="<?php echo esc_attr( esnad_t( 'شركة إسناد المالية - الرئيسية', 'Esnad Advisory Company - Home' ) ); ?>">
+		<a class="brand" href="<?php echo $home; // phpcs:ignore WordPress.Security.EscapeOutput ?>" aria-label="<?php echo esc_attr( esnad_t( 'شركة إسناد المالية - الرئيسية', 'Esnad Advisory Company - Home' ) ); ?>">
 			<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( esnad_t( 'شركة إسناد المالية', 'Esnad Advisory Company' ) ); ?>" width="220" height="56" decoding="async">
 		</a>
 
-		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
-			<span class="screen-reader-text"><?php echo esc_html( esnad_t( 'القائمة', 'Menu' ) ); ?></span>
-			<span class="nav-toggle__bars" aria-hidden="true"></span>
-		</button>
+		<nav class="quick" aria-label="<?php echo esc_attr( esnad_t( 'روابط سريعة', 'Quick links' ) ); ?>">
+			<a href="<?php echo esc_url( esnad_url( 'services' ) ); ?>"<?php echo $on_services ? ' class="is-current"' : ''; ?>><?php echo esc_html( esnad_t( 'خدماتنا', 'Services' ) ); ?></a>
+			<a href="<?php echo esc_url( esnad_url( 'about' ) ); ?>"<?php echo $on_about ? ' class="is-current"' : ''; ?>><?php echo esc_html( esnad_t( 'عن الشركة', 'About' ) ); ?></a>
+		</nav>
 
-		<nav class="primary-nav" id="primary-nav" aria-label="<?php echo esc_attr( esnad_t( 'القائمة الرئيسية', 'Primary' ) ); ?>">
-			<ul class="menu">
-				<?php foreach ( esnad_nav() as $i => $item ) :
-					$has = ! empty( $item['children'] );
-					$here = untrailingslashit( (string) get_permalink() );
-					$cur  = untrailingslashit( $item['url'] ) === $here;
-					$in   = $cur;
-					foreach ( (array) ( $item['children'] ?? array() ) as $ch ) {
-						$in = $in || untrailingslashit( $ch['url'] ) === $here;
-					}
-					// Section-aware: articles belong to "Insights"; service pages to "Services".
-					$in = $in || ( is_singular( 'post' ) && untrailingslashit( $item['url'] ) === untrailingslashit( esnad_url( 'blog' ) ) ) || ( ! empty( $item['mega'] ) && esnad_is_service_page() );
-					?>
-					<li class="menu__item<?php echo $has ? ' has-sub' : ''; ?><?php echo ! empty( $item['mega'] ) ? ' is-mega' : ''; ?><?php echo $in ? ' is-current' : ''; ?>">
-						<a href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $cur ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?></a>
-						<?php if ( $has ) : ?>
-							<button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-<?php echo (int) $i; ?>">
+		<div class="hbar__tools">
+			<a class="lang-switch" href="<?php echo esc_url( esnad_switch_url() ); ?>" hreflang="<?php echo esnad_is_rtl() ? 'en' : 'ar'; ?>" lang="<?php echo esnad_is_rtl() ? 'en' : 'ar'; ?>"><?php echo esnad_is_rtl() ? 'English' : 'العربية'; ?></a>
+			<a class="btn btn--gold btn--sm hbar__cta" href="<?php echo esc_url( esnad_consult_url() ); ?>"><?php echo esc_html( esnad_t( 'اطلب استشارة', 'Request a consultation' ) ); ?></a>
+			<button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel">
+				<span class="menu-btn__label"><?php echo esc_html( esnad_t( 'القائمة', 'Menu' ) ); ?></span>
+				<span class="menu-btn__bars" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+</header>
+
+<div class="mpanel" id="menu-panel" role="region" aria-label="<?php echo esc_attr( esnad_t( 'القائمة الرئيسية', 'Main menu' ) ); ?>">
+	<?php echo esnad_emblem( 'emblem-ghost.svg', 'mpanel__emblem' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	<div class="container mpanel__in">
+		<ul class="mp">
+			<?php foreach ( esnad_nav() as $i => $item ) :
+				$kids = (array) ( $item['children'] ?? array() );
+				$cur  = untrailingslashit( $item['url'] ) === $here;
+				foreach ( $kids as $ch ) {
+					$cur = $cur || untrailingslashit( $ch['url'] ) === $here;
+				}
+				$cur = $cur || ( is_singular( 'post' ) && untrailingslashit( $item['url'] ) === untrailingslashit( esnad_url( 'blog' ) ) ) || ( ! empty( $item['mega'] ) && esnad_is_service_page() );
+				?>
+				<li class="mp__item<?php echo 0 === $i ? ' is-active' : ''; ?><?php echo $cur ? ' is-current' : ''; ?>">
+					<span class="mp__row">
+						<a class="mp__link" href="<?php echo esc_url( $item['url'] ); ?>">
+							<span class="mp__no" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
+							<span class="mp__t"><?php echo esc_html( $item['label'] ); ?></span>
+						</a>
+						<?php if ( $kids ) : ?>
+							<button class="mp__more" type="button" aria-expanded="false" aria-controls="mp-sub-<?php echo (int) $i; ?>">
 								<span class="screen-reader-text"><?php echo esc_html( $item['label'] ); ?></span>
-								<?php echo esnad_icon( 'chevron', 14 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<?php echo esnad_icon( 'chevron', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</button>
-							<ul class="sub" id="sub-<?php echo (int) $i; ?>">
-								<?php if ( ! empty( $item['mega'] ) ) : ?>
-										<li class="sub__intro">
-											<span class="sub__eyebrow"><?php echo esc_html( esnad_t( 'خدماتنا', 'Our services' ) ); ?></span>
-											<strong><?php echo esc_html( esnad_t( 'استشارات مالية متخصصة', 'Specialized financial advisory' ) ); ?></strong>
-											<p><?php echo esc_html( esnad_t( 'خدمات استشارية تساعد الشركات على تقييم خياراتها وتعزيز حوكمتها وتنظيم خطوات نموها.', 'Advisory services that help companies assess options, strengthen governance and organize their growth steps.' ) ); ?></p>
-											<a class="sub__all" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( esnad_t( 'عرض كل الخدمات', 'View all services' ) ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-										</li>
-									<?php endif; ?>
-									<?php foreach ( $item['children'] as $n => $child ) : ?>
+						<?php endif; ?>
+					</span>
+					<div class="mp__sub" id="mp-sub-<?php echo (int) $i; ?>">
+						<a class="mp__all" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+						<?php if ( ! $kids && ! empty( $item['text'] ) ) : ?><p class="mp__lead"><?php echo esc_html( $item['text'] ); ?></p><?php endif; ?>
+						<?php if ( $kids ) : ?>
+							<ul class="mp__kids<?php echo ! empty( $item['mega'] ) ? ' mp__kids--num' : ''; ?>">
+								<?php foreach ( $kids as $n => $child ) : ?>
 									<li>
-											<a href="<?php echo esc_url( $child['url'] ); ?>">
-												<?php if ( ! empty( $item['mega'] ) ) : ?><span class="sub__no" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $n + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span><?php endif; ?>
-												<span class="sub__body"><span class="sub__title"><?php echo esc_html( $child['label'] ); ?></span><?php if ( ! empty( $child['text'] ) ) : ?><small><?php echo esc_html( $child['text'] ); ?></small><?php endif; ?></span>
-											</a>
-										</li>
+										<a href="<?php echo esc_url( $child['url'] ); ?>">
+											<?php if ( ! empty( $item['mega'] ) ) : ?><span class="mp__n" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $n + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span><?php endif; ?>
+											<span class="mp__b"><span class="mp__bt"><?php echo esc_html( $child['label'] ); ?></span><?php if ( ! empty( $child['text'] ) ) : ?><small><?php echo esc_html( $child['text'] ); ?></small><?php endif; ?></span>
+										</a>
+									</li>
 								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-			<div class="primary-nav__tools">
+					</div>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<div class="mpanel__foot">
+			<span class="mpanel__lic"><?php echo esc_html( esnad_t( 'مرخصة من هيئة السوق المالية · ترخيص رقم 20-19206', 'Licensed by the Capital Market Authority · Licence No. 20-19206' ) ); ?></span>
+			<span class="mpanel__acts">
+				<?php echo esnad_social_links( 'social social--top' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<a class="lang-switch" href="<?php echo esc_url( esnad_switch_url() ); ?>" hreflang="<?php echo esnad_is_rtl() ? 'en' : 'ar'; ?>" lang="<?php echo esnad_is_rtl() ? 'en' : 'ar'; ?>"><?php echo esnad_is_rtl() ? 'English' : 'العربية'; ?></a>
 				<a class="btn btn--gold btn--sm" href="<?php echo esc_url( esnad_consult_url() ); ?>"><?php echo esc_html( esnad_t( 'اطلب استشارة', 'Request a consultation' ) ); ?></a>
-			</div>
-		</nav>
+			</span>
+		</div>
 	</div>
-</header>
+</div>
 
 <main id="main" tabindex="-1">
