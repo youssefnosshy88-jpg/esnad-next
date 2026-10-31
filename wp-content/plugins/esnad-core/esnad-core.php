@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ESNAD Core
- * Description: Consultation, contact and complaints forms for Esnad Financial (server-side validation, nonce, honeypot, rate limit, privacy acknowledgement).
+ * Description: Consultation, contact and complaints forms for Esnad Advisory Company (server-side validation, nonce, honeypot, rate limit, privacy acknowledgement).
  * Version: 1.0.0
  * Requires PHP: 7.4
  * Text Domain: esnad-core

@@ -117,7 +117,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 		</div>
 		<div class="about__text reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'عن إسناد', 'About Esnad' ) ); ?></p>
-			<h2 class="h2"><?php echo esnad_gold( esnad_t( 'إسناد المالية: شريك استشاري يعزّز حوكمتك ويدعم قراراتك.', 'Esnad Advisory: an advisory partner for stronger governance and sound decisions.' ), esnad_t( 'شريك استشاري', 'advisory partner' ) ); ?></h2>
+			<h2 class="h2"><?php echo esnad_gold( esnad_t( 'إسناد المالية: شريك استشاري يعزّز حوكمتك ويدعم قراراتك.', 'Esnad Advisory Company: an advisory partner for stronger governance and sound decisions.' ), esnad_t( 'شريك استشاري', 'advisory partner' ) ); ?></h2>
 			<p><?php echo esc_html( $about_text ); ?></p>
 			<a class="text-link" href="<?php echo esc_url( esnad_url( 'about' ) ); ?>"><?php echo esc_html( esnad_t( 'اقرأ المزيد عن الشركة', 'Read more about the company' ) ); ?> <?php echo $arrow; // phpcs:ignore ?></a>
 		</div>
@@ -152,7 +152,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 <section class="atlas" id="atlas" aria-labelledby="atlas-title">
 	<div class="container">
 		<header class="section__head section__head--light reveal">
-			<p class="eyebrow"><?php echo esc_html( esnad_t( 'أطلس إسناد المالي', 'Esnad Financial Atlas' ) ); ?></p>
+			<p class="eyebrow"><?php echo esc_html( esnad_t( 'أطلس إسناد', 'Esnad Atlas' ) ); ?></p>
 			<h2 class="h2" id="atlas-title"><?php echo esnad_gold( esnad_t( 'من الرياض… برؤية تفهم بيئة الأعمال السعودية', 'From Riyadh… with a view that understands the Saudi business environment' ), esnad_t( 'بيئة الأعمال السعودية', 'Saudi business environment' ) ); ?></h2>
 		</header>
 

@@ -99,7 +99,7 @@ $home_url   = home_url( esnad_is_rtl() ? '/' : '/en/' );
 											<?php if ( $pc && count( $cats ) >= 2 ) : ?><span class="article__cat"><?php echo esc_html( $pc[0]->name ); ?></span><?php endif; ?>
 										</span>
 										<h2><?php the_title(); ?></h2>
-									<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 26, '…' ) ); ?></p>
+									<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 34, '…' ) ); ?></p>
 										<span class="article__more"><?php echo esc_html( esnad_t( 'اقرأ المقال', 'Read article' ) ); ?> <?php echo esnad_icon( 'arrow', 16 ); // phpcs:ignore ?></span>
 								</a>
 							</article>

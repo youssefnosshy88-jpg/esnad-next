@@ -41,7 +41,7 @@ function esnad_faq(): array {
 	$svc = implode( esnad_t( '، ', ', ' ), wp_list_pluck( esnad_services(), 'title' ) );
 	return array(
 		array(
-			esnad_t( 'هل شركة إسناد المالية مرخصة؟', 'Is Esnad Advisory licensed?' ),
+			esnad_t( 'هل شركة إسناد المالية مرخصة؟', 'Is Esnad Advisory Company licensed?' ),
 			esnad_t(
 				'نعم. حصلت الشركة على ترخيص هيئة السوق المالية رقم (' . $c['license'] . ') بتاريخ 1441/1/11هـ الموافق 2019/9/1م لتقديم خدمات الترتيب والمشورة في أعمال الأوراق المالية.',
 				'Yes. The company obtained Capital Market Authority License No. ' . $c['license'] . ' on 11/01/1441 AH (1 September 2019) to provide arranging and advisory services in securities business.'
