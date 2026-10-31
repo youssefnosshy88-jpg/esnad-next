@@ -102,7 +102,7 @@ $on_about    = untrailingslashit( esnad_url( 'about' ) ) === $here;
 			<?php endforeach; ?>
 		</ul>
 		<div class="mpanel__foot">
-			<span class="mpanel__lic"><?php echo esc_html( esnad_t( 'مرخصة من هيئة السوق المالية · ترخيص رقم 20-19206', 'Licensed by the Capital Market Authority · Licence No. 20-19206' ) ); ?></span>
+			<span class="mpanel__lic"><?php echo esc_html( esnad_t( 'مرخصة من هيئة السوق المالية · ترخيص رقم 20-19206', 'Licensed by the Capital Market Authority · License No. 20-19206' ) ); ?></span>
 			<span class="mpanel__acts">
 				<?php echo esnad_social_links( 'social social--top' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<a class="lang-switch" href="<?php echo esc_url( esnad_switch_url() ); ?>" hreflang="<?php echo esnad_is_rtl() ? 'en' : 'ar'; ?>" lang="<?php echo esnad_is_rtl() ? 'en' : 'ar'; ?>"><?php echo esnad_is_rtl() ? 'English' : 'العربية'; ?></a>

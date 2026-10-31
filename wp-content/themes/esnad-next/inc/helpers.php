@@ -312,6 +312,10 @@ function esnad_nav(): array {
 /** URL of the current page in the other language. */
 function esnad_switch_url(): string {
 	$other = esnad_is_rtl() ? 'en' : 'ar';
+	// The duplicate English services landing page has no Arabic twin; send visitors to the Arabic services page.
+	if ( is_page( 31392 ) ) {
+		return (string) apply_filters( 'wpml_permalink', get_permalink( 36118 ), 'ar' );
+	}
 	if ( has_filter( 'wpml_object_id' ) && is_singular() ) {
 		$id = apply_filters( 'wpml_object_id', get_the_ID(), get_post_type(), false, $other );
 		if ( $id ) {

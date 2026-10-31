@@ -225,7 +225,7 @@ function esnad_brand_text( string $s ): string {
 	if ( esnad_is_rtl() ) {
 		return strtr( $s, array( 'إسناد للاستشارات المالية' => 'إسناد المالية', 'إسناد للاستشارات' => 'إسناد المالية', 'إسناد المالي ' => 'إسناد المالية ' ) );
 	}
-	$s = strtr( $s, array( 'Esnad Financial Statements' => 'Financial Statements', 'Esnad Group' => 'Esnad Advisory Company', 'Esnad Financial' => 'Esnad Advisory Company' ) );
+	$s = strtr( $s, array( 'Financial Market Authority' => 'Capital Market Authority', 'Esnad Financial Statements' => 'Financial Statements', 'Esnad Group' => 'Esnad Advisory Company', 'Esnad Financial' => 'Esnad Advisory Company' ) );
 	$s = (string) preg_replace( '/\bEsnad Advisory\b(?!\s+Company)/', 'Esnad Advisory Company', $s );
 	return (string) preg_replace( '/\bEsnad [Cc]o\b\.?/', 'Esnad Advisory Company', $s );
 }
@@ -235,3 +235,23 @@ add_filter( 'the_title', 'esnad_brand_text', 20 );
 foreach ( array( 'rank_math/frontend/title', 'rank_math/frontend/description', 'rank_math/opengraph/facebook/og_title', 'rank_math/opengraph/facebook/og_description', 'document_title' ) as $esnad_hook ) {
 	add_filter( $esnad_hook, 'esnad_brand_text', 20 );
 }
+
+/** Service pages: the old builder printed some lists twice (as sub-headings and again as paragraphs); keep the paragraph. */
+add_filter( 'the_content', static function ( string $html ): string {
+	if ( ! is_singular( 'page' ) || ! esnad_is_service_page() ) {
+		return $html;
+	}
+	$key = static fn( string $t ): string => mb_substr( (string) preg_replace( '/[^\p{L}\p{N}]+/u', '', mb_strtolower( wp_strip_all_tags( $t ) ) ), 0, 40 );
+	$seen = array();
+	if ( preg_match_all( '#<p\b[^>]*>(.*?)</p>#is', $html, $m ) ) {
+		foreach ( $m[1] as $p ) {
+			$k = $key( $p );
+			if ( mb_strlen( $k ) >= 30 ) {
+				$seen[ $k ] = true;
+			}
+		}
+	}
+	return (string) preg_replace_callback( '#<h3\b[^>]*>(.*?)</h3>#is', static function ( array $h ) use ( $seen, $key ): string {
+		return isset( $seen[ $key( $h[1] ) ] ) ? '' : $h[0];
+	}, $html );
+}, 24 );
