@@ -85,7 +85,12 @@ add_filter( 'pre_option_blogname', static function ( $value ) {
 } );
 
 add_filter( 'excerpt_length', static fn(): int => 28 );
-add_filter( 'excerpt_more', static fn(): string => '…' );
+add_filter( 'excerpt_more', static fn(): string => '' );
+/** Excerpts: the old posts end with dangling dots or a lone "و"; close them cleanly with one ellipsis. */
+add_filter( 'get_the_excerpt', static function ( string $text ): string {
+	$text = (string) preg_replace( '/(?:\s+و)?[\s.\x{2026}]{2,}$/u', '', trim( $text ) );
+	return rtrim( $text, " ,،" ) . '…';
+}, 20 );
 
 /** Drop the oversized favicon/logo marks that the old builder pasted into page bodies. */
 add_filter( 'the_content', static function ( string $html ): string {
@@ -99,7 +104,7 @@ add_filter( 'the_content', static function ( string $html ): string {
 	}
 	$html = (string) preg_replace( '#<h[1-6][^>]*>\s*العودة\s*</h[1-6]>#u', '', $html );
 	// Stray builder tokens such as "H:42676ff287c7:1" left as loose text.
-	return (string) preg_replace( '#(?:<p>)?(?<=>|^)\s*[A-Z]{1,2}:[0-9a-f]{8,}:\d+\s*(?:</p>)?#', '', $html );
+	return (string) preg_replace( '#(?:<p[^>]*>)?\s*\b[A-Z]{1,2}:[0-9a-f]{8,}:\d+\s*(?:</p>)?#', '', $html );
 }, 18 );
 
 /**
@@ -182,3 +187,31 @@ function esnad_is_service_page(): bool {
 	}
 	return false;
 }
+
+/**
+ * Arabic copy clean-up for the migrated pages: common hamza and spelling slips, ASCII commas, stray quotes around headings.
+ * Wording is untouched; only spelling and punctuation change.
+ */
+add_filter( 'the_content', static function ( string $html ): string {
+	if ( ! esnad_is_rtl() || is_admin() || '' === $html ) {
+		return $html;
+	}
+	$pairs = array(
+		'إختلاف' => 'اختلاف', 'إلتزام' => 'التزام', 'إتباع' => 'اتباع', 'إعتماد' => 'اعتماد', 'إختيار' => 'اختيار',
+		'إجتماع' => 'اجتماع', 'إقتصاد' => 'اقتصاد', 'إتفاق' => 'اتفاق', 'إستمرار' => 'استمرار', 'قوم بتحليل' => 'نقوم بتحليل',
+		'متوفرون في' => 'متوفرين في', 'تشمل خدماتنا الأتي :' => 'تشمل خدماتنا ما يلي:', 'أعلي' => 'أعلى', 'شئ' => 'شيء', 'المالـــية' => 'المالية', 'اسناد' => 'إسناد', 'ادارة' => 'إدارة',
+	);
+	$html = strtr( $html, $pairs );
+	// Form-X words (استـ) never take a hamza on the alef.
+	$html = (string) preg_replace( '/(?<![\x{0600}-\x{06FF}])((?:ال|بال|وال|لل|ب|و|ل|ك|ف)?)إست/u', '$1است', $html );
+	// Particles spelled with a final yaa instead of alef maqsura.
+	$html = (string) preg_replace_callback(
+		'/(?<![\x{0600}-\x{06FF}])(علي|إلي|حتي|متي)(?![\x{0600}-\x{06FF}])/u',
+		static fn( array $m ): string => array( 'علي' => 'على', 'إلي' => 'إلى', 'حتي' => 'حتى', 'متي' => 'متى' )[ $m[1] ],
+		$html
+	);
+	$html = (string) preg_replace( '/(?<=[\x{0600}-\x{06FF}])\s*,\s*(?=[\x{0600}-\x{06FF}])/u', '، ', $html );
+	$html = (string) preg_replace( '/(?<=[\x{0600}-\x{06FF}])\.(?=[\x{0600}-\x{06FF}])/u', '. ', $html );
+	$html = (string) preg_replace( '/(?<=[\x{0600}-\x{06FF}])\s+([.،:])(?=\s|<|$)/u', '$1', $html );
+	return (string) preg_replace( '#<h([1-6])([^>]*)>\s*(?:&quot;|&\#8220;|&\#8221;|["“”«])\s*(.*?)\s*(?:&quot;|&\#8220;|&\#8221;|["“”»])\s*</h\1>#us', '<h$1$2>$3</h$1>', $html );
+}, 21 );

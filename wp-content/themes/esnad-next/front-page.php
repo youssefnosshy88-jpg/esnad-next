@@ -15,7 +15,7 @@ $dir      = esnad_is_rtl() ? 'rtl' : 'ltr';
 $arrow    = esnad_icon( 'arrow', 18 );
 
 $about_text = esnad_t(
-	'شركة ذات مسؤولية محدودة مقرها الرياض برأس مال قدره مليون ريال سعودي. حصلت علي ترخيص هيئة السوق المالية رقم (20-19206) بتاريخ 1441/1/11 الموافق 2019/9/1 م لتقديم خدمات الترتيب والمشورة في أعمال الأوراق المالية وقد بدأت ممارسة العمل بعد استيفاء جميع الشروط اللازمة لممارسة النشاط وذلك بتاريخ 1441/6/9 الموافق 2020/2/3 م ومسجلة بسجل تجاري رقم (1010575421) ورقم موحد (7008921160) وتتخصص الشركة في تقديم المشورة في أعمال الأوراق المالية. الشركة حاصلة على نشاط الترتيب بعد الحصول على موافقة الهيئة على تعديل قوائم أعمالها بتاريخ 2024/06/04 م.',
+	'شركة ذات مسؤولية محدودة مقرها الرياض برأس مال قدره مليون ريال سعودي. حصلت على ترخيص هيئة السوق المالية رقم (20-19206) بتاريخ 1441/1/11 الموافق 2019/9/1 م لتقديم خدمات الترتيب والمشورة في أعمال الأوراق المالية وقد بدأت ممارسة العمل بعد استيفاء جميع الشروط اللازمة لممارسة النشاط وذلك بتاريخ 1441/6/9 الموافق 2020/2/3 م ومسجلة بسجل تجاري رقم (1010575421) ورقم موحد (7008921160) وتتخصص الشركة في تقديم المشورة في أعمال الأوراق المالية. الشركة حاصلة على نشاط الترتيب بعد الحصول على موافقة الهيئة على تعديل قوائم أعمالها بتاريخ 2024/06/04 م.',
 	'A limited liability company based in Riyadh with a capital of one million Saudi Riyals. It obtained a license from the Capital Market Authority (License No. 20-19206) on 11/01/1441 AH, corresponding to 1 September 2019, to provide arranging and advisory services in securities activities. The company commenced operations on 09/06/1441 AH, corresponding to 3 February 2020, after fulfilling all the conditions required to conduct its business. It is registered under Commercial Registration No. 1010575421 and Unified Number 7008921160. The company specializes in providing advisory services in securities activities. It obtained approval for the arranging activity on 4 June 2024, after the Authority consented to amend its list of activities.'
 );
 
@@ -77,7 +77,7 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 			<a class="btn btn--gold" href="#services"><?php echo esc_html( esnad_t( 'اكتشف خدماتنا', 'Discover our services' ) ); ?></a>
 			<a class="btn btn--outline" href="<?php echo esc_url( esnad_url( 'contact' ) ); ?>"><?php echo esc_html( esnad_t( 'تواصل معنا', 'Contact us' ) ); ?></a>
 		</div>
-		<p class="hero__trust"><?php echo esnad_icon( 'shield', 20 ); // phpcs:ignore ?> <span><?php echo esc_html( esnad_t( 'مرخصة من هيئة السوق المالية', 'Licensed by the Capital Market Authority' ) ); ?> · <bdi dir="ltr"><?php echo esc_html( esnad_license_label() ); ?></bdi></span></p>
+		<p class="hero__trust"><?php echo esnad_icon( 'shield', 20 ); // phpcs:ignore ?> <span><?php echo esc_html( esnad_t( 'مرخصة من هيئة السوق المالية', 'Licensed by the Capital Market Authority' ) ); ?> · <bdi dir="ltr"><?php echo esc_html( esnad_t( 'رقم الترخيص ', 'License No. ' ) . $c['license'] ); ?></bdi></span></p>
 	</div>
 </section>
 
@@ -110,14 +110,14 @@ $posts = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'no_
 		<div class="about__media reveal">
 			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/' . ( esnad_is_rtl() ? 'logo-ar.png' : 'logo-en.png' ) ); ?>" alt="<?php echo esc_attr( esnad_t( 'شعار شركة إسناد المالية', 'Esnad Advisory Company logo' ) ); ?>" width="420" height="108" loading="lazy" decoding="async">
 			<ul class="about__ids" dir="ltr">
-				<li><span><?php echo esc_html( esnad_t( 'CR', 'CR' ) ); ?></span><b><?php echo esc_html( $c['cr'] ); ?></b></li>
-				<li><span>Unified</span><b><?php echo esc_html( $c['unified'] ); ?></b></li>
-				<li><span>VAT</span><b><?php echo esc_html( $c['vat'] ); ?></b></li>
+				<li><span><?php echo esc_html( esnad_t( 'السجل التجاري', 'CR' ) ); ?></span><b><?php echo esc_html( $c['cr'] ); ?></b></li>
+				<li><span><?php echo esc_html( esnad_t( 'الرقم الموحد', 'Unified No.' ) ); ?></span><b><?php echo esc_html( $c['unified'] ); ?></b></li>
+				<li><span><?php echo esc_html( esnad_t( 'الرقم الضريبي', 'VAT No.' ) ); ?></span><b><?php echo esc_html( $c['vat'] ); ?></b></li>
 			</ul>
 		</div>
 		<div class="about__text reveal">
 			<p class="eyebrow"><?php echo esc_html( esnad_t( 'عن إسناد', 'About Esnad' ) ); ?></p>
-			<h2 class="h2"><?php echo esnad_gold( esnad_t( 'لماذا إسناد المالية هي خيارك الإستراتيجي الأفضل لتحقيق أهدافك.', 'Why Esnad Advisory is your best strategic choice to achieve your goals.' ), esnad_t( 'خيارك الإستراتيجي الأفضل', 'best strategic choice' ) ); ?></h2>
+			<h2 class="h2"><?php echo esnad_gold( esnad_t( 'إسناد المالية: شريك استشاري يعزّز حوكمتك ويدعم قراراتك.', 'Esnad Advisory: an advisory partner for stronger governance and sound decisions.' ), esnad_t( 'شريك استشاري', 'advisory partner' ) ); ?></h2>
 			<p><?php echo esc_html( $about_text ); ?></p>
 			<a class="text-link" href="<?php echo esc_url( esnad_url( 'about' ) ); ?>"><?php echo esc_html( esnad_t( 'اقرأ المزيد عن الشركة', 'Read more about the company' ) ); ?> <?php echo $arrow; // phpcs:ignore ?></a>
 		</div>
