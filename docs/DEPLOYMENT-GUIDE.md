@@ -29,3 +29,6 @@ Settings > General, section "إسناد - Esnad": form recipient e-mail and the 
 2. Deploy theme and plugin; import migrated content or rerun migration on a production copy first.
 3. Remove staging mu-plugin effects (they are host-name gated), set the real form recipient, verify Rank Math head output (the theme prints a fallback only when Rank Math does not).
 4. Redirect check for changed URLs, then disable old builder plugins only after replacements are tested.
+
+## HTML cache lifetime
+Hostinger's default .htaccess gives every type without its own rule (including HTML) ExpiresDefault 1 week, so browsers kept old pages (a stale language switch, old header). Staging now has ExpiresByType text/html "access plus 0 seconds" before ExpiresDefault. Apply the same line on production; server-side LiteSpeed caching stays on.
