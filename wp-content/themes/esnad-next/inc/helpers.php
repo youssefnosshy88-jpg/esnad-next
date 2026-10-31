@@ -315,7 +315,7 @@ function esnad_switch_url(): string {
 	if ( has_filter( 'wpml_object_id' ) && is_singular() ) {
 		$id = apply_filters( 'wpml_object_id', get_the_ID(), get_post_type(), false, $other );
 		if ( $id ) {
-			return (string) get_permalink( $id );
+			return (string) apply_filters( 'wpml_permalink', get_permalink( $id ), $other ); // WPML rewrites get_permalink() to the current language; name the target explicitly
 		}
 	}
 	if ( function_exists( 'icl_get_languages' ) ) {
